@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -298,6 +298,12 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .wl-del:hover{color:var(–rose);}
 .stock-btn{font-size:7px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;cursor:pointer;background:transparent;font-family:‘Josefin Sans’,sans-serif;font-weight:600;margin-left:6px;transition:all .15s;}
 .stock-low{border-color:var(–rose)!important;color:var(–rose)!important;}
+/* BOTTLE PAGE */
+#page-bottle .cpill{font-size:7px;padding:4px 8px;}
+.bp-wear-entry{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(140,100,40,.08);font-size:10px;font-weight:500;}
+.bp-wear-date{color:var(–cream);}
+/* SEARCH */
+#srch-grid .card{cursor:pointer;}
 </style>
 
 </head>
@@ -330,6 +336,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <button class="nav-tab" onclick="showPage('weather',this)">&#9728; Weather</button>
   <button class="nav-tab" onclick="showPage('insights',this)">&#10024; Insights</button>
   <button class="nav-tab" onclick="showPage('wishlist',this)">&#9734; Wishlist</button>
+  <button class="nav-tab" onclick="showPage('search',this)">&#128269; Search</button>
 </nav>
 
 <main class="main">
@@ -546,6 +553,122 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
     <button class="btn btn-gold" onclick="addWishlistItem()">Add Item</button>
   </div>
   <div class="wl-grid" id="wl-grid"></div>
+</div>
+
+<!-- BOTTLE PROFILE PAGE -->
+
+<div id="page-bottle" class="page">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;flex-wrap:wrap;">
+    <button class="btn btn-muted" onclick="closeBottlePage()" style="font-size:8px;">&#8592; Back</button>
+    <div id="bp-breadcrumb" style="font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dove);font-weight:500;"></div>
+  </div>
+
+  <!-- Header -->
+
+  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.15);padding:28px 32px;margin-bottom:1px;position:relative;">
+    <div id="bp-house" style="font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;"></div>
+    <div id="bp-name" style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:var(--cream);line-height:1.1;margin-bottom:5px;"></div>
+    <div id="bp-insp" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--dove);margin-bottom:14px;"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;" id="bp-tags"></div>
+    <div style="position:absolute;top:20px;right:24px;display:flex;gap:8px;align-items:center;">
+      <button class="btn btn-muted" id="bp-star-btn" onclick="toggleStar()" style="font-size:8px;"></button>
+      <button class="btn btn-muted" id="bp-stock-btn" onclick="cycleStock()" style="font-size:7.5px;"></button>
+    </div>
+  </div>
+
+  <!-- Stats row -->
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(140,100,40,.1);margin-bottom:1px;">
+    <div style="background:#faf7f2;padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Total Wears</div>
+      <div id="bp-wears" style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:600;line-height:1;"></div>
+    </div>
+    <div style="background:#faf7f2;padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Last Worn</div>
+      <div id="bp-lastworn" style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);font-weight:600;line-height:1.3;"></div>
+    </div>
+    <div style="background:#faf7f2;padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Your Rating</div>
+      <div id="bp-stars" style="font-size:18px;"></div>
+    </div>
+    <div style="background:#faf7f2;padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">DNA Family</div>
+      <div id="bp-dna-label" style="font-size:11px;font-weight:600;color:var(--cream);"></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(140,100,40,.1);margin-bottom:1px;">
+
+```
+<!-- DNA Classification -->
+<div style="background:#faf7f2;padding:20px 22px;">
+  <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">DNA Classification</div>
+  <div class="class-grid" id="bp-dna-grid" style="grid-template-columns:1fr 1fr;"></div>
+</div>
+
+<!-- Notes -->
+<div style="background:#faf7f2;padding:20px 22px;">
+  <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Personal Notes</div>
+  <textarea class="notes" id="bp-notes" placeholder="Observations, longevity, sillage, pairings…" onchange="saveNotes()" style="min-height:100px;"></textarea>
+</div>
+```
+
+  </div>
+
+  <!-- Wear calendar -->
+
+  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+    <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Wear History</div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+      <div id="bp-calendar" style="flex:1;min-width:200px;"></div>
+      <div id="bp-wear-log" style="flex:1;min-width:180px;max-height:200px;overflow-y:auto;"></div>
+    </div>
+    <button class="btn btn-gold" onclick="logWear()" style="margin-top:14px;">&#10022; Log Wear Today</button>
+  </div>
+
+  <!-- Layering -->
+
+  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;">Layering Combos</div>
+      <button class="btn btn-muted" style="font-size:7.5px;padding:4px 11px;" onclick="toggleLayerForm()">+ Add Combo</button>
+    </div>
+    <div id="bp-layer-list"></div>
+    <div class="alf hidden" id="m-layer-form">
+      <input type="text" id="lf-items" placeholder="Other fragrances to combine with (comma separated)">
+      <input type="text" id="lf-ratio" placeholder="Ratio (e.g. 2+2, Oil base + spray)">
+      <textarea id="lf-desc" placeholder="Notes on this combo…"></textarea>
+      <div style="display:flex;gap:8px;"><button class="btn btn-gold" onclick="saveBottleLayer()">Save</button><button class="btn btn-muted" onclick="document.getElementById('m-layer-form').classList.add('hidden')">Cancel</button></div>
+    </div>
+  </div>
+
+  <!-- Analytics for this bottle -->
+
+  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+    <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Similar in Your Collection</div>
+    <div class="grid" id="bp-similar" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));"></div>
+  </div>
+
+  <!-- Actions -->
+
+  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:16px 22px;display:flex;gap:10px;flex-wrap:wrap;">
+    <button class="btn btn-danger" onclick="deleteCurrentBottle()">&#10005; Remove from Vault</button>
+    <button class="btn btn-muted" onclick="closeBottlePage()">&#8592; Back to Collection</button>
+  </div>
+</div>
+
+<!-- SEARCH PAGE -->
+
+<div id="page-search" class="page">
+  <div class="sec-hdr"><span class="sec-title">&#128269; Search</span></div>
+  <div style="position:relative;margin-bottom:20px;">
+    <span class="si" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--gold);">&#128269;</span>
+    <input type="text" id="srch-input" placeholder="Search by name, house, inspiration, DNA, occasion…"
+      oninput="runSearch(this.value)"
+      style="width:100%;background:#faf7f2;border:1px solid rgba(140,100,40,.25);color:var(--parchment);padding:14px 16px 14px 44px;font-family:'Josefin Sans',sans-serif;font-size:12px;outline:none;font-weight:500;letter-spacing:.04em;">
+  </div>
+  <div id="srch-meta" style="font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dove);margin-bottom:14px;font-weight:500;"></div>
+  <div class="grid" id="srch-grid"></div>
 </div>
 
 </main>
@@ -1002,7 +1125,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
-  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred,weather:renderWeatherPage,insights:renderInsights,wishlist:renderWishlist})[id]?.();
+  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred,weather:renderWeatherPage,insights:renderInsights,wishlist:renderWishlist,search:initSearch})[id]?.();
   updateStats();
 }
 
@@ -1033,7 +1156,7 @@ function renderGrid(){
     const dcol=dna?DNA_FAMILIES[dna]?.color:'';
     const dtag=dna?`<span class="tag" style="border-color:${dcol}33;color:${dcol};font-size:6.5px;">${dna}</span>`:'';
     const btag=f.isBase?`<span class="tag tbase">BASE</span>`:'';
-    return `<div class="card ${f.s_key}${isS?' starred':''}" onclick="openModal('${esc(f.name)}')">
+    return `<div class="card ${f.s_key}${isS?' starred':''}" onclick="openBottlePage('${esc(f.name)}')">
       <span class="card-star">★</span>
       <div class="card-house">${f.house}</div>
       <div class="card-name">${f.name}</div>
@@ -1259,7 +1382,7 @@ function showDNAPanel(fam,fams){
   const panel=document.getElementById('dna-panel');
   panel.innerHTML=`<div style="margin-bottom:16px;"><div style="font-family:'Cormorant Garamond',serif;font-size:21px;color:${col};margin-bottom:3px;">${fam}</div><div style="font-size:9.5px;color:var(--dove);letter-spacing:.05em;">${desc}</div></div>
     <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(255px,1fr));">${
-    items.map(f=>`<div class="card ${f.s_key}${(gst(f.name).starred||f.starred)?' starred':''}" onclick="openModal('${esc(f.name)}')">
+    items.map(f=>`<div class="card ${f.s_key}${(gst(f.name).starred||f.starred)?' starred':''}" onclick="openBottlePage('${esc(f.name)}')">
       <span class="card-star">★</span>
       <div class="card-house">${f.house}</div>
       <div class="card-name">${f.name}</div>
@@ -1646,7 +1769,7 @@ function renderRotation(){
     const cls=days===9999?'n':days>30?'s':days>14?'w':'f';
     const label=days===9999?'—':days+'d';
     const ls=last?last.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'Never worn';
-    return`<div class="ritem" onclick="openModal('${esc(f.name)}')"><div class="rrank">${i+1}</div><div style="flex:1"><div class="rname">${f.name}</div><div class="rmeta">${f.house} · ${season(f.s_key)}</div></div><div style="text-align:right"><span class="rdays ${cls}">${label}</span><div style="font-size:8.5px;color:var(--dove);">${ls}</div></div></div>`;
+    return`<div class="ritem" onclick="openBottlePage('${esc(f.name)}')"><div class="rrank">${i+1}</div><div style="flex:1"><div class="rname">${f.name}</div><div class="rmeta">${f.house} · ${season(f.s_key)}</div></div><div style="text-align:right"><span class="rdays ${cls}">${label}</span><div style="font-size:8.5px;color:var(--dove);">${ls}</div></div></div>`;
   }).join('');
 }
 
@@ -1658,7 +1781,7 @@ function renderStarred(){
   document.getElementById('starred-ct').textContent=list.length+' bottle'+(list.length!==1?'s':'');
   const g=document.getElementById('starred-grid');
   if(!list.length){g.innerHTML='<div class="empty-st"><em>None starred yet</em>Open any bottle and tap ☆ Star</div>';return;}
-  g.innerHTML=list.map(f=>`<div class="card ${f.s_key} starred" onclick="openModal('${esc(f.name)}')"><span class="card-star">★</span><div class="card-house">${f.house}</div><div class="card-name">${f.name}</div><div class="card-insp">${f.inspiration}</div><div class="card-tags"><span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span><span class="tag tsea">${season(f.s_key)}</span></div></div>`).join('');
+  g.innerHTML=list.map(f=>`<div class="card ${f.s_key} starred" onclick="openBottlePage('${esc(f.name)}')"><span class="card-star">★</span><div class="card-house">${f.house}</div><div class="card-name">${f.name}</div><div class="card-insp">${f.inspiration}</div><div class="card-tags"><span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span><span class="tag tsea">${season(f.s_key)}</span></div></div>`).join('');
 }
 
 // ============================================================
@@ -1820,7 +1943,7 @@ function cardHTML(f) {
   const dcol = dna ? DNA_FAMILIES[dna]?.color : '';
   const dtag = dna ? `<span class="tag" style="border-color:${dcol}33;color:${dcol};font-size:6.5px;">${dna}</span>` : '';
   const btag = f.isBase ? `<span class="tag tbase">BASE</span>` : '';
-  return `<div class="card ${f.s_key}${isS?' starred':''}" onclick="openModal('${esc(f.name)}')">
+  return `<div class="card ${f.s_key}${isS?' starred':''}" onclick="openBottlePage('${esc(f.name)}')">
     <span class="card-star">★</span>
     <div class="card-house">${f.house}</div>
     <div class="card-name">${f.name}</div>
@@ -2169,6 +2292,307 @@ function buildCalendar(year, month) {
   html += '</div>';
   if (wearDates.size === 0) html += '<div style="font-size:9px;color:var(--dove);margin-top:8px;">No wears logged this month. Use the ✎ button to log.</div>';
   return html;
+}
+
+// ============================================================
+// BOTTLE PROFILE PAGE
+// ============================================================
+let prevPage = 'collection';
+
+function openBottlePage(name) {
+  const f = DB.col.find(x => x.name === name);
+  if (!f) return;
+  CUR = name;
+  const st = gst(name);
+
+  // Track which page we came from
+  const active = document.querySelector('.page.active');
+  prevPage = active ? active.id.replace('page-','') : 'collection';
+
+  // Switch to bottle page
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-bottle').classList.add('active');
+
+  // Breadcrumb
+  document.getElementById('bp-breadcrumb').textContent = f.house + ' / ' + f.name;
+
+  // Header
+  document.getElementById('bp-house').textContent = f.house;
+  document.getElementById('bp-name').textContent = f.name;
+  document.getElementById('bp-insp').textContent = '← ' + f.inspiration;
+
+  // Tags
+  const dna = st.dna || DEFAULT_DNA[f.name] || '';
+  const dnaCol = dna ? (DNA_FAMILIES[dna]?.color || 'var(--gold)') : 'var(--gold)';
+  document.getElementById('bp-tags').innerHTML = `
+    <span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span>
+    <span class="tag tsea">${season(f.s_key)}</span>
+    ${dna ? '<span class="tag" style="border-color:' + dnaCol + '44;color:' + dnaCol + ';font-size:7px;">' + dna + '</span>' : ''}
+    ${f.isBase ? '<span class="tag tbase">LAYERING BASE</span>' : ''}
+  `;
+
+  // Stats
+  const wears = st.wears || [];
+  document.getElementById('bp-wears').textContent = wears.length || '0';
+  const lastWorn = wears.length ? wears[wears.length-1] : null;
+  document.getElementById('bp-lastworn').textContent = lastWorn || 'Never worn';
+
+  // Stars
+  const r = st.rating || 0;
+  document.getElementById('bp-stars').innerHTML = [1,2,3,4,5].map(i =>
+    '<span class="star' + (r>=i?' lit':'') + '" onclick="setRating(' + i + ')">★</span>'
+  ).join('');
+
+  // DNA label + grid
+  document.getElementById('bp-dna-label').textContent = dna || 'Unclassified';
+  document.getElementById('bp-dna-label').style.color = dnaCol;
+  document.getElementById('bp-dna-grid').innerHTML = Object.keys(DNA_FAMILIES).map(fam => {
+    const col = DNA_FAMILIES[fam].color;
+    const isSel = dna === fam;
+    const selStyle2 = isSel ? 'border-color:'+col+';color:'+col+';background:'+col+'18;' : ''; const selCls2 = isSel ? ' sel' : ''; return '<div class="cpill'+selCls2+'" style="'+selStyle2+'" onclick="setDNA(\'' + esc(fam) + '\')">'+fam+'</div>';
+  }).join('');
+
+  // Notes
+  document.getElementById('bp-notes').value = st.notes || '';
+
+  // Star + stock buttons
+  const starred = st.starred || f.starred;
+  const sb = document.getElementById('bp-star-btn');
+  sb.textContent = starred ? '★ Starred' : '☆ Star';
+  sb.style.color = starred ? 'var(--gold)' : '';
+  renderBPStockBtn();
+
+  // Wear calendar (current month for this bottle)
+  renderBPCalendar(name);
+
+  // Wear log
+  renderBPWearLog(name);
+
+  // Layering combos — reuse existing IDs but point to bp-layer-list
+  CUR = name;
+  renderBPLayerList();
+
+  // Similar bottles
+  renderSimilar(f, dna);
+}
+
+function closeBottlePage() {
+  CUR = null;
+  showPage(prevPage, null);
+  // Re-highlight correct nav tab
+  const tabs = document.querySelectorAll('.nav-tab');
+  tabs.forEach(t => {
+    if (t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + prevPage + "'")) {
+      t.classList.add('active');
+    }
+  });
+}
+
+function renderBPStockBtn() {
+  const st = gst(CUR);
+  const labels = {ok:'&#9646; Stock OK', low:'&#9888; Running Low', empty:'&#10006; Empty'};
+  const colors = {ok:'var(--forest)', low:'var(--rose)', empty:'#999'};
+  const s = st.stock || 'ok';
+  const btn = document.getElementById('bp-stock-btn');
+  if (btn) { btn.innerHTML = labels[s]; btn.style.color = colors[s]; btn.style.borderColor = colors[s]; }
+  // Also update modal stock btn if visible
+  const mb = document.getElementById('m-stock-btn');
+  if (mb) { mb.innerHTML = labels[s]; mb.style.color = colors[s]; mb.style.borderColor = colors[s]; }
+}
+
+// Override cycleStock to update bp stock btn too
+const _cycleStockOrig = cycleStock;
+function cycleStock() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  const states = ['ok','low','empty'];
+  const labels = {ok:'&#9646; Stock OK', low:'&#9888; Running Low', empty:'&#10006; Empty'};
+  const colors = {ok:'var(--forest)', low:'var(--rose)', empty:'#999'};
+  const cur = st.stock || 'ok';
+  const next = states[(states.indexOf(cur) + 1) % states.length];
+  st.stock = next;
+  saveDB();
+  renderBPStockBtn();
+}
+
+// Override toggleStar to update bp star btn
+const _toggleStarOrig = toggleStar;
+function toggleStar() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  st.starred = !st.starred;
+  saveDB();
+  const sb = document.getElementById('bp-star-btn') || document.getElementById('m-star-btn');
+  if (sb) { sb.textContent = st.starred ? '★ Starred' : '☆ Star'; sb.style.color = st.starred ? 'var(--gold)' : ''; }
+  updateStats();
+}
+
+// Override logWear to refresh bp page
+const _logWearOrig = logWear;
+function logWear() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  if (!st.wears) st.wears = [];
+  st.wears.push(today());
+  saveDB();
+  document.getElementById('bp-wears').textContent = st.wears.length;
+  renderBPCalendar(CUR);
+  renderBPWearLog(CUR);
+  updateStats();
+}
+
+// Override saveNotes to work with bp-notes
+const _saveNotesOrig = saveNotes;
+function saveNotes() {
+  if (!CUR) return;
+  const n1 = document.getElementById('m-notes');
+  const n2 = document.getElementById('bp-notes');
+  gst(CUR).notes = (n2 && n2.style.display!=='none' ? n2 : n1)?.value || '';
+  saveDB();
+}
+
+// Override setDNA to update bp page
+const _setDNAOrig = setDNA;
+function setDNA(fam) {
+  if (!CUR) return;
+  gst(CUR).dna = fam;
+  saveDB();
+  // Update both grids
+  ['m-dna-grid','bp-dna-grid'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = Object.keys(DNA_FAMILIES).map(f2 => {
+      const col = DNA_FAMILIES[f2].color;
+      const isSel = fam === f2;
+      const _sc = isSel?' sel':''; const _ss = isSel?'border-color:'+col+';color:'+col+';background:'+col+'18;':''; return '<div class="cpill'+_sc+'" style="'+_ss+'" onclick="setDNA(\'' + esc(f2) + '\')">' + f2 + '</div>';
+    }).join('');
+  });
+  const dnaLabel = document.getElementById('bp-dna-label');
+  if (dnaLabel) { dnaLabel.textContent = fam; dnaLabel.style.color = DNA_FAMILIES[fam]?.color || 'var(--gold)'; }
+}
+
+// Override setRating for bp page
+function setRating(r) {
+  if (!CUR) return;
+  gst(CUR).rating = r;
+  saveDB();
+  ['m-stars','bp-stars'].forEach(function(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let html = '';
+    for (let i=1;i<=5;i++) {
+      html += '<span class="star' + (r>=i?' lit':'') + '" onclick="setRating(' + i + ')">&#9733;</span>';
+    }
+    el.innerHTML = html;
+  });
+}
+
+function renderBPCalendar(name) {
+  const st = gst(name);
+  const wears = st.wears || [];
+  const now = new Date();
+  const year = now.getFullYear(), month = now.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+
+  // Which days this bottle was worn this month
+  const wornDays = new Set();
+  wears.forEach(d => {
+    const dt = new Date(d);
+    if (dt.getFullYear()===year && dt.getMonth()===month) wornDays.add(dt.getDate());
+  });
+
+  const dayNames = ['S','M','T','W','T','F','S'];
+  let html = '<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;">';
+  html += dayNames.map(d => '<div style="font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-align:center;font-weight:700;">' + d + '</div>').join('');
+  html += '</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;">';
+  for (let i=0;i<firstDay;i++) html += '<div></div>';
+  for (let d=1;d<=daysInMonth;d++) {
+    const isToday = d===now.getDate();
+    const worn = wornDays.has(d);
+    html += '<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;border-radius:2px;background:' + (worn?'var(--gold)':'var(--ash)') + ';color:' + (worn?'#fff':'var(--dove)') + ';border:' + (isToday?'2px solid var(--gold-dim)':'none') + ';opacity:' + (worn||isToday?1:0.55) + ';">' + d + '</div>';
+  }
+  html += '</div>';
+  if (wornDays.size === 0) html += '<div style="font-size:9px;color:var(--dove);margin-top:8px;">Not worn this month yet.</div>';
+
+  const el = document.getElementById('bp-calendar');
+  if (el) el.innerHTML = '<div style="font-size:8px;letter-spacing:.14em;color:var(--dove);margin-bottom:8px;font-weight:600;">' + now.toLocaleString('default',{month:'long',year:'numeric'}) + '</div>' + html;
+}
+
+function renderBPWearLog(name) {
+  const st = gst(name);
+  const wears = st.wears || [];
+  const el = document.getElementById('bp-wear-log');
+  if (!el) return;
+  if (!wears.length) { el.innerHTML = '<div style="font-size:9.5px;color:var(--dove);font-style:italic;">No wears logged yet.</div>'; return; }
+  el.innerHTML = '<div style="font-size:8px;letter-spacing:.14em;color:var(--dove);margin-bottom:8px;font-weight:600;">ALL WEARS (' + wears.length + ')</div>' +
+    [...wears].reverse().map(d =>
+      '<div class="bp-wear-entry"><span class="bp-wear-date">' + d + '</span><span style="font-size:7.5px;color:var(--gold);letter-spacing:.1em;">WORN</span></div>'
+    ).join('');
+}
+
+function renderBPLayerList() {
+  const st = gst(CUR);
+  const personal = st.layers || [];
+  const global = DB.layers.filter(c => c.items.some(x => x.toLowerCase() === CUR.toLowerCase() || x.toLowerCase().includes(CUR.toLowerCase())));
+  let html = '';
+  if (global.length) html += global.map(c => '<div class="lc-row"><div style="flex:1"><div class="lc-names">' + c.items.join(' + ') + '</div><div class="lc-ratio">' + c.ratio + ' · <span style="color:var(--gold-dim);">Global Combo</span></div><div class="lc-desc">' + c.desc + '</div></div></div>').join('');
+  if (personal.length) html += personal.map((c,i) => '<div class="lc-row"><div style="flex:1"><div class="lc-names">' + c.items.join(' + ') + '</div><div class="lc-ratio">' + c.ratio + ' · <span style="color:var(--aqua);">Personal</span></div><div class="lc-desc">' + c.desc + '</div></div><button class="lc-del" onclick="delBottleLayer(' + i + ')">✕</button></div>').join('');
+  if (!html) html = '<div style="font-size:9.5px;color:var(--dove);font-style:italic;">No combos yet. Add one above.</div>';
+  const el = document.getElementById('bp-layer-list');
+  if (el) el.innerHTML = html;
+  // Also sync old modal layer list if exists
+  const oldEl = document.getElementById('m-layer-list');
+  if (oldEl) oldEl.innerHTML = html;
+}
+
+function renderSimilar(frag, dna) {
+  const similar = DB.col.filter(f => {
+    if (f.name === frag.name) return false;
+    const fDNA = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
+    return fDNA === dna || f.occ_key === frag.occ_key || f.s_key === frag.s_key;
+  }).slice(0, 6);
+  const el = document.getElementById('bp-similar');
+  if (!el) return;
+  el.innerHTML = similar.map(f => cardHTML(f)).join('');
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+function initSearch() {
+  const input = document.getElementById('srch-input');
+  if (input) { input.focus(); runSearch(input.value || ''); }
+}
+
+function runSearch(q) {
+  const meta = document.getElementById('srch-meta');
+  const grid = document.getElementById('srch-grid');
+  const query = (q || '').trim().toLowerCase();
+
+  if (!query) {
+    meta.textContent = 'Type to search all 164 bottles by name, house, inspiration, DNA or occasion';
+    grid.innerHTML = '';
+    return;
+  }
+
+  const results = DB.col.filter(f => {
+    const dna = (gst(f.name).dna || DEFAULT_DNA[f.name] || '').toLowerCase();
+    return (
+      f.name.toLowerCase().includes(query) ||
+      f.house.toLowerCase().includes(query) ||
+      f.inspiration.toLowerCase().includes(query) ||
+      f.occ_detail.toLowerCase().includes(query) ||
+      dna.includes(query) ||
+      season(f.s_key).toLowerCase().includes(query)
+    );
+  });
+
+  meta.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' for "' + q + '"';
+  grid.innerHTML = results.length
+    ? results.map(f => cardHTML(f)).join('')
+    : '<div class="empty-st"><em>No results</em>Try a different term</div>';
 }
 
 // ============================================================
