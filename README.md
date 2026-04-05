@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -1060,19 +1060,19 @@ const DEFAULT_COL=[
   {house:"Armaf",name:"Le Parfait",inspiration:"Creed Aventus x Green Irish Tweed",occ_key:"office",occ_detail:"Office / smart casual / daytime",s_key:"ss"},
   {house:"Armaf",name:"Club de Nuit Milestone",inspiration:"Creed Millésime Impérial",occ_key:"casual",occ_detail:"Smart casual / beach / summer date",s_key:"ss"},
   // SINGLES — 13 bottles
-  {house:"Singles",name:"Anti Social Parfum Club - Most Wanted",inspiration:"Azzaro The Most Wanted",occ_key:"date",occ_detail:"Date night / casual evening / social",s_key:"fw"},
-  {house:"Singles",name:"Afnan Supremacy Collector's Edition",inspiration:"Creed Aventus Absolu",occ_key:"office",occ_detail:"Smart casual / office / date",s_key:"ss"},
-  {house:"Singles",name:"Ajmal Evoke Gold",inspiration:"Prada L'Homme",occ_key:"office",occ_detail:"Office / smart casual / everyday",s_key:"yr"},
-  {house:"Singles",name:"Al Haramain Detour Noir",inspiration:"Parfums de Marly Layton",occ_key:"date",occ_detail:"Date night / office / versatile dresser",s_key:"fw"},
-  {house:"Singles",name:"Crown / Al-Rehab Silver (oil)",inspiration:"Creed Silver Mountain Water",occ_key:"casual",occ_detail:"Casual / fresh / gym / daytime",s_key:"ss"},
-  {house:"Singles",name:"Atralia Amazonas Avalanche",inspiration:"Dior Homme Intense",occ_key:"date",occ_detail:"Date night / evening / formal",s_key:"fw"},
-  {house:"Singles",name:"French Avenue Liquid Brun",inspiration:"Parfums de Marly Althair",occ_key:"date",occ_detail:"Smart casual / date / evening",s_key:"fw"},
-  {house:"Singles",name:"Game of Spades Wildcard",inspiration:"Bond No. 9 Lafayette Street",occ_key:"evening",occ_detail:"Urban social / evening / creative",s_key:"fw"},
-  {house:"Singles",name:"Grandeur Iconic Built",inspiration:"YSL Bleu Electrique",occ_key:"evening",occ_detail:"Club / night out / bold evening",s_key:"fw"},
-  {house:"Singles",name:"Paris Corner Rifaqat",inspiration:"YSL Babycat",occ_key:"casual",occ_detail:"Casual / cozy / skin-close everyday",s_key:"fw"},
-  {house:"Singles",name:"Rayhaan Aquatica",inspiration:"Creed Virgin Island Water",occ_key:"casual",occ_detail:"Beach / vacation / casual summer",s_key:"ss"},
-  {house:"Singles",name:"Royalty by Maluma Onyx",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
-  {house:"Singles",name:"Vurv Royce Black",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
+  {house:"Anti Social Parfum Club",name:"Anti Social Parfum Club - Most Wanted",inspiration:"Azzaro The Most Wanted",occ_key:"date",occ_detail:"Date night / casual evening / social",s_key:"fw"},
+  {house:"Afnan",name:"Afnan Supremacy Collector's Edition",inspiration:"Creed Aventus Absolu",occ_key:"office",occ_detail:"Smart casual / office / date",s_key:"ss"},
+  {house:"Ajmal",name:"Ajmal Evoke Gold",inspiration:"Prada L'Homme",occ_key:"office",occ_detail:"Office / smart casual / everyday",s_key:"yr"},
+  {house:"Al Haramain",name:"Al Haramain Detour Noir",inspiration:"Parfums de Marly Layton",occ_key:"date",occ_detail:"Date night / office / versatile dresser",s_key:"fw"},
+  {house:"Al-Rehab",name:"Crown / Al-Rehab Silver (oil)",inspiration:"Creed Silver Mountain Water",occ_key:"casual",occ_detail:"Casual / fresh / gym / daytime",s_key:"ss"},
+  {house:"Atralia",name:"Atralia Amazonas Avalanche",inspiration:"Dior Homme Intense",occ_key:"date",occ_detail:"Date night / evening / formal",s_key:"fw"},
+  {house:"French Avenue",name:"French Avenue Liquid Brun",inspiration:"Parfums de Marly Althair",occ_key:"date",occ_detail:"Smart casual / date / evening",s_key:"fw"},
+  {house:"Game of Spades",name:"Game of Spades Wildcard",inspiration:"Bond No. 9 Lafayette Street",occ_key:"evening",occ_detail:"Urban social / evening / creative",s_key:"fw"},
+  {house:"Grandeur",name:"Grandeur Iconic Built",inspiration:"YSL Bleu Electrique",occ_key:"evening",occ_detail:"Club / night out / bold evening",s_key:"fw"},
+  {house:"Paris Corner",name:"Paris Corner Rifaqat",inspiration:"YSL Babycat",occ_key:"casual",occ_detail:"Casual / cozy / skin-close everyday",s_key:"fw"},
+  {house:"Rayhaan",name:"Rayhaan Aquatica",inspiration:"Creed Virgin Island Water",occ_key:"casual",occ_detail:"Beach / vacation / casual summer",s_key:"ss"},
+  {house:"Royalty by Maluma",name:"Royalty by Maluma Onyx",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
+  {house:"Vurv",name:"Vurv Royce Black",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
   // MIRIS OILS — 4 bottles
   {house:"MIRIS Oils",name:"MIRIS No54602",inspiration:"Nishane Hacivat",occ_key:"casual",occ_detail:"Casual / office / everyday / layering",s_key:"ss",isBase:true},
   {house:"MIRIS Oils",name:"MIRIS No56902",inspiration:"Kilian Apple Brandy on the Rocks",occ_key:"date",occ_detail:"Cozy evening / social / casual date",s_key:"fw"},
@@ -1113,7 +1113,7 @@ function loadDB(){
 }
 function saveDB(){localStorage.setItem('vault3',JSON.stringify(DB));}
 function gst(n){if(!DB.st[n])DB.st[n]={};return DB.st[n];}
-function esc(s){return(s+'').replace(/'/g,"&#39;").replace(/"/g,'&quot;');}
+function esc(s){return(s+'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 function today(){return new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}
 function season(k){return{ss:"Spring · Summer",fw:"Fall · Winter",yr:"Year-round"}[k]||k;}
 
