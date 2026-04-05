@@ -1,4 +1,4 @@
-# Fragrance-vault<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -221,6 +221,14 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .sug-loading em{display:block;font-family:‘Cormorant Garamond’,serif;font-style:italic;font-size:17px;color:rgba(201,168,76,.3);animation:pulse 1.4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:.8;}}
 .sug-err{padding:18px;background:rgba(176,90,66,.07);border:1px solid rgba(176,90,66,.2);color:var(–rose);font-size:10px;line-height:1.6;margin-top:12px;}
+.weather-bar{display:flex;align-items:center;gap:18px;padding:10px 16px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.1);margin-bottom:16px;flex-wrap:wrap;}
+.weather-icon{font-size:22px;line-height:1;}
+.weather-info{flex:1;}
+.weather-temp{font-family:‘Cormorant Garamond’,serif;font-size:20px;color:var(–gold);display:inline;}
+.weather-desc{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(–dove);margin-left:8px;}
+.weather-note{font-size:9px;color:var(–gold-dim);letter-spacing:.06em;margin-top:2px;}
+.weather-loading{font-size:8.5px;color:var(–dove);letter-spacing:.14em;text-transform:uppercase;animation:pulse 1.4s ease-in-out infinite;}
+.weather-badge{font-size:7px;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;border:1px solid;margin-top:6px;display:inline-block;}
 
 /* ROTATION */
 .ritem{background:var(–smoke);padding:13px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(201,168,76,.03);}
@@ -315,6 +323,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <div class="suggester">
     <div class="sug-title">Smart Layering Suggestions</div>
     <div class="sug-sub">Choose a fragrance &middot; set your spray count &middot; get AI pairings from your collection</div>
+    <div class="weather-bar" id="weather-bar"><span class="weather-loading" id="weather-loading">Fetching Arlington, VA weather…</span></div>
     <div class="sug-controls">
       <select class="sug-select" id="sug-frag">
         <option value="">Select a fragrance to layer&hellip;</option>
@@ -1179,51 +1188,141 @@ function getOccasionLabel(occ_key, season) {
   return map[occ_key] || 'Versatile';
 }
 
+// Weather state
+let WEATHER = null;
+
+async function fetchWeather() {
+  const bar = document.getElementById('weather-bar');
+  try {
+    // Arlington, VA coords
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=38.8799&longitude=-77.1068&current=temperature_2m,weathercode,relative_humidity_2m,windspeed_10m&temperature_unit=fahrenheit&windspeed_unit=mph');
+    const data = await res.json();
+    const c = data.current;
+    const temp = Math.round(c.temperature_2m);
+    const humid = c.relative_humidity_2m;
+    const wind = Math.round(c.windspeed_10m);
+    const code = c.weathercode;
+
+    // Weather code to description + icon
+    const wx = getWeatherDesc(code);
+    WEATHER = {temp, humid, wind, code, ...wx};
+
+    // Render weather bar
+    const scentNote = getWeatherScentNote(temp, humid, code);
+    bar.innerHTML = `
+      <span class="weather-icon">${wx.icon}</span>
+      <div class="weather-info">
+        <span class="weather-temp">${temp}°F</span>
+        <span class="weather-desc">${wx.desc} &middot; ${humid}% humidity &middot; ${wind} mph wind</span>
+        <div class="weather-note">${scentNote.tip}</div>
+      </div>
+      <span class="weather-badge" style="border-color:${scentNote.color};color:${scentNote.color};">${scentNote.label}</span>
+    `;
+  } catch(e) {
+    bar.innerHTML = '<span style="font-size:9px;color:var(--dove);">Weather unavailable &mdash; using season scoring only</span>';
+  }
+}
+
+function getWeatherDesc(code) {
+  if (code === 0) return {icon:'☀️', desc:'Clear'};
+  if (code <= 2) return {icon:'⛅', desc:'Partly Cloudy'};
+  if (code === 3) return {icon:'☁️', desc:'Overcast'};
+  if (code <= 49) return {icon:'🌫️', desc:'Foggy'};
+  if (code <= 57) return {icon:'🌧️', desc:'Drizzle'};
+  if (code <= 67) return {icon:'🌧️', desc:'Rain'};
+  if (code <= 77) return {icon:'❄️', desc:'Snow'};
+  if (code <= 82) return {icon:'🌦️', desc:'Showers'};
+  if (code <= 99) return {icon:'⛈️', desc:'Thunderstorm'};
+  return {icon:'🌡️', desc:'Mixed'};
+}
+
+function getWeatherScentNote(temp, humid, code) {
+  const rain = code >= 50;
+  const cold = temp < 45;
+  const cool = temp >= 45 && temp < 62;
+  const warm = temp >= 62 && temp < 78;
+  const hot  = temp >= 78;
+  const highHumid = humid > 65;
+
+  if (cold) return {label:'Heavy Sillage Day', color:'#c9a84c', tip:'Cold air suppresses projection — go heavier, more sprays, richer DNA families.'};
+  if (cool && rain) return {label:'Cozy Indoor Mood', color:'#8a6e2e', tip:'Rain + cool temps call for warm gourmand and woody combos that bloom indoors.'};
+  if (cool) return {label:'Transitional Weather', color:'#3d6038', tip:'Cool and crisp — fougères and woody aromatics shine. Good layering day.'};
+  if (warm && highHumid) return {label:'High Humidity — Go Light', color:'#3a7585', tip:'Humidity amplifies sillage — use fewer sprays and lean toward aquatics or citrus.'};
+  if (warm) return {label:'Perfect Layering Conditions', color:'#3d6038', tip:'Ideal temp for layering — skin warmth activates both fragrances evenly.'};
+  if (hot && highHumid) return {label:'Beast Mode Warning', color:'#b05a42', tip:'Heat and humidity = heavy projection. 1-2 sprays max. Aquatics and citrus only.'};
+  if (hot) return {label:'Light Touch Day', color:'#3a7585', tip:'Heat amplifies everything — go fresh, aquatic, and light. Skip heavy orientals.'};
+  if (rain) return {label:'Rain Amplifies Sillage', color:'#507050', tip:'Moisture in air boosts projection significantly — reduce spray count by 1.'};
+  return {label:'Good Conditions', color:'#6b6358', tip:'Moderate conditions — standard spray counts apply.'};
+}
+
+function getWeatherSeasonKey(temp) {
+  if (temp < 55) return 'fw';
+  if (temp > 72) return 'ss';
+  return 'yr';
+}
+
 function buildSuggestions(fragName, frag) {
   const baseDNA = gst(fragName).dna || DEFAULT_DNA[fragName] || '';
   const compat = DNA_COMPAT[baseDNA] || Object.keys(DNA_FAMILIES);
 
-  // Score every other bottle
+  // Weather-preferred DNA families
+  const temp = WEATHER?.temp;
+  let weatherFavored = [];
+  let weatherPenalized = [];
+  if (temp !== undefined) {
+    if (temp < 45) { weatherFavored = ["Oud / Resinous","Oriental / Amber","Tobacco / Smoky","Gourmand","Woody / Aromatic"]; weatherPenalized = ["Aquatic / Marine","Citrus / Fresh"]; }
+    else if (temp < 62) { weatherFavored = ["Woody / Aromatic","Fougère","Oriental / Amber","Gourmand"]; weatherPenalized = []; }
+    else if (temp < 75) { weatherFavored = ["Fougère","Aquatic / Marine","Woody / Aromatic","Citrus / Fresh","Musky / Skin"]; weatherPenalized = ["Oud / Resinous","Tobacco / Smoky"]; }
+    else { weatherFavored = ["Aquatic / Marine","Citrus / Fresh","Musky / Skin","Fougère"]; weatherPenalized = ["Oud / Resinous","Oriental / Amber","Tobacco / Smoky","Gourmand"]; }
+  }
+
+  // Weather-preferred season
+  const wxSeason = temp !== undefined ? getWeatherSeasonKey(temp) : null;
+
   const scored = DB.col
     .filter(f => f.name !== fragName)
     .map(f => {
       const fDNA = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
       let score = 0;
       const compatIdx = compat.indexOf(fDNA);
-      if (fDNA === baseDNA) score += 3;            // same DNA — layering within family
-      else if (compatIdx === 0) score += 10;       // top compat
+      if (fDNA === baseDNA) score += 3;
+      else if (compatIdx === 0) score += 10;
       else if (compatIdx === 1) score += 8;
       else if (compatIdx === 2) score += 6;
       else if (compatIdx >= 3) score += 4;
-      if (f.isBase) score += 4;                    // bases are great partners
-      if (f.s_key === frag.s_key) score += 2;      // same season
-      if (f.occ_key === frag.occ_key) score += 1;  // same occasion
-      // add slight randomness so we get varied results each time
+      if (f.isBase) score += 4;
+      if (f.s_key === frag.s_key) score += 2;
+      if (f.occ_key === frag.occ_key) score += 1;
+      // Weather scoring
+      if (weatherFavored.includes(fDNA)) score += 6;
+      if (weatherPenalized.includes(fDNA)) score -= 5;
+      if (wxSeason && f.s_key === wxSeason) score += 3;
       score += Math.random() * 2;
       return {f, fDNA, score};
     })
     .sort((a, b) => b.score - a.score);
 
-  // Pick top 4 — try to get variety in DNA
   const seen = new Set();
   seen.add(baseDNA);
   const picks = [];
-  // First pass: diverse DNA
   for (const s of scored) {
     if (picks.length >= 4) break;
     if (!seen.has(s.fDNA)) { seen.add(s.fDNA); picks.push(s); }
   }
-  // Second pass: fill remaining from top scores
   for (const s of scored) {
     if (picks.length >= 4) break;
     if (!picks.includes(s)) picks.push(s);
   }
 
-  // Spray count logic: heavier DNA gets more sprays
   const heavyDNA = ["Oud / Resinous","Oriental / Amber","Tobacco / Smoky","Gourmand"];
+  // Adjust spray count for weather: hot = fewer, cold = more
   function partnerSprays(dna) {
-    if (heavyDNA.includes(dna)) return Math.max(1, sugSpray - 1);
-    return Math.min(4, sugSpray + 1);
+    let base = heavyDNA.includes(dna) ? Math.max(1, sugSpray - 1) : Math.min(4, sugSpray + 1);
+    if (temp !== undefined) {
+      if (temp > 78) base = Math.max(1, base - 1);
+      if (temp < 45) base = Math.min(5, base + 1);
+    }
+    return base;
   }
 
   const occasions = ['Date Night','Office / Day','Evening Out','Weekend Casual'];
@@ -1386,7 +1485,7 @@ function renderStarred(){
 // ============================================================
 // INIT
 // ============================================================
-loadDB();populateHouses();populateSugSelect();renderSprayDots();renderGrid();updateStats();
+loadDB();populateHouses();populateSugSelect();renderSprayDots();renderGrid();updateStats();fetchWeather();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetDirect();['add-overlay','conf-overlay'].forEach(id=>document.getElementById(id).classList.add('hidden'));}});
 </script>
 
