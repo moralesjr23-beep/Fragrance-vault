@@ -218,6 +218,9 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .sug-note{font-size:10px;color:var(–dove);line-height:1.58;margin-top:6px;}
 .sug-occasion{font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;color:var(–gold-dim);margin-top:8px;}
 .sug-loading{padding:32px 0;text-align:center;color:var(–dove);}
+.wx-occ-btn{padding:5px 13px;background:transparent;border:1px solid rgba(201,168,76,.2);color:var(–dove);font-family:‘Josefin Sans’,sans-serif;font-size:8px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.wx-occ-btn:hover{border-color:var(–gold);color:var(–gold-light);}
+.wx-occ-btn.active{border-color:var(–gold);color:var(–gold);background:rgba(201,168,76,.07);}
 .sug-loading em{display:block;font-family:‘Cormorant Garamond’,serif;font-style:italic;font-size:17px;color:rgba(201,168,76,.3);animation:pulse 1.4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:.8;}}
 .sug-err{padding:18px;background:rgba(176,90,66,.07);border:1px solid rgba(176,90,66,.2);color:var(–rose);font-size:10px;line-height:1.6;margin-top:12px;}
@@ -281,6 +284,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <button class="nav-tab" onclick="showPage('analytics',this)">Analytics</button>
   <button class="nav-tab" onclick="showPage('rotation',this)">Rotation</button>
   <button class="nav-tab" onclick="showPage('starred',this)">Starred</button>
+  <button class="nav-tab" onclick="showPage('weather',this)">&#9728; Weather</button>
 </nav>
 
 <main class="main">
@@ -337,6 +341,18 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
           <button class="spray-btn" onclick="changeSpray(1)">+</button>
         </div>
       </div>
+      <div class="spray-wrap">
+        <div class="spray-label">Occasion</div>
+        <select id="sug-occ" style="background:var(--ash);border:1px solid var(--ab);color:var(--parchment);padding:8px 11px;font-family:'Josefin Sans',sans-serif;font-size:9px;letter-spacing:.1em;outline:none;margin-top:2px;">
+          <option value="">Any Occasion</option>
+          <option value="date">♥ Date Night</option>
+          <option value="office">◆ Office / Day</option>
+          <option value="evening">✦ Evening / Club</option>
+          <option value="casual">■ Casual</option>
+          <option value="sport">▲ Sport / Active</option>
+          <option value="special">★ Special Occasion</option>
+        </select>
+      </div>
       <button class="sug-btn" id="sug-go-btn" onclick="runSuggester()">Suggest Pairings &#10022;</button>
     </div>
     <div id="sug-results" class="sug-results"></div>
@@ -384,6 +400,79 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 <div id="page-starred" class="page">
   <div class="sec-hdr"><span class="sec-title">Starred</span><span class="sec-ct" id="starred-ct"></span></div>
   <div class="grid" id="starred-grid"></div>
+</div>
+
+<!-- WEATHER -->
+
+<div id="page-weather" class="page">
+  <div class="sec-hdr"><span class="sec-title">Weather & Your Vault</span><span class="sec-ct" id="wx-location">Arlington, VA</span></div>
+
+  <!-- Current conditions card -->
+
+  <div id="wx-main-card" style="background:var(--char);border:1px solid var(--ab);padding:28px 32px;margin-bottom:1px;">
+    <div id="wx-loading" style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dove);animation:pulse 1.4s ease-in-out infinite;">Fetching current conditions…</div>
+    <div id="wx-content" style="display:none;">
+      <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:22px;">
+        <div id="wx-icon-big" style="font-size:52px;line-height:1;"></div>
+        <div>
+          <div style="display:flex;align-items:baseline;gap:12px;">
+            <span id="wx-temp-big" style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:var(--gold);line-height:1;"></span>
+            <span id="wx-desc-big" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dove);"></span>
+          </div>
+          <div id="wx-meta" style="font-size:9.5px;color:var(--dove);margin-top:6px;letter-spacing:.06em;"></div>
+        </div>
+        <div id="wx-badge-wrap" style="margin-left:auto;"></div>
+      </div>
+      <div id="wx-scent-tip" style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.1);padding:14px 18px;font-size:10.5px;color:var(--cream);line-height:1.65;letter-spacing:.04em;margin-bottom:22px;"></div>
+
+```
+  <!-- Spray guide -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(201,168,76,.05);margin-bottom:1px;">
+    <div style="background:var(--smoke);padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Recommended Sprays</div>
+      <div id="wx-sprays" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);"></div>
+      <div id="wx-spray-note" style="font-size:9px;color:var(--dove);margin-top:4px;"></div>
+    </div>
+    <div style="background:var(--smoke);padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Best DNA Families Today</div>
+      <div id="wx-dna-best" style="font-size:10px;color:var(--cream);line-height:1.8;"></div>
+    </div>
+    <div style="background:var(--smoke);padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Avoid Today</div>
+      <div id="wx-dna-avoid" style="font-size:10px;color:var(--dove);line-height:1.8;"></div>
+    </div>
+    <div style="background:var(--smoke);padding:16px 18px;">
+      <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Conditions</div>
+      <div id="wx-feels" style="font-size:10px;color:var(--cream);line-height:1.8;"></div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- Today's picks from your vault -->
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;">
+    <div class="sec-title" style="font-size:18px;">Today's Picks From Your Vault</div>
+    <span id="wx-picks-meta" style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dove);"></span>
+  </div>
+  <div class="grid" id="wx-picks-grid"></div>
+
+  <!-- Occasion picks -->
+
+  <div style="margin:22px 0 14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+    <div class="sec-title" style="font-size:18px;">By Occasion</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;" id="wx-occ-tabs">
+      <button class="wx-occ-btn active" onclick="showWxOcc('date',this)">♥ Date</button>
+      <button class="wx-occ-btn" onclick="showWxOcc('office',this)">◆ Office</button>
+      <button class="wx-occ-btn" onclick="showWxOcc('evening',this)">✦ Evening</button>
+      <button class="wx-occ-btn" onclick="showWxOcc('casual',this)">■ Casual</button>
+      <button class="wx-occ-btn" onclick="showWxOcc('sport',this)">▲ Sport</button>
+      <button class="wx-occ-btn" onclick="showWxOcc('special',this)">★ Special</button>
+    </div>
+  </div>
+  <div class="grid" id="wx-occ-grid"></div>
 </div>
 
 </main>
@@ -544,7 +633,13 @@ const DEFAULT_DNA = {
   "Black Origami":"Oriental / Amber","Daring Blue For Life":"Aquatic / Marine",
   "Glacier Bold":"Aquatic / Marine","Glacier Le Noir":"Fougère","Hercules":"Tobacco / Smoky",
   "Jean Lowe Immortal":"Aquatic / Marine","Jean Lowe Vibe":"Aquatic / Marine",
-  "Kismet":"Gourmand","Perseus":"Fougère","Salvo Elixir":"Woody / Aromatic",
+  "Error 410":"Oriental / Amber",
+  "Poseidon's Ocean Mist":"Aquatic / Marine",
+  "Ottomans Vert Breeze":"Fougère",
+  "The Mobster vs Poseidon":"Woody / Aromatic",
+  "Aroma of Heaven":"Woody / Aromatic",
+  "Imperialé Matrix":"Aquatic / Marine",
+  "Kismet Angel":"Gourmand","Perseus":"Fougère","Salvo Elixir":"Woody / Aromatic",
   "Salvo Intense":"Woody / Aromatic","Tobacco Touch":"Gourmand","Victorioso":"Aquatic / Marine",
   "Victorioso Myth":"Aquatic / Marine","Victorioso Nero":"Aquatic / Marine",
   "Yeah Man":"Woody / Aromatic","Your Touch Amber":"Oriental / Amber",
@@ -596,6 +691,7 @@ const OCC_CLS = {date:"td",office:"to",evening:"te",casual:"tc",sport:"ts",speci
 // DEFAULT DATA
 // ============================================================
 const DEFAULT_COL=[
+  // THE DUA BRAND — 64 bottles
   {house:"The Dua Brand",name:"#Imagine",inspiration:"Louis Vuitton Imagination",occ_key:"casual",occ_detail:"Casual / daytime errands",s_key:"ss"},
   {house:"The Dua Brand",name:"Acqua Di DUA",inspiration:"Acqua di Giò (OG/vintage style)",occ_key:"casual",occ_detail:"Casual / beach / gym",s_key:"ss"},
   {house:"The Dua Brand",name:"Bet On 67",inspiration:"Ralph Lauren Polo 67",occ_key:"sport",occ_detail:"Casual outdoors / sport",s_key:"ss"},
@@ -607,11 +703,12 @@ const DEFAULT_COL=[
   {house:"The Dua Brand",name:"D Le Parfum Intense",inspiration:"YSL Y EDP Intense",occ_key:"evening",occ_detail:"Evening / formal",s_key:"fw"},
   {house:"The Dua Brand",name:"Desert Reflection Extrait",inspiration:"Amouage Reflection Man",occ_key:"special",occ_detail:"Special occasion / formal",s_key:"fw"},
   {house:"The Dua Brand",name:"Drowning in Bleu de Dua Attar",inspiration:"Bleu de Chanel + Nishane Ani",occ_key:"date",occ_detail:"Date night / upscale",s_key:"fw"},
-  {house:"The Dua Brand",name:"Drowning Bleu de Savage Fierce Extrait",inspiration:"Ani + Sauvage EDT + Fierce + BdC",occ_key:"evening",occ_detail:"Night out / clubbing",s_key:"fw"},
-  {house:"The Dua Brand",name:"His Intense Aspiration",inspiration:"Allure Homme Blanche + AHS Eau Extreme",occ_key:"office",occ_detail:"Office / smart casual",s_key:"ss"},
+  {house:"The Dua Brand",name:"Drowning Bleu de Savage Fierce Extrait",inspiration:"Ani + Sauvage EDT + Fierce + Bleu de Chanel",occ_key:"evening",occ_detail:"Night out / clubbing",s_key:"fw"},
+  {house:"The Dua Brand",name:"His Intense Aspiration",inspiration:"Allure Homme Blanche + Allure Homme Sport Eau Extreme",occ_key:"office",occ_detail:"Office / smart casual",s_key:"ss"},
   {house:"The Dua Brand",name:"His Loyalty",inspiration:"D&G Devotion Pour Homme",occ_key:"casual",occ_detail:"Casual / social",s_key:"ss"},
   {house:"The Dua Brand",name:"Fierce Savage",inspiration:"Abercrombie Fierce + Dior Sauvage EDT",occ_key:"sport",occ_detail:"Casual / gym / outdoors",s_key:"ss"},
   {house:"The Dua Brand",name:"His Royalty",inspiration:"Prada L'Homme L'Eau",occ_key:"office",occ_detail:"Office / light date",s_key:"ss"},
+  {house:"The Dua Brand",name:"Error 410",inspiration:"Paco Rabanne 1 Million Absolutely Gold",occ_key:"date",occ_detail:"Date night / evening / upscale social",s_key:"fw"},
   {house:"The Dua Brand",name:"Error 413",inspiration:"1 Million Lucky",occ_key:"evening",occ_detail:"Night out / social",s_key:"fw"},
   {house:"The Dua Brand",name:"His Aspiration Extreme Sport",inspiration:"Chanel Allure Homme Sport Eau Extrême",occ_key:"sport",occ_detail:"Sport / casual / gym",s_key:"ss"},
   {house:"The Dua Brand",name:"His OG Aspiration",inspiration:"Chanel Allure Homme (1999 vintage)",occ_key:"office",occ_detail:"Office / smart casual",s_key:"fw"},
@@ -624,6 +721,7 @@ const DEFAULT_COL=[
   {house:"The Dua Brand",name:"Mystical Amulet of Blue",inspiration:"Ex Nihilo Blue Talisman",occ_key:"casual",occ_detail:"Casual / everyday",s_key:"ss"},
   {house:"The Dua Brand",name:"Peace with Poseidon",inspiration:"Scent of Peace + Aventus",occ_key:"casual",occ_detail:"Casual / outdoors / weekend",s_key:"ss"},
   {house:"The Dua Brand",name:"Poseidon's Swimming Cologne",inspiration:"Aventus Cologne + LV Afternoon Swim",occ_key:"casual",occ_detail:"Casual / beach / sport",s_key:"ss",isBase:true},
+  {house:"The Dua Brand",name:"Poseidon's Ocean Mist",inspiration:"Creed Aventus Cologne × Nautica Voyage",occ_key:"casual",occ_detail:"Casual / office / daytime / outdoors / weekend",s_key:"ss"},
   {house:"The Dua Brand",name:"River Fougere",inspiration:"YSL Rive Gauche Pour Homme",occ_key:"office",occ_detail:"Office / smart casual / retro",s_key:"ss"},
   {house:"The Dua Brand",name:"Rome in Yellow Dream",inspiration:"Valentino Born in Roma Yellow Dream",occ_key:"date",occ_detail:"Date / upscale casual",s_key:"ss"},
   {house:"The Dua Brand",name:"Spice It Up Metallic Musk",inspiration:"Viktor & Rolf Spicebomb Metallic Musk",occ_key:"office",occ_detail:"Smart casual / office",s_key:"fw"},
@@ -641,6 +739,7 @@ const DEFAULT_COL=[
   {house:"The Dua Brand",name:"1 & Only Jazz Club",inspiration:"The One + Jazz Club",occ_key:"evening",occ_detail:"Evening / lounge / date",s_key:"fw"},
   {house:"The Dua Brand",name:"Victorian Poseidon",inspiration:"Aventus + Xerjoff 1861 Renaissance",occ_key:"special",occ_detail:"Formal / special occasion",s_key:"fw"},
   {house:"The Dua Brand",name:"Ottoman Breeze",inspiration:"Nishane Hacivat",occ_key:"casual",occ_detail:"Casual / office / everyday (layering base)",s_key:"ss",isBase:true},
+  {house:"The Dua Brand",name:"Ottomans Vert Breeze",inspiration:"Nishane Hacivat × Creed Green Irish Tweed",occ_key:"casual",occ_detail:"Casual / office / outdoors / weekend",s_key:"ss"},
   {house:"The Dua Brand",name:"Aphrodisiac",inspiration:"Initio Psychedelic Love",occ_key:"date",occ_detail:"Date night / intimate / evening",s_key:"fw"},
   {house:"The Dua Brand",name:"Black Widow",inspiration:"Kilian Black Phantom",occ_key:"evening",occ_detail:"Evening / date night / club",s_key:"fw"},
   {house:"The Dua Brand",name:"City of Dua",inspiration:"Louis Vuitton City of Stars",occ_key:"evening",occ_detail:"Smart casual / evening",s_key:"fw"},
@@ -653,7 +752,11 @@ const DEFAULT_COL=[
   {house:"The Dua Brand",name:"Wooden Lucky Charm",inspiration:"Dior Bois Talisman",occ_key:"evening",occ_detail:"Smart casual / evening",s_key:"fw"},
   {house:"The Dua Brand",name:"Rome In Green",inspiration:"Valentino Uomo Born in Roma Green Stravaganza",occ_key:"casual",occ_detail:"Casual / outdoors / weekend",s_key:"ss"},
   {house:"The Dua Brand",name:"Queen Of The Chess",inspiration:"Mind Games Queening",occ_key:"date",occ_detail:"Date / upscale casual / evening",s_key:"fw"},
-  {house:"The Dua Brand",name:"Midnight Fig Nest",inspiration:"Nest Indigo",occ_key:"evening",occ_detail:"Evening / special occasion / mysterious",s_key:"fw"},
+  {house:"The Dua Brand",name:"Midnight Fig",inspiration:"Nest Indigo",occ_key:"evening",occ_detail:"Evening / special occasion / mysterious",s_key:"fw"},
+  {house:"The Dua Brand",name:"The Mobster vs Poseidon",inspiration:"Roja Creation-E × Creed Aventus",occ_key:"date",occ_detail:"Date night / upscale casual / evening social",s_key:"fw"},
+  {house:"The Dua Brand",name:"Aroma of Heaven",inspiration:"Hermès Terre d'Hermès (Vintage)",occ_key:"office",occ_detail:"Office / smart casual / daytime / outdoors",s_key:"yr"},
+  {house:"The Dua Brand",name:"Imperialé Matrix",inspiration:"Creed Millésime Impérial × Xerjoff Nio",occ_key:"office",occ_detail:"Office / smart casual / daytime / upscale casual",s_key:"ss"},
+  // MAISON ALHAMBRA — 19 bottles
   {house:"Maison Alhambra",name:"Black Origami",inspiration:"Tom Ford Black Orchid",occ_key:"date",occ_detail:"Evening / date night / special occasion",s_key:"fw"},
   {house:"Maison Alhambra",name:"Daring Blue For Life",inspiration:"D&G Light Blue Forever",occ_key:"casual",occ_detail:"Casual / beach / everyday",s_key:"ss"},
   {house:"Maison Alhambra",name:"Glacier Bold",inspiration:"JPG Le Beau Le Parfum",occ_key:"casual",occ_detail:"Casual / social / gym",s_key:"ss"},
@@ -661,7 +764,7 @@ const DEFAULT_COL=[
   {house:"Maison Alhambra",name:"Hercules",inspiration:"Parfums de Marly Herod",occ_key:"evening",occ_detail:"Evening / formal / date",s_key:"fw"},
   {house:"Maison Alhambra",name:"Jean Lowe Immortal",inspiration:"Louis Vuitton L'Immensité",occ_key:"office",occ_detail:"Smart casual / office / layering base",s_key:"ss",isBase:true},
   {house:"Maison Alhambra",name:"Jean Lowe Vibe",inspiration:"Louis Vuitton Pacific Chill",occ_key:"casual",occ_detail:"Casual / beach / weekend",s_key:"ss"},
-  {house:"Maison Alhambra",name:"Kismet",inspiration:"Kilian Angel's Share",occ_key:"date",occ_detail:"Evening / date night / cozy lounge",s_key:"fw"},
+  {house:"Maison Alhambra",name:"Kismet Angel",inspiration:"Kilian Angel's Share",occ_key:"date",occ_detail:"Evening / date night / cozy lounge",s_key:"fw"},
   {house:"Maison Alhambra",name:"Perseus",inspiration:"Parfums de Marly Pegasus",occ_key:"office",occ_detail:"Office / smart casual / date",s_key:"yr"},
   {house:"Maison Alhambra",name:"Salvo Elixir",inspiration:"Dior Sauvage Elixir",occ_key:"date",occ_detail:"Date night / evening / special occasion",s_key:"fw"},
   {house:"Maison Alhambra",name:"Salvo Intense",inspiration:"Dior Sauvage EDP",occ_key:"office",occ_detail:"Casual / office / everyday",s_key:"yr"},
@@ -673,6 +776,7 @@ const DEFAULT_COL=[
   {house:"Maison Alhambra",name:"Your Touch Amber",inspiration:"Armani Stronger With You Amber",occ_key:"date",occ_detail:"Date night / cozy evening",s_key:"fw"},
   {house:"Maison Alhambra",name:"Your Touch Oud",inspiration:"Armani Stronger With You Oud",occ_key:"special",occ_detail:"Evening / special occasion / date",s_key:"fw"},
   {house:"Maison Alhambra",name:"Your Touch Sandal",inspiration:"Armani Stronger With You Sandalwood",occ_key:"date",occ_detail:"Smart casual / date / evening",s_key:"fw"},
+  // LATTAFA — 16 bottles
   {house:"Lattafa",name:"Opulent Dubai",inspiration:"God of Fire Original DNA",occ_key:"special",occ_detail:"Special occasion / evening / statement",s_key:"fw"},
   {house:"Lattafa",name:"Mashrabya",inspiration:"Initio Smoking Hot",occ_key:"evening",occ_detail:"Evening / club / date night",s_key:"fw"},
   {house:"Lattafa",name:"Ameer Al Oudh Intense",inspiration:"Maison Margiela By the Fireplace",occ_key:"evening",occ_detail:"Cozy evening / lounge / layering",s_key:"fw",isBase:true},
@@ -689,6 +793,7 @@ const DEFAULT_COL=[
   {house:"Lattafa",name:"Bade'e Al Oud Honor & Glory",inspiration:"Original / house blend",occ_key:"evening",occ_detail:"Evening / statement / bold",s_key:"fw"},
   {house:"Lattafa",name:"Bade'e Al Oud Amethyst",inspiration:"Initio Atomic Rose",occ_key:"date",occ_detail:"Date night / floral evening / romantic",s_key:"fw"},
   {house:"Lattafa",name:"Khamrah Qahwa",inspiration:"Original",occ_key:"evening",occ_detail:"Cozy / evening / lounge / cold weather treat",s_key:"fw",starred:true},
+  // FRAGRANCE WORLD — 9 bottles
   {house:"Fragrance World",name:"Suits",inspiration:"YSL Tuxedo",occ_key:"special",occ_detail:"Formal / evening / special occasion",s_key:"fw"},
   {house:"Fragrance World",name:"Lust Cherry",inspiration:"Tom Ford Lost Cherry",occ_key:"date",occ_detail:"Date night / evening / romantic",s_key:"fw"},
   {house:"Fragrance World",name:"Intense Peach",inspiration:"Tom Ford Bitter Peach",occ_key:"evening",occ_detail:"Evening / bold social / date",s_key:"fw"},
@@ -698,6 +803,7 @@ const DEFAULT_COL=[
   {house:"Fragrance World",name:"Proud of You Absolute",inspiration:"Armani Stronger With You Absolutely",occ_key:"date",occ_detail:"Date night / evening / upscale",s_key:"fw"},
   {house:"Fragrance World",name:"La Uno Million Elixir",inspiration:"Paco Rabanne 1 Million Elixir",occ_key:"evening",occ_detail:"Date night / club / evening",s_key:"fw"},
   {house:"Fragrance World",name:"Neroli Riviera",inspiration:"Tom Ford Neroli Portofino",occ_key:"casual",occ_detail:"Casual / beach / vacation / daytime",s_key:"ss"},
+  // BANANA REPUBLIC — 7 bottles
   {house:"Banana Republic",name:"Grassland",inspiration:"Creed Green Irish Tweed (style)",occ_key:"office",occ_detail:"Smart casual / office / daytime",s_key:"ss"},
   {house:"Banana Republic",name:"Linen Vetiver",inspiration:"Original",occ_key:"office",occ_detail:"Office / minimalist casual / summer work",s_key:"ss"},
   {house:"Banana Republic",name:"Vintage Green 78",inspiration:"Original",occ_key:"casual",occ_detail:"Casual / weekend / outdoors",s_key:"ss"},
@@ -705,38 +811,47 @@ const DEFAULT_COL=[
   {house:"Banana Republic",name:"Midnight Hour",inspiration:"Original",occ_key:"evening",occ_detail:"Evening / date / social",s_key:"fw"},
   {house:"Banana Republic",name:"Dark Cherry & Amber",inspiration:"Original",occ_key:"date",occ_detail:"Date night / cozy evening",s_key:"fw"},
   {house:"Banana Republic",name:"Metal Rain",inspiration:"Original",occ_key:"casual",occ_detail:"Casual / outdoors / fresh air vibe",s_key:"ss"},
+  // DESIGNER ORIGINALS — 5 bottles
   {house:"Designer Originals",name:"Bleu de Chanel EDT",inspiration:"Original",occ_key:"office",occ_detail:"Versatile / office / casual / date",s_key:"yr"},
   {house:"Designer Originals",name:"Montblanc Legend Spirit",inspiration:"Original",occ_key:"casual",occ_detail:"Casual / sport / everyday",s_key:"ss"},
   {house:"Designer Originals",name:"Nautica Voyage",inspiration:"Original",occ_key:"casual",occ_detail:"Casual / fresh / everyday / gym",s_key:"ss"},
   {house:"Designer Originals",name:"Dior Sauvage EDP",inspiration:"Original",occ_key:"office",occ_detail:"Office / casual / date night",s_key:"yr"},
   {house:"Designer Originals",name:"Davidoff Cool Water",inspiration:"Original",occ_key:"sport",occ_detail:"Casual / sport / gym / beach",s_key:"ss"},
+  // VALENCIA / MILLIONAIRE — 4 bottles
   {house:"Valencia / Millionaire",name:"Valencia Uomo Intense",inspiration:"Valentino Uomo Intense",occ_key:"date",occ_detail:"Date night / evening / romantic",s_key:"fw"},
   {house:"Valencia / Millionaire",name:"Valencia Uomo Fantasy",inspiration:"Valentino Born in Roma Coral Fantasy",occ_key:"casual",occ_detail:"Casual / daytime / warm weather",s_key:"ss"},
   {house:"Valencia / Millionaire",name:"Valencia Uomo",inspiration:"Valentino Born in Roma",occ_key:"casual",occ_detail:"Casual / smart casual / daytime",s_key:"ss"},
   {house:"Valencia / Millionaire",name:"Millionaire Royal",inspiration:"Paco Rabanne 1 Million Royal",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
+  // KHADLAJ — 4 bottles
   {house:"Khadlaj",name:"Island Dreams",inspiration:"Louis Vuitton Symphony",occ_key:"date",occ_detail:"Upscale casual / date / evening",s_key:"ss"},
   {house:"Khadlaj",name:"Shiyaaka Snow",inspiration:"Louis Vuitton Météore",occ_key:"office",occ_detail:"Smart casual / office / daytime",s_key:"ss"},
   {house:"Khadlaj",name:"Shiyaaka Blue",inspiration:"Bleu de Chanel (style)",occ_key:"office",occ_detail:"Office / casual / everyday",s_key:"yr"},
   {house:"Khadlaj",name:"Epoque Artistique",inspiration:"Invictus Victory / Victory Elixir",occ_key:"date",occ_detail:"Date night / evening / formal",s_key:"fw"},
+  // MOD FRAGRANCES — 5 bottles
   {house:"Mod Fragrances",name:"Haven Eclipse",inspiration:"Xerjoff Torino 22",occ_key:"date",occ_detail:"Smart casual / date / evening",s_key:"fw"},
   {house:"Mod Fragrances",name:"Secret Embers",inspiration:"Initio Side Effect",occ_key:"date",occ_detail:"Date night / evening / seductive",s_key:"fw"},
   {house:"Mod Fragrances",name:"Musk Melody",inspiration:"Initio Musk Therapy",occ_key:"casual",occ_detail:"Casual / skin-close / everyday",s_key:"yr"},
   {house:"Mod Fragrances",name:"Reverence Extrait",inspiration:"Parfums de Marly Percival",occ_key:"office",occ_detail:"Smart casual / office / date",s_key:"ss"},
   {house:"Mod Fragrances",name:"The Exposed Extrait",inspiration:"Mind Games En Prise",occ_key:"evening",occ_detail:"Evening / bold / statement",s_key:"fw"},
+  // RASASI — 3 bottles
   {house:"Rasasi",name:"Fattan",inspiration:"Terre d'Hermès",occ_key:"office",occ_detail:"Office / casual / everyday",s_key:"yr"},
   {house:"Rasasi",name:"Hawas Ice",inspiration:"Original",occ_key:"sport",occ_detail:"Sport / gym / casual / fresh",s_key:"ss"},
   {house:"Rasasi",name:"Hawas Kobra",inspiration:"Louis Vuitton Imagination",occ_key:"casual",occ_detail:"Casual / daytime / social",s_key:"ss"},
+  // ZIMAYA — 3 bottles
   {house:"Zimaya",name:"Itqan Noir",inspiration:"YSL MYSLF",occ_key:"date",occ_detail:"Smart casual / date / evening",s_key:"fw"},
   {house:"Zimaya",name:"Reverie Aqua Pour Homme",inspiration:"Valentino Born in Roma Intense",occ_key:"office",occ_detail:"Casual / office / daytime",s_key:"ss"},
   {house:"Zimaya",name:"Abadi Opulent",inspiration:"YSL Y Elixir",occ_key:"date",occ_detail:"Date night / upscale casual / evening",s_key:"fw"},
+  // YOM & LAYL — 6 bottles
   {house:"Yom & Layl",name:"Wazir",inspiration:"Mind Games Queening",occ_key:"date",occ_detail:"Date / upscale casual / evening",s_key:"fw"},
   {house:"Yom & Layl",name:"Raazi",inspiration:"Mind Games J'Adoube",occ_key:"evening",occ_detail:"Smart casual / social / evening",s_key:"fw"},
   {house:"Yom & Layl",name:"Rayees",inspiration:"Mind Games Grand Masters",occ_key:"office",occ_detail:"Office / smart casual / daytime",s_key:"ss"},
   {house:"Yom & Layl",name:"Nor",inspiration:"Mind Games Lionora",occ_key:"casual",occ_detail:"Casual / fresh / daytime",s_key:"ss"},
   {house:"Yom & Layl",name:"Limitless",inspiration:"Mind Games Blockade",occ_key:"evening",occ_detail:"Evening / bold / statement",s_key:"fw"},
   {house:"Yom & Layl",name:"Gladiator",inspiration:"Argos Triumph of Bacchus",occ_key:"special",occ_detail:"Special occasion / evening / grand statement",s_key:"fw"},
+  // ARMAF — 2 bottles
   {house:"Armaf",name:"Le Parfait",inspiration:"Creed Aventus x Green Irish Tweed",occ_key:"office",occ_detail:"Office / smart casual / daytime",s_key:"ss"},
   {house:"Armaf",name:"Club de Nuit Milestone",inspiration:"Creed Millésime Impérial",occ_key:"casual",occ_detail:"Smart casual / beach / summer date",s_key:"ss"},
+  // SINGLES — 13 bottles
   {house:"Singles",name:"Anti Social Parfum Club - Most Wanted",inspiration:"Azzaro The Most Wanted",occ_key:"date",occ_detail:"Date night / casual evening / social",s_key:"fw"},
   {house:"Singles",name:"Afnan Supremacy Collector's Edition",inspiration:"Creed Aventus Absolu",occ_key:"office",occ_detail:"Smart casual / office / date",s_key:"ss"},
   {house:"Singles",name:"Ajmal Evoke Gold",inspiration:"Prada L'Homme",occ_key:"office",occ_detail:"Office / smart casual / everyday",s_key:"yr"},
@@ -750,12 +865,12 @@ const DEFAULT_COL=[
   {house:"Singles",name:"Rayhaan Aquatica",inspiration:"Creed Virgin Island Water",occ_key:"casual",occ_detail:"Beach / vacation / casual summer",s_key:"ss"},
   {house:"Singles",name:"Royalty by Maluma Onyx",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
   {house:"Singles",name:"Vurv Royce Black",inspiration:"1 Million Privé-adjacent",occ_key:"date",occ_detail:"Date night / club / evening",s_key:"fw"},
+  // MIRIS OILS — 4 bottles
   {house:"MIRIS Oils",name:"MIRIS No54602",inspiration:"Nishane Hacivat",occ_key:"casual",occ_detail:"Casual / office / everyday / layering",s_key:"ss",isBase:true},
   {house:"MIRIS Oils",name:"MIRIS No56902",inspiration:"Kilian Apple Brandy on the Rocks",occ_key:"date",occ_detail:"Cozy evening / social / casual date",s_key:"fw"},
   {house:"MIRIS Oils",name:"MIRIS No47319",inspiration:"JPG Ultra Male",occ_key:"evening",occ_detail:"Night out / club / date",s_key:"fw"},
   {house:"MIRIS Oils",name:"MIRIS No59797",inspiration:"Carolina Herrera Bad Boy Cobalt Parfum Electrique",occ_key:"date",occ_detail:"Date night / evening / bold",s_key:"fw"},
 ];
-
 const DEFAULT_LAYERS=[
   {items:["Ottoman Breeze","His Perspective Extrait"],ratio:"2 + 2",desc:"Hacivat's green freshness married to Paradigme's powdery woods — an elevated office signature that outperforms either alone."},
   {items:["Poseidon's Swimming Cologne","His Perspective Extrait"],ratio:"2 + 2",desc:"Aquatic chroma with a powdery musc anchor. The Afternoon Swim DNA turns brighter against Paradigme — beach-to-business in a single wear."},
@@ -801,7 +916,7 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
-  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred})[id]?.();
+  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred,weather:renderWeatherPage})[id]?.();
   updateStats();
 }
 
@@ -1293,6 +1408,9 @@ function buildSuggestions(fragName, frag) {
       if (f.isBase) score += 4;
       if (f.s_key === frag.s_key) score += 2;
       if (f.occ_key === frag.occ_key) score += 1;
+      // Occasion filter bonus — strongly favor matching occasion
+      if (occFilter && f.occ_key === occFilter) score += 8;
+      if (occFilter && f.occ_key !== occFilter && occFilter !== '') score -= 3;
       // Weather scoring
       if (weatherFavored.includes(fDNA)) score += 6;
       if (weatherPenalized.includes(fDNA)) score -= 5;
@@ -1325,13 +1443,17 @@ function buildSuggestions(fragName, frag) {
     return base;
   }
 
+  // Occasion filter
+  const occFilter = document.getElementById('sug-occ')?.value || '';
+  const occLabels = {date:'Date Night',office:'Office / Day',evening:'Evening Out',casual:'Casual Wear',sport:'Active / Sport',special:'Special Occasion'};
+
   const occasions = ['Date Night','Office / Day','Evening Out','Weekend Casual'];
 
   return picks.slice(0,4).map((s, i) => ({
     partner: s.f.name,
     partnerSprays: partnerSprays(s.fDNA),
     order: getOrder(baseDNA, s.fDNA),
-    occasion: occasions[i] || getOccasionLabel(s.f.occ_key, s.f.s_key),
+    occasion: occFilter ? (occLabels[occFilter] || occasions[i]) : (occasions[i] || getOccasionLabel(s.f.occ_key, s.f.s_key)),
     note: getPairingNote(fragName, baseDNA, s.f.name, s.fDNA, s.f.inspiration),
     partnerDNA: s.fDNA,
   }));
@@ -1480,6 +1602,176 @@ function renderStarred(){
   const g=document.getElementById('starred-grid');
   if(!list.length){g.innerHTML='<div class="empty-st"><em>None starred yet</em>Open any bottle and tap ☆ Star</div>';return;}
   g.innerHTML=list.map(f=>`<div class="card ${f.s_key} starred" onclick="openModal('${esc(f.name)}')"><span class="card-star">★</span><div class="card-house">${f.house}</div><div class="card-name">${f.name}</div><div class="card-insp">${f.inspiration}</div><div class="card-tags"><span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span><span class="tag tsea">${season(f.s_key)}</span></div></div>`).join('');
+}
+
+// ============================================================
+// WEATHER PAGE
+// ============================================================
+function renderWeatherPage() {
+  // If weather already loaded, render immediately; otherwise wait
+  if (WEATHER) {
+    renderWxContent();
+  } else {
+    // fetchWeather will render when done
+    fetchWeather(true);
+  }
+}
+
+// Override fetchWeather to optionally render weather page after
+const _origFetchWeather = fetchWeather;
+
+async function fetchWeather(renderPage) {
+  const bar = document.getElementById('weather-bar');
+  try {
+    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=38.8799&longitude=-77.1068&current=temperature_2m,weathercode,relative_humidity_2m,windspeed_10m,apparent_temperature&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_probability_max&temperature_unit=fahrenheit&windspeed_unit=mph&forecast_days=1&timezone=America/New_York');
+    const data = await res.json();
+    const c = data.current;
+    const d = data.daily;
+    const temp = Math.round(c.temperature_2m);
+    const feels = Math.round(c.apparent_temperature);
+    const humid = c.relative_humidity_2m;
+    const wind = Math.round(c.windspeed_10m);
+    const code = c.weathercode;
+    const hi = Math.round(d.temperature_2m_max[0]);
+    const lo = Math.round(d.temperature_2m_min[0]);
+    const precip = d.precipitation_probability_max[0];
+
+    const wx = getWeatherDesc(code);
+    WEATHER = {temp, feels, humid, wind, code, hi, lo, precip, ...wx};
+
+    const scentNote = getWeatherScentNote(temp, humid, code);
+
+    // Update mini weather bar in layering tab
+    if(bar) bar.innerHTML = `
+      <span class="weather-icon">${wx.icon}</span>
+      <div class="weather-info">
+        <span class="weather-temp">${temp}°F</span>
+        <span class="weather-desc">${wx.desc} &middot; ${humid}% humidity &middot; ${wind} mph</span>
+        <div class="weather-note">${scentNote.tip}</div>
+      </div>
+      <span class="weather-badge" style="border-color:${scentNote.color};color:${scentNote.color};">${scentNote.label}</span>
+    `;
+
+    if(renderPage) renderWxContent();
+  } catch(e) {
+    if(bar) bar.innerHTML = '<span style="font-size:9px;color:var(--dove);">Weather unavailable</span>';
+  }
+}
+
+function renderWxContent() {
+  if (!WEATHER) return;
+  const {temp, feels, humid, wind, code, hi, lo, precip, icon, desc} = WEATHER;
+  const scentNote = getWeatherScentNote(temp, humid, code);
+
+  document.getElementById('wx-loading').style.display = 'none';
+  document.getElementById('wx-content').style.display = 'block';
+  document.getElementById('wx-icon-big').textContent = icon;
+  document.getElementById('wx-temp-big').textContent = temp + '°F';
+  document.getElementById('wx-desc-big').textContent = desc;
+  document.getElementById('wx-meta').innerHTML = `Feels like ${feels}° &middot; Hi ${hi}° / Lo ${lo}° &middot; ${humid}% humidity &middot; ${wind} mph wind &middot; ${precip}% chance of rain`;
+  document.getElementById('wx-badge-wrap').innerHTML = `<span style="display:inline-block;padding:6px 14px;border:1px solid ${scentNote.color};color:${scentNote.color};font-size:8px;letter-spacing:.16em;text-transform:uppercase;">${scentNote.label}</span>`;
+  document.getElementById('wx-scent-tip').textContent = scentNote.tip;
+
+  // Spray recommendation
+  let sprays, sprayNote;
+  if (temp > 85) { sprays = '1 – 2'; sprayNote = 'Heat amplifies heavily — go minimal'; }
+  else if (temp > 75 && humid > 65) { sprays = '2'; sprayNote = 'Humidity boosts sillage significantly'; }
+  else if (temp > 72) { sprays = '2 – 3'; sprayNote = 'Ideal projection conditions'; }
+  else if (temp > 55) { sprays = '3 – 4'; sprayNote = 'Good conditions — standard application'; }
+  else if (temp > 40) { sprays = '4 – 5'; sprayNote = 'Cool air dampens projection — layer up'; }
+  else { sprays = '5 – 6'; sprayNote = 'Cold suppresses scent — apply generously'; }
+  document.getElementById('wx-sprays').textContent = sprays;
+  document.getElementById('wx-spray-note').textContent = sprayNote;
+
+  // DNA best/avoid
+  let best = [], avoid = [];
+  if (temp < 45) { best = ['Oud / Resinous','Oriental / Amber','Tobacco / Smoky','Gourmand']; avoid = ['Aquatic / Marine','Citrus / Fresh']; }
+  else if (temp < 62) { best = ['Woody / Aromatic','Fougère','Oriental / Amber','Gourmand']; avoid = ['Oud / Resinous']; }
+  else if (temp < 75) { best = ['Fougère','Aquatic / Marine','Woody / Aromatic','Citrus / Fresh']; avoid = ['Oud / Resinous','Tobacco / Smoky']; }
+  else { best = ['Aquatic / Marine','Citrus / Fresh','Musky / Skin','Fougère']; avoid = ['Oud / Resinous','Oriental / Amber','Tobacco / Smoky','Gourmand']; }
+
+  document.getElementById('wx-dna-best').innerHTML = best.map(d => {
+    const col = DNA_FAMILIES[d]?.color || 'var(--gold)';
+    return `<span style="color:${col};">✓ ${d}</span>`;
+  }).join('<br>');
+  document.getElementById('wx-dna-avoid').innerHTML = avoid.length ? avoid.map(d => `<span>✕ ${d}</span>`).join('<br>') : '<span style="color:var(--forest);">All families work today</span>';
+
+  document.getElementById('wx-feels').innerHTML = `
+    Humidity: ${humid}%<br>
+    Wind: ${wind} mph<br>
+    Rain chance: ${precip}%<br>
+    ${humid > 65 ? '<span style="color:var(--rose);">High humidity — reduce sprays</span>' : precip > 50 ? '<span style="color:var(--aqua);">Rain likely — sillage boosted</span>' : '<span style="color:var(--forest);">Good wear conditions</span>'}
+  `;
+
+  // Render today's picks
+  renderWxPicks(best);
+  showWxOcc('date', document.querySelector('.wx-occ-btn.active'));
+}
+
+function scoreBottleForWeather(f) {
+  if (!WEATHER) return 0;
+  const {temp, humid, code} = WEATHER;
+  const fDNA = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
+  let score = 0;
+
+  // Temperature-based DNA scoring
+  if (temp < 45) {
+    if (['Oud / Resinous','Oriental / Amber','Tobacco / Smoky','Gourmand'].includes(fDNA)) score += 10;
+    if (['Aquatic / Marine','Citrus / Fresh'].includes(fDNA)) score -= 6;
+    if (f.s_key === 'fw') score += 4;
+  } else if (temp < 62) {
+    if (['Woody / Aromatic','Fougère','Oriental / Amber'].includes(fDNA)) score += 8;
+    if (f.s_key === 'fw' || f.s_key === 'yr') score += 3;
+  } else if (temp < 75) {
+    if (['Fougère','Aquatic / Marine','Woody / Aromatic','Citrus / Fresh','Musky / Skin'].includes(fDNA)) score += 8;
+    if (f.s_key === 'ss' || f.s_key === 'yr') score += 3;
+  } else {
+    if (['Aquatic / Marine','Citrus / Fresh','Musky / Skin','Fougère'].includes(fDNA)) score += 10;
+    if (['Oud / Resinous','Oriental / Amber','Tobacco / Smoky','Gourmand'].includes(fDNA)) score -= 6;
+    if (f.s_key === 'ss') score += 4;
+  }
+  // Humidity penalty for heavy sillage
+  if (humid > 70 && ['Oud / Resinous','Oriental / Amber','Gourmand'].includes(fDNA)) score -= 3;
+  // Rain bonus for aquatics
+  if (code >= 50 && ['Aquatic / Marine','Fougère'].includes(fDNA)) score += 3;
+  // Starred bonus
+  if (gst(f.name).starred || f.starred) score += 2;
+  score += Math.random() * 1.5;
+  return score;
+}
+
+function renderWxPicks(bestDNA) {
+  const scored = DB.col.map(f => ({f, score: scoreBottleForWeather(f)})).sort((a,b) => b.score - a.score);
+  const picks = scored.slice(0, 12).map(s => s.f);
+  document.getElementById('wx-picks-meta').textContent = picks.length + ' top picks for today';
+  document.getElementById('wx-picks-grid').innerHTML = picks.map(f => cardHTML(f)).join('');
+}
+
+function showWxOcc(occ, btn) {
+  document.querySelectorAll('.wx-occ-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const scored = DB.col
+    .filter(f => f.occ_key === occ)
+    .map(f => ({f, score: scoreBottleForWeather(f)}))
+    .sort((a,b) => b.score - a.score);
+  const picks = scored.slice(0, 8).map(s => s.f);
+  document.getElementById('wx-occ-grid').innerHTML = picks.length
+    ? picks.map(f => cardHTML(f)).join('')
+    : '<div class="empty-st"><em>No bottles found</em>for this occasion</div>';
+}
+
+function cardHTML(f) {
+  const st = gst(f.name), isS = st.starred || f.starred, dna = st.dna || DEFAULT_DNA[f.name] || '';
+  const dcol = dna ? DNA_FAMILIES[dna]?.color : '';
+  const dtag = dna ? `<span class="tag" style="border-color:${dcol}33;color:${dcol};font-size:6.5px;">${dna}</span>` : '';
+  const btag = f.isBase ? `<span class="tag tbase">BASE</span>` : '';
+  return `<div class="card ${f.s_key}${isS?' starred':''}" onclick="openModal('${esc(f.name)}')">
+    <span class="card-star">★</span>
+    <div class="card-house">${f.house}</div>
+    <div class="card-name">${f.name}</div>
+    <div class="card-insp">${f.inspiration}</div>
+    <div class="card-tags"><span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span><span class="tag tsea">${season(f.s_key)}</span>${dtag}${btag}</div>
+  </div>`;
 }
 
 // ============================================================
