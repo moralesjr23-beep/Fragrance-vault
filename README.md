@@ -8,61 +8,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink:#f7f3ee;--parchment:#2a1e10;--gold:#8a5e1e;--gold-light:#6b4a18;--gold-dim:#a07830;
-  --smoke:#ffffff;--ash:#f0ebe3;--char:#e8e2d8;--dove:#6a5a4a;--cream:#1a1208;
+  --ink:#ede8de;--parchment:#2a1e10;--gold:#8a5e1e;--gold-light:#6b4a18;--gold-dim:#a07830;
+  --smoke:#ffffff;--ash:#e8e2d8;--char:#dfd9cf;--dove:#6a5a4a;--cream:#1a1208;
   --rose:#b05a42;--aqua:#2a6575;--forest:#2d5028;--ab:rgba(140,100,40,0.18);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--ink);color:var(--parchment);font-family:'Josefin Sans',sans-serif;font-weight:400;min-height:100vh;overflow-x:hidden;}
+body{background:#f0ebe3;color:var(--parchment);font-family:'Josefin Sans',sans-serif;font-weight:400;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.7;}
 
-.header{display:flex;align-items:center;justify-content:space-between;padding:20px 42px;border-bottom:1px solid var(–ab);position:sticky;top:0;background:rgba(247,243,238,0.97);backdrop-filter:blur(16px);z-index:100;gap:16px;flex-wrap:wrap;}
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(–ab);position:sticky;top:0;background:rgba(247,243,238,0.97);backdrop-filter:blur(16px);z-index:100;gap:12px;flex-wrap:wrap;}
 .brand-name{font-family:‘Cormorant Garamond’,serif;font-size:24px;font-weight:600;letter-spacing:.2em;color:var(–gold);text-transform:uppercase;}
 .brand-sub{font-size:7.5px;letter-spacing:.26em;color:var(–dove);text-transform:uppercase;margin-top:1px;}
-.stats-strip{display:flex;gap:24px;align-items:center;}
+.stats-strip{display:flex;gap:16px;align-items:center;}
 .stat{text-align:center;}
-.stat-num{font-family:‘Cormorant Garamond’,serif;font-size:20px;color:var(–gold);display:block;line-height:1;}
+.stat-num{font-family:‘Cormorant Garamond’,serif;font-size:22px;color:var(–gold);display:block;line-height:1;font-weight:600;}
 .stat-label{font-size:7.5px;letter-spacing:.18em;color:var(–dove);text-transform:uppercase;margin-top:2px;font-weight:600;}
 .sdiv{width:1px;height:24px;background:var(–ab);}
 .add-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;border:1px solid var(–gold);color:var(–gold);font-family:‘Josefin Sans’,sans-serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
 .add-btn:hover{background:rgba(201,168,76,.1);}
 
-.nav-bar{display:flex;padding:0 42px;border-bottom:1px solid rgba(140,100,40,.12);background:#ece6dc;overflow-x:auto;}
+.nav-bar{display:flex;padding:0 8px;border-bottom:1px solid rgba(140,100,40,.12);background:#ece6dc;overflow-x:auto;}
 .nav-bar::-webkit-scrollbar{display:none;}
-.nav-tab{padding:12px 18px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(–dove);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-left:none;border-right:none;border-top:none;font-family:‘Josefin Sans’,sans-serif;font-weight:600;}
+.nav-tab{padding:11px 14px;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(–dove);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-left:none;border-right:none;border-top:none;font-family:‘Josefin Sans’,sans-serif;font-weight:600;}
 .nav-tab:hover{color:var(–gold-light);}
 .nav-tab.active{color:var(–gold);border-bottom-color:var(–gold);}
 
-.main{padding:30px 42px;max-width:1700px;margin:0 auto;}
-.page{display:none;}
+.main{padding:18px 16px;max-width:1700px;margin:0 auto;}@media(min-width:768px){.main{padding:28px 36px;}}
+.page{display:none;background:#f0ebe3;}
 .page.active{display:block;}
 
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;}.toolbar .sw{grid-column:1/-1;}
 .sw{position:relative;flex:1;min-width:200px;}
-.sw input{width:100%;background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:9px 13px 9px 35px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.1em;outline:none;transition:border-color .2s;}
+.sw input{width:100%;background:#ffffff;border:1px solid rgba(140,100,40,.25);color:var(–parchment);padding:9px 13px 9px 35px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.1em;outline:none;transition:border-color .2s;border-radius:0;}
 .sw input:focus{border-color:rgba(201,168,76,.4);}
 .sw input::placeholder{color:var(–dove);}
 .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(–dove);font-size:14px;}
-select{background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:9px 11px;font-family:‘Josefin Sans’,sans-serif;font-size:9px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;outline:none;}
-select option{background:#faf7f2;}
+select{background:#ffffff;border:1px solid rgba(140,100,40,.25);color:var(–parchment);padding:8px 11px;font-family:‘Josefin Sans’,sans-serif;font-size:9px;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;outline:none;border-radius:0;-webkit-appearance:none;appearance:none;}
+select option{background:#ffffff;}
 
 .sec-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;}
 .sec-title{font-family:‘Cormorant Garamond’,serif;font-size:22px;font-weight:600;color:var(–cream);letter-spacing:.04em;}
 .sec-ct{font-size:8.5px;letter-spacing:.2em;color:var(–dove);text-transform:uppercase;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:1px;background:rgba(140,100,40,.12);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:rgba(140,100,40,.12);}@media(max-width:600px){.grid{grid-template-columns:1fr;}}
 
-.card{background:#faf7f2;padding:19px 21px;cursor:pointer;transition:background .15s;position:relative;overflow:hidden;animation:fu .3s ease;}
+.card{background:#ffffff;padding:18px 20px;cursor:pointer;transition:background .15s;position:relative;overflow:hidden;animation:fu .3s ease;border-bottom:1px solid rgba(140,100,40,.06);}
 @keyframes fu{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
-.card:hover{background:#e8e0d2;}
+.card:hover{background:#f0ebe3;}
 .card::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;}
 .card.ss::before{background:#2a6575;}
 .card.fw::before{background:#8a5e1e;}
 .card.yr::before{background:#8a7a6a;}
-.card-house{font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(–gold);margin-bottom:4px;font-weight:600;}
-.card-name{font-family:‘Cormorant Garamond’,serif;font-size:17px;color:var(–cream);line-height:1.2;margin-bottom:4px;font-weight:600;}
-.card-insp{font-size:9px;color:var(–gold-dim);letter-spacing:.03em;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic;font-weight:500;}
+.card-house{font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);margin-bottom:3px;font-weight:700;}
+.card-name{font-family:‘Cormorant Garamond’,serif;font-size:18px;color:var(–cream);line-height:1.15;margin-bottom:5px;font-weight:600;}
+.card-insp{font-size:9.5px;color:var(–dove);letter-spacing:.02em;margin-bottom:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic;font-weight:400;}
 .card-tags{display:flex;gap:5px;flex-wrap:wrap;}
-.tag{font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border:1px solid;font-weight:600;}
+.tag{font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;font-weight:600;border-radius:0;}
 .td{border-color:rgba(176,90,66,.4);color:var(–rose);}
 .to{border-color:rgba(58,117,133,.4);color:var(–aqua);}
 .te{border-color:rgba(201,168,76,.3);color:var(–gold-dim);}
@@ -84,7 +84,7 @@ select option{background:#faf7f2;}
 .modal,.add-modal,.confirm-box{animation:sm .22s ease;}
 
 /* DETAIL MODAL */
-.modal{background:#faf7f2;border:1px solid rgba(140,100,40,.2);max-width:640px;width:92vw;max-height:88vh;overflow-y:auto;position:relative;}
+.modal{background:#ffffff;border:1px solid rgba(140,100,40,.2);max-width:640px;width:92vw;max-height:88vh;overflow-y:auto;position:relative;}
 .modal::-webkit-scrollbar{width:3px;}
 .modal::-webkit-scrollbar-thumb{background:var(–gold-dim);}
 .mh{padding:26px 30px 20px;border-bottom:1px solid rgba(201,168,76,.09);position:relative;}
@@ -99,7 +99,7 @@ select option{background:#faf7f2;}
 .fl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);margin-bottom:5px;font-weight:700;}
 .fv{font-family:‘Cormorant Garamond’,serif;font-size:14px;color:var(–cream);}
 .mdiv{height:1px;background:rgba(201,168,76,.06);margin:16px 0;}
-textarea.notes{width:100%;background:#ede7db;border:1px solid rgba(140,100,40,.2);color:var(–cream);font-family:‘Cormorant Garamond’,serif;font-size:14px;line-height:1.6;padding:11px 13px;resize:vertical;min-height:68px;outline:none;transition:border-color .2s;}
+textarea.notes{width:100%;background:#f0ebe3;border:1px solid rgba(140,100,40,.2);color:var(–cream);font-family:‘Cormorant Garamond’,serif;font-size:14px;line-height:1.6;padding:11px 13px;resize:vertical;min-height:68px;outline:none;transition:border-color .2s;}
 textarea.notes:focus{border-color:rgba(201,168,76,.32);}
 textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px;}
@@ -132,16 +132,16 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .lc-del:hover{color:var(–rose);}
 
 /* Add layer form */
-.alf{background:#ede7db;border:1px solid rgba(140,100,40,.18);padding:13px;margin-top:9px;}
-.alf input,.alf textarea{width:100%;background:#faf7f2;border:1px solid rgba(140,100,40,.15);color:var(–parchment);padding:7px 10px;font-family:‘Josefin Sans’,sans-serif;font-size:9.5px;letter-spacing:.07em;outline:none;margin-bottom:7px;}
+.alf{background:#ede8de;border:1px solid rgba(140,100,40,.18);padding:13px;margin-top:9px;}
+.alf input,.alf textarea{width:100%;background:#ffffff;border:1px solid rgba(140,100,40,.15);color:var(–parchment);padding:7px 10px;font-family:‘Josefin Sans’,sans-serif;font-size:9.5px;letter-spacing:.07em;outline:none;margin-bottom:7px;}
 .alf textarea{font-family:‘Cormorant Garamond’,serif;font-size:13px;resize:vertical;min-height:50px;}
 .alf input::placeholder,.alf textarea::placeholder{color:var(–dove);}
 
 /* ADD BOTTLE MODAL */
-.add-modal{background:#faf7f2;border:1px solid rgba(140,100,40,.2);max-width:540px;width:92vw;max-height:88vh;overflow-y:auto;position:relative;}
+.add-modal{background:#ffffff;border:1px solid rgba(140,100,40,.2);max-width:540px;width:92vw;max-height:88vh;overflow-y:auto;position:relative;}
 .add-modal::-webkit-scrollbar{width:3px;}
 .add-modal::-webkit-scrollbar-thumb{background:var(–gold-dim);}
-.add-modal input,.add-modal select,.add-modal textarea{width:100%;background:#ede7db;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:9px 12px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.07em;outline:none;margin-bottom:9px;transition:border-color .2s;}
+.add-modal input,.add-modal select,.add-modal textarea{width:100%;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:9px 12px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.07em;outline:none;margin-bottom:9px;transition:border-color .2s;}
 .add-modal input:focus,.add-modal select:focus{border-color:rgba(201,168,76,.38);}
 .add-modal input::placeholder{color:var(–dove);}
 .add-modal select option{background:var(–ash);}
@@ -149,8 +149,8 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 
 /* ANALYTICS */
-.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.acard{background:#faf7f2;padding:24px 26px;}
+.agrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(140,100,40,.15);}
+.acard{background:#ffffff;padding:24px 26px;}
 .atitle{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);margin-bottom:14px;font-weight:700;}
 .br{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .blbl{font-size:9.5px;letter-spacing:.03em;color:var(–cream);width:118px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;font-weight:500;}
@@ -165,17 +165,17 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
 /* DNA PAGE */
 .dna-hero{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.dnaf{background:#faf7f2;padding:20px 22px;cursor:pointer;transition:background .15s;border-left:3px solid;}
-.dnaf:hover{background:#e8e0d2;}
+.dnaf{background:#ffffff;padding:20px 22px;cursor:pointer;transition:background .15s;border-left:3px solid;}
+.dnaf:hover{background:#f0ebe3;}
 .dnaf-name{font-family:‘Cormorant Garamond’,serif;font-size:17px;color:var(–cream);margin-bottom:3px;font-weight:600;}
 .dnaf-ct{font-size:7.5px;letter-spacing:.18em;color:var(–dove);text-transform:uppercase;}
 .dnaf-list{font-size:8.5px;color:var(–dove);margin-top:7px;line-height:1.65;}
-.dna-panel{background:#ede7db;border:1px solid rgba(140,100,40,.2);padding:26px;margin-top:1px;display:none;}
+.dna-panel{background:#f0ebe3;border:1px solid rgba(140,100,40,.2);padding:26px;margin-top:1px;display:none;}
 .dna-panel.open{display:block;}
 
 /* LAB PAGE */
 .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.lcard{background:#faf7f2;padding:20px 24px;}
+.lcard{background:#ffffff;padding:20px 24px;}
 .lcomb{display:flex;align-items:center;gap:7px;margin-bottom:9px;flex-wrap:wrap;}
 .litem{font-family:‘Cormorant Garamond’,serif;font-size:16px;color:var(–cream);font-weight:600;}
 .lplus{color:var(–gold-dim);font-size:10px;}
@@ -183,11 +183,11 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .ldesc{font-size:10px;color:var(–dove);line-height:1.55;letter-spacing:.04em;}
 
 /* AI SUGGESTER */
-.suggester{background:#ede7db;border:1px solid rgba(140,100,40,.2);padding:28px 32px;margin-bottom:1px;}
+.suggester{background:#ffffff;border:1px solid rgba(140,100,40,.2);padding:28px 32px;margin-bottom:1px;}
 .sug-title{font-family:‘Cormorant Garamond’,serif;font-size:20px;color:var(–cream);margin-bottom:4px;}
 .sug-sub{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(–dove);margin-bottom:22px;}
 .sug-controls{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:18px;}
-.sug-select{flex:1;min-width:220px;background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:10px 13px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.08em;outline:none;}
+.sug-select{flex:1;min-width:220px;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:10px 13px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;letter-spacing:.08em;outline:none;}
 .sug-select:focus{border-color:rgba(201,168,76,.4);}
 .spray-wrap{display:flex;flex-direction:column;gap:5px;min-width:160px;}
 .spray-label{font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold-dim);}
@@ -209,7 +209,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .sug-chosen-spray{font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(–dove);}
 .sug-arrow{color:rgba(201,168,76,.3);font-size:20px;}
 .sug-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.sug-card{background:#faf7f2;padding:18px 22px;border-top:2px solid;}
+.sug-card{background:#ffffff;padding:18px 22px;border-top:2px solid;}
 .sug-card-title{font-size:7px;letter-spacing:.24em;text-transform:uppercase;margin-bottom:10px;}
 .sug-combo-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
 .sug-frag{font-family:‘Cormorant Garamond’,serif;font-size:15px;color:var(–cream);}
@@ -224,7 +224,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .sug-loading em{display:block;font-family:‘Cormorant Garamond’,serif;font-style:italic;font-size:17px;color:rgba(201,168,76,.3);animation:pulse 1.4s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:.8;}}
 .sug-err{padding:18px;background:rgba(176,90,66,.07);border:1px solid rgba(176,90,66,.2);color:var(–rose);font-size:10px;line-height:1.6;margin-top:12px;}
-.weather-bar{display:flex;align-items:center;gap:18px;padding:10px 16px;background:#ede7db;border:1px solid rgba(140,100,40,.15);margin-bottom:16px;flex-wrap:wrap;}
+.weather-bar{display:flex;align-items:center;gap:18px;padding:10px 16px;background:#f0ebe3;border:1px solid rgba(140,100,40,.15);margin-bottom:16px;flex-wrap:wrap;}
 .weather-icon{font-size:22px;line-height:1;}
 .weather-info{flex:1;}
 .weather-temp{font-family:‘Cormorant Garamond’,serif;font-size:20px;color:var(–gold);display:inline;}
@@ -234,8 +234,8 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .weather-badge{font-size:7px;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;border:1px solid;margin-top:6px;display:inline-block;}
 
 /* ROTATION */
-.ritem{background:#faf7f2;padding:13px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(201,168,76,.03);}
-.ritem:hover{background:#e8e0d2;}
+.ritem{background:#ffffff;padding:13px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(201,168,76,.03);}
+.ritem:hover{background:#f0ebe3;}
 .rrank{font-family:‘Cormorant Garamond’,serif;font-size:19px;color:var(–gold-dim);width:28px;flex-shrink:0;}
 .rname{font-family:‘Cormorant Garamond’,serif;font-size:16px;color:var(–cream);margin-bottom:2px;font-weight:600;}
 .rmeta{font-size:8px;color:var(–dove);letter-spacing:.07em;}
@@ -248,7 +248,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .empty-st{padding:65px;text-align:center;color:var(–dove);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;}
 .empty-st em{display:block;font-family:‘Cormorant Garamond’,serif;font-style:italic;font-size:19px;color:rgba(201,168,76,.18);margin-bottom:7px;letter-spacing:0;text-transform:none;}
 
-.confirm-box{background:#faf7f2;border:1px solid rgba(176,90,66,.4);padding:22px 25px;max-width:370px;width:90vw;}
+.confirm-box{background:#ffffff;border:1px solid rgba(176,90,66,.4);padding:22px 25px;max-width:370px;width:90vw;}
 .confirm-box h3{font-family:‘Cormorant Garamond’,serif;font-size:20px;color:var(–cream);margin-bottom:7px;}
 .confirm-box p{font-size:10px;color:var(–dove);line-height:1.6;margin-bottom:16px;}
 
@@ -260,16 +260,16 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .quick-log{position:fixed;bottom:24px;right:24px;z-index:150;}
 .ql-btn{width:56px;height:56px;border-radius:50%;background:var(–gold);border:none;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(140,100,40,.35);transition:all .2s;display:flex;align-items:center;justify-content:center;}
 .ql-btn:hover{transform:scale(1.08);}
-.ql-panel{position:fixed;bottom:90px;right:24px;background:#faf7f2;border:1px solid rgba(140,100,40,.2);padding:18px;width:300px;z-index:150;box-shadow:0 8px 32px rgba(0,0,0,.12);display:none;}
+.ql-panel{position:fixed;bottom:90px;right:24px;background:#ffffff;border:1px solid rgba(140,100,40,.2);padding:18px;width:300px;z-index:150;box-shadow:0 8px 32px rgba(0,0,0,.12);display:none;}
 .ql-panel.open{display:block;animation:fu .2s ease;}
 .ql-search{width:100%;background:var(–ash);border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:9px 12px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;outline:none;margin-bottom:8px;font-weight:500;}
 .ql-list{max-height:220px;overflow-y:auto;}
 .ql-item{padding:9px 12px;cursor:pointer;font-size:10px;color:var(–cream);border-bottom:1px solid rgba(140,100,40,.08);transition:background .1s;font-weight:500;}
-.ql-item:hover{background:var(–ash);}
+.ql-item:hover{background:#f0ebe3;}
 .ql-item-house{font-size:7.5px;color:var(–gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
 /* INSIGHTS */
 .ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.ins-card{background:#faf7f2;padding:24px 26px;}
+.ins-card{background:#ffffff;padding:24px 26px;}
 .ins-card-title{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(–gold);margin-bottom:14px;font-weight:700;}
 .ins-big{font-family:‘Cormorant Garamond’,serif;font-size:42px;font-weight:600;color:var(–gold);line-height:1;}
 .ins-sub{font-size:9px;color:var(–dove);letter-spacing:.06em;margin-top:3px;font-weight:500;}
@@ -287,9 +287,9 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .alert-text{font-size:10px;color:var(–cream);font-weight:500;}
 .alert-sub{font-size:8.5px;color:var(–dove);margin-top:2px;}
 /* WISHLIST */
-.wl-form{background:#ede7db;border:1px solid rgba(140,100,40,.2);padding:20px 24px;margin-bottom:1px;}
+.wl-form{background:#f0ebe3;border:1px solid rgba(140,100,40,.2);padding:20px 24px;margin-bottom:1px;}
 .wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:rgba(140,100,40,.12);}
-.wl-card{background:#faf7f2;padding:18px 22px;position:relative;}
+.wl-card{background:#ffffff;padding:18px 22px;position:relative;}
 .wl-badge{font-size:7px;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;border:1px solid;font-weight:700;display:inline-block;margin-bottom:8px;}
 .wl-name{font-family:‘Cormorant Garamond’,serif;font-size:16px;color:var(–cream);font-weight:600;margin-bottom:2px;}
 .wl-house{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(–gold);font-weight:600;margin-bottom:5px;}
@@ -298,6 +298,30 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 .wl-del:hover{color:var(–rose);}
 .stock-btn{font-size:7px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;cursor:pointer;background:transparent;font-family:‘Josefin Sans’,sans-serif;font-weight:600;margin-left:6px;transition:all .15s;}
 .stock-low{border-color:var(–rose)!important;color:var(–rose)!important;}
+/* CUSTOM TAGS */
+.ctag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border:1px solid rgba(140,100,40,.3);background:rgba(140,100,40,.06);font-size:7.5px;letter-spacing:.12em;text-transform:uppercase;color:var(–gold);font-weight:600;margin:2px;}
+.ctag-del{background:none;border:none;color:var(–dove);cursor:pointer;font-size:10px;padding:0 0 0 2px;line-height:1;}
+.ctag-del:hover{color:var(–rose);}
+.tag-input{background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(–parchment);padding:6px 10px;font-family:‘Josefin Sans’,sans-serif;font-size:10px;outline:none;width:140px;}
+/* MORNING REC */
+.morning-card{background:#ffffff;border:1px solid rgba(140,100,40,.25);border-left:4px solid var(–gold);padding:20px 24px;margin-bottom:16px;position:relative;}
+
+.morning-pick{font-family:‘Cormorant Garamond’,serif;font-size:22px;color:var(–cream);font-weight:600;margin:4px 0 3px;}
+.morning-house{font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(–gold);font-weight:700;}
+.morning-reason{font-size:9.5px;color:var(–dove);line-height:1.5;margin-top:4px;}
+/* SOTD CARD */
+.sotd-card{background:#ffffff;border:2px solid rgba(140,100,40,.2);padding:20px;text-align:center;max-width:320px;margin:0 auto;}
+.sotd-date{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(–gold);font-weight:700;margin-bottom:8px;}
+.sotd-name{font-family:‘Cormorant Garamond’,serif;font-size:22px;font-weight:600;color:var(–cream);margin-bottom:3px;}
+.sotd-house{font-size:9px;color:var(–dove);letter-spacing:.1em;margin-bottom:10px;}
+.sotd-meta{font-size:9px;color:var(–dove);line-height:1.8;}
+/* COST PER WEAR */
+.cpw-good{color:var(–forest);font-weight:700;}
+.cpw-ok{color:var(–gold);font-weight:700;}
+.cpw-bad{color:var(–rose);font-weight:700;}
+/* STREAK */
+.streak-num{font-family:‘Cormorant Garamond’,serif;font-size:52px;color:var(–gold);font-weight:600;line-height:1;}
+.streak-fire{font-size:28px;}
 /* BOTTLE PAGE */
 #page-bottle .cpill{font-size:7px;padding:4px 8px;}
 .bp-wear-entry{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(140,100,40,.08);font-size:10px;font-weight:500;}
@@ -337,6 +361,8 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <button class="nav-tab" onclick="showPage('insights',this)">&#10024; Insights</button>
   <button class="nav-tab" onclick="showPage('wishlist',this)">&#9734; Wishlist</button>
   <button class="nav-tab" onclick="showPage('search',this)">&#128269; Search</button>
+  <button class="nav-tab" onclick="showPage('importexport',this)">&#8645; Import / Export</button>
+  <button class="nav-tab" onclick="showPage('duaadvisor',this)" style="color:var(--gold);font-weight:700;">✦ Dua Advisor</button>
 </nav>
 
 <main class="main">
@@ -356,7 +382,38 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
       <option>Gourmand</option><option>Floral</option><option>Chypre</option>
       <option>Tobacco / Smoky</option><option>Musky / Skin</option>
     </select>
+    <select id="ftag" onchange="renderGrid()"><option value="">All Tags</option></select>
+    <select id="fsort" onchange="renderGrid()">
+      <option value="default">Sort: Default</option>
+      <option value="name">Sort: Name A-Z</option>
+      <option value="house">Sort: House</option>
+      <option value="rating">Sort: Highest Rated</option>
+      <option value="wears">Sort: Most Worn</option>
+      <option value="recent">Sort: Recently Added</option>
+      <option value="unworn">Sort: Never Worn First</option>
+    </select>
   </div>
+  <!-- MORNING RECOMMENDATION -->
+  <div class="morning-card" id="morning-rec" style="display:none;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="flex:1;">
+        <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px;">&#127774; Today&#39;s Recommendation</div>
+        <div class="morning-house" id="mr-house"></div>
+        <div class="morning-pick" id="mr-name"></div>
+        <div class="morning-reason" id="mr-reason"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-gold" style="font-size:8px;" onclick="logMorningWear()">&#10022; Wear This Today</button>
+          <button class="btn btn-muted" style="font-size:8px;" onclick="refreshMorningRec()">&#8635; Different Pick</button>
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div id="mr-sprays" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);font-weight:600;line-height:1;"></div>
+        <div style="font-size:8px;color:var(--dove);letter-spacing:.1em;">sprays</div>
+        <div id="mr-weather-badge" style="margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="sec-hdr"><span class="sec-title">The Collection</span><span class="sec-ct" id="grid-count"></span></div>
   <div class="grid" id="grid"></div>
 </div>
@@ -461,7 +518,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
   <!-- Current conditions card -->
 
-  <div id="wx-main-card" style="background:#ede7db;border:1px solid rgba(140,100,40,.2);padding:28px 32px;margin-bottom:1px;">
+  <div id="wx-main-card" style="background:#ffffff;border:1px solid rgba(140,100,40,.2);padding:28px 32px;margin-bottom:1px;">
     <div id="wx-loading" style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dove);animation:pulse 1.4s ease-in-out infinite;">Fetching current conditions…</div>
     <div id="wx-content" style="display:none;">
       <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:22px;">
@@ -480,20 +537,20 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 ```
   <!-- Spray guide -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(201,168,76,.05);margin-bottom:1px;">
-    <div style="background:var(--smoke);padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Recommended Sprays</div>
       <div id="wx-sprays" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);"></div>
       <div id="wx-spray-note" style="font-size:9px;color:var(--dove);margin-top:4px;"></div>
     </div>
-    <div style="background:var(--smoke);padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Best DNA Families Today</div>
       <div id="wx-dna-best" style="font-size:10px;color:var(--cream);line-height:1.8;"></div>
     </div>
-    <div style="background:var(--smoke);padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Avoid Today</div>
       <div id="wx-dna-avoid" style="font-size:10px;color:var(--dove);line-height:1.8;"></div>
     </div>
-    <div style="background:var(--smoke);padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:8px;">Conditions</div>
       <div id="wx-feels" style="font-size:10px;color:var(--cream);line-height:1.8;"></div>
     </div>
@@ -540,16 +597,16 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <div class="sec-hdr"><span class="sec-title">&#9734; Wishlist &amp; Destash</span></div>
   <div class="wl-form">
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
-      <input type="text" id="wl-name" placeholder="Fragrance name" style="flex:1;min-width:160px;background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
-      <input type="text" id="wl-house" placeholder="House / Brand" style="flex:1;min-width:140px;background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
-      <select id="wl-type" style="background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:9px;outline:none;font-weight:600;">
+      <input type="text" id="wl-name" placeholder="Fragrance name" style="flex:1;min-width:160px;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
+      <input type="text" id="wl-house" placeholder="House / Brand" style="flex:1;min-width:140px;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
+      <select id="wl-type" style="background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:9px;outline:none;font-weight:600;">
         <option value="want">&#9734; Want to Buy</option>
         <option value="destash">&#10060; Destash</option>
         <option value="decant">&#x1F4E6; Want a Decant</option>
         <option value="low">&#9888; Running Low</option>
       </select>
     </div>
-    <input type="text" id="wl-note" placeholder="Notes (price, where to buy, why destashing...)" style="width:100%;background:#faf7f2;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;margin-bottom:10px;font-weight:400;">
+    <input type="text" id="wl-note" placeholder="Notes (price, where to buy, why destashing...)" style="width:100%;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;margin-bottom:10px;font-weight:400;">
     <button class="btn btn-gold" onclick="addWishlistItem()">Add Item</button>
   </div>
   <div class="wl-grid" id="wl-grid"></div>
@@ -565,7 +622,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
   <!-- Header -->
 
-  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.15);padding:28px 32px;margin-bottom:1px;position:relative;">
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:28px 32px;margin-bottom:1px;position:relative;">
     <div id="bp-house" style="font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;"></div>
     <div id="bp-name" style="font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:var(--cream);line-height:1.1;margin-bottom:5px;"></div>
     <div id="bp-insp" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--dove);margin-bottom:14px;"></div>
@@ -579,19 +636,19 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
   <!-- Stats row -->
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(140,100,40,.1);margin-bottom:1px;">
-    <div style="background:#faf7f2;padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Total Wears</div>
       <div id="bp-wears" style="font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--gold);font-weight:600;line-height:1;"></div>
     </div>
-    <div style="background:#faf7f2;padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Last Worn</div>
       <div id="bp-lastworn" style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);font-weight:600;line-height:1.3;"></div>
     </div>
-    <div style="background:#faf7f2;padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Your Rating</div>
       <div id="bp-stars" style="font-size:18px;"></div>
     </div>
-    <div style="background:#faf7f2;padding:16px 18px;">
+    <div style="background:#ffffff;padding:16px 18px;">
       <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">DNA Family</div>
       <div id="bp-dna-label" style="font-size:11px;font-weight:600;color:var(--cream);"></div>
     </div>
@@ -601,13 +658,59 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
 ```
 <!-- DNA Classification -->
-<div style="background:#faf7f2;padding:20px 22px;">
+<div style="background:#ffffff;padding:20px 22px;">
   <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">DNA Classification</div>
   <div class="class-grid" id="bp-dna-grid" style="grid-template-columns:1fr 1fr;"></div>
 </div>
+```
 
+  </div>
+
+  <!-- Custom Tags + Photo + Cost Per Wear -->
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(140,100,40,.1);margin-bottom:1px;">
+    <div style="background:#ffffff;padding:20px 22px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Custom Tags</div>
+      <div id="bp-custom-tags" style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:2px;"></div>
+      <div style="display:flex;gap:6px;">
+        <input class="tag-input" type="text" id="bp-tag-input" placeholder="Add tag (e.g. signature, travel)" onkeydown="if(event.key==='Enter')addCustomTag()">
+        <button class="btn btn-muted" style="font-size:8px;padding:5px 10px;" onclick="addCustomTag()">+</button>
+      </div>
+    </div>
+    <div style="background:#ffffff;padding:20px 22px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Photo</div>
+      <div id="bp-photo-preview" style="margin-bottom:10px;"></div>
+      <label class="btn btn-muted" style="cursor:pointer;font-size:8px;">
+        &#128247; Add Photo
+        <input type="file" accept="image/*" onchange="addBottlePhoto(this)" style="display:none;">
+      </label>
+      <button class="btn btn-danger" style="font-size:7.5px;margin-top:6px;" onclick="removeBottlePhoto()" id="bp-photo-del" style="display:none;">Remove</button>
+    </div>
+    <div style="background:#ffffff;padding:20px 22px;">
+      <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Cost Per Wear</div>
+      <div style="margin-bottom:10px;">
+        <div style="font-size:8.5px;color:var(--dove);margin-bottom:5px;font-weight:500;">Estimated value ($)</div>
+        <input type="number" id="bp-value" placeholder="e.g. 45" min="0" onchange="saveBottleValue()" style="width:100%;background:var(--ash);border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:7px 10px;font-family:'Josefin Sans',sans-serif;font-size:11px;outline:none;">
+      </div>
+      <div id="bp-cpw" style="font-size:11px;font-weight:600;"></div>
+    </div>
+  </div>
+
+  <!-- Shareable SOTD Card -->
+
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+    <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">&#128248; Scent of the Day Card</div>
+    <div id="sotd-preview"></div>
+    <button class="btn btn-muted" style="margin-top:12px;font-size:8px;" onclick="generateSOTD()">Generate SOTD Card</button>
+    <div style="font-size:8.5px;color:var(--dove);margin-top:6px;">Screenshot and share with friends</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(140,100,40,.1);margin-bottom:1px;">
+    <!-- DNA Classification (already above) --><div style="display:none;"></div>
+
+```
 <!-- Notes -->
-<div style="background:#faf7f2;padding:20px 22px;">
+<div style="background:#ffffff;padding:20px 22px;">
   <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Personal Notes</div>
   <textarea class="notes" id="bp-notes" placeholder="Observations, longevity, sillage, pairings…" onchange="saveNotes()" style="min-height:100px;"></textarea>
 </div>
@@ -617,7 +720,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
   <!-- Wear calendar -->
 
-  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
     <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Wear History</div>
     <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
       <div id="bp-calendar" style="flex:1;min-width:200px;"></div>
@@ -628,7 +731,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
   <!-- Layering -->
 
-  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;">Layering Combos</div>
       <button class="btn btn-muted" style="font-size:7.5px;padding:4px 11px;" onclick="toggleLayerForm()">+ Add Combo</button>
@@ -644,14 +747,14 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
   <!-- Analytics for this bottle -->
 
-  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:20px 22px;margin-bottom:1px;">
     <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:700;">Similar in Your Collection</div>
     <div class="grid" id="bp-similar" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));"></div>
   </div>
 
   <!-- Actions -->
 
-  <div style="background:#faf7f2;border:1px solid rgba(140,100,40,.1);padding:16px 22px;display:flex;gap:10px;flex-wrap:wrap;">
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:16px 22px;display:flex;gap:10px;flex-wrap:wrap;">
     <button class="btn btn-danger" onclick="deleteCurrentBottle()">&#10005; Remove from Vault</button>
     <button class="btn btn-muted" onclick="closeBottlePage()">&#8592; Back to Collection</button>
   </div>
@@ -665,10 +768,140 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
     <span class="si" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--gold);">&#128269;</span>
     <input type="text" id="srch-input" placeholder="Search by name, house, inspiration, DNA, occasion…"
       oninput="runSearch(this.value)"
-      style="width:100%;background:#faf7f2;border:1px solid rgba(140,100,40,.25);color:var(--parchment);padding:14px 16px 14px 44px;font-family:'Josefin Sans',sans-serif;font-size:12px;outline:none;font-weight:500;letter-spacing:.04em;">
+      style="width:100%;background:#ffffff;border:1px solid rgba(140,100,40,.25);color:var(--parchment);padding:14px 16px 14px 44px;font-family:'Josefin Sans',sans-serif;font-size:12px;outline:none;font-weight:500;letter-spacing:.04em;">
   </div>
   <div id="srch-meta" style="font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dove);margin-bottom:14px;font-weight:500;"></div>
   <div class="grid" id="srch-grid"></div>
+</div>
+
+<!-- IMPORT / EXPORT PAGE -->
+
+<div id="page-importexport" class="page">
+  <div class="sec-hdr"><span class="sec-title">&#8645; Import / Export</span><span class="sec-ct">share your vault with friends</span></div>
+
+  <!-- HOW IT WORKS -->
+
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:24px 28px;margin-bottom:1px;">
+    <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">How to Share With a Friend</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600;line-height:1;flex-shrink:0;">1</div>
+        <div><div style="font-size:10px;color:var(--cream);font-weight:600;margin-bottom:3px;">Download the template</div><div style="font-size:9px;color:var(--dove);">A CSV file with the correct columns pre-filled</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600;line-height:1;flex-shrink:0;">2</div>
+        <div><div style="font-size:10px;color:var(--cream);font-weight:600;margin-bottom:3px;">Fill it in Excel or Google Sheets</div><div style="font-size:9px;color:var(--dove);">Add their bottles — one per row</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600;line-height:1;flex-shrink:0;">3</div>
+        <div><div style="font-size:10px;color:var(--cream);font-weight:600;margin-bottom:3px;">Import the CSV here</div><div style="font-size:9px;color:var(--dove);">Their collection loads instantly</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT YOUR COLLECTION -->
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:rgba(140,100,40,.12);margin-bottom:1px;">
+
+```
+<div style="background:#ffffff;padding:24px 26px;">
+  <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">&#11015; Export Your Collection</div>
+  <div style="font-size:9.5px;color:var(--dove);margin-bottom:14px;line-height:1.6;">Download your bottles as a CSV file. Open in Excel or Google Sheets, share with friends, or use as a backup.</div>
+  <button class="btn btn-gold" onclick="exportCSV()" style="margin-bottom:8px;width:100%;justify-content:center;">Download Collection CSV</button>
+  <button class="btn btn-muted" onclick="downloadTemplate()" style="width:100%;justify-content:center;">Download Blank Template</button>
+</div>
+
+<div style="background:#ffffff;padding:24px 26px;">
+  <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">&#11014; Import a Collection</div>
+  <div style="font-size:9.5px;color:var(--dove);margin-bottom:14px;line-height:1.6;">Load a CSV file to replace or merge with your current collection. Use the template above so the columns match.</div>
+  <div style="margin-bottom:10px;">
+    <label style="display:flex;align-items:center;gap:8px;font-size:9px;color:var(--cream);font-weight:500;margin-bottom:8px;">
+      <input type="radio" name="import-mode" value="replace" checked id="ir-replace"> Replace my entire collection
+    </label>
+    <label style="display:flex;align-items:center;gap:8px;font-size:9px;color:var(--cream);font-weight:500;">
+      <input type="radio" name="import-mode" value="merge" id="ir-merge"> Merge (add new bottles only)
+    </label>
+  </div>
+  <label class="btn btn-gold" style="width:100%;justify-content:center;cursor:pointer;display:flex;">
+    Choose CSV File
+    <input type="file" accept=".csv" onchange="importCSV(this)" style="display:none;">
+  </label>
+  <div id="import-status" style="margin-top:10px;font-size:9.5px;color:var(--dove);"></div>
+</div>
+
+<div style="background:#ffffff;padding:24px 26px;">
+  <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">&#128190; Full Backup / Restore</div>
+  <div style="font-size:9.5px;color:var(--dove);margin-bottom:14px;line-height:1.6;">Backup includes everything — wears, ratings, notes, layering combos, wishlist. Use to transfer between devices.</div>
+  <button class="btn btn-gold" onclick="exportBackup()" style="margin-bottom:8px;width:100%;justify-content:center;">Download Full Backup</button>
+  <label class="btn btn-muted" style="width:100%;justify-content:center;cursor:pointer;display:flex;">
+    Restore from Backup
+    <input type="file" accept=".json" onchange="importBackup(this)" style="display:none;">
+  </label>
+</div>
+```
+
+  </div>
+
+  <!-- CSV FORMAT GUIDE -->
+
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);padding:24px 26px;margin-bottom:1px;">
+    <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">CSV Column Guide</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:9.5px;">
+        <thead>
+          <tr style="border-bottom:2px solid rgba(140,100,40,.2);">
+            <th style="text-align:left;padding:8px 12px;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;">Column</th>
+            <th style="text-align:left;padding:8px 12px;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;">Required</th>
+            <th style="text-align:left;padding:8px 12px;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;">Example</th>
+            <th style="text-align:left;padding:8px 12px;font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;">Notes</th>
+          </tr>
+        </thead>
+        <tbody id="csv-guide-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PREVIEW -->
+
+  <div id="import-preview" style="display:none;background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:24px 26px;">
+    <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:700;">Import Preview</div>
+    <div id="import-preview-content"></div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn btn-gold" id="import-confirm-btn">Confirm Import</button>
+      <button class="btn btn-muted" onclick="cancelImport()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- DUA ADVISOR PAGE -->
+
+<div id="page-duaadvisor" class="page">
+  <div class="sec-hdr">
+    <span class="sec-title">✦ Dua Brand Advisor</span>
+    <span class="sec-ct">AI-powered buy or skip analysis</span>
+  </div>
+
+  <!-- Input Section -->
+
+  <div style="background:#ffffff;border:1px solid rgba(140,100,40,.2);border-left:4px solid var(--gold);padding:24px 26px;margin-bottom:1px;">
+    <div style="font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:700;">Enter a Dua Fragrance Name</div>
+    <div style="font-size:9.5px;color:var(--dove);margin-bottom:16px;line-height:1.6;">Type any Dua Brand fragrance — I'll research it, check it against your existing 164 bottles for redundancy, and give you a clear buy or skip verdict.</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
+      <div style="flex:1;min-width:200px;">
+        <input type="text" id="dua-input" placeholder="e.g. Bleu de Dua Extrait, Fortune, Ottoman Breeze…"
+          style="width:100%;background:#f0ebe3;border:1px solid rgba(140,100,40,.25);color:var(--parchment);padding:12px 14px;font-family:'Josefin Sans',sans-serif;font-size:11px;outline:none;font-weight:500;border-radius:0;"
+          onkeydown="if(event.key==='Enter')runDuaAdvisor()">
+        <div style="font-size:8.5px;color:var(--dove);margin-top:6px;">Include the full name if you know it. Be as specific as possible.</div>
+      </div>
+      <button class="btn btn-gold" id="dua-go-btn" onclick="runDuaAdvisor()" style="padding:12px 22px;font-size:9px;white-space:nowrap;">
+        ✦ Analyze
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+
+  <div id="dua-results" style="display:none;margin-top:1px;"></div>
 </div>
 
 </main>
@@ -1125,7 +1358,8 @@ function showPage(id,btn){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
-  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred,weather:renderWeatherPage,insights:renderInsights,wishlist:renderWishlist,search:initSearch})[id]?.();
+  ({analytics:renderAnalytics,rotation:renderRotation,layering:renderLayering,classification:renderClassification,starred:renderStarred,weather:renderWeatherPage,insights:renderInsights,wishlist:renderWishlist,search:initSearch,importexport:renderImportExport,duaadvisor:initDuaAdvisor})[id]?.();
+  if(id==='collection') buildMorningRec();
   updateStats();
 }
 
@@ -1239,37 +1473,15 @@ function renderWearLog(){
 
 function closeDetModal(e){if(e.target===document.getElementById('det-overlay'))closeDetDirect();}
 function closeDetDirect(){document.getElementById('det-overlay').classList.add('hidden');CUR=null;renderGrid();updateStats();}
-function saveNotes(){if(!CUR)return;gst(CUR).notes=document.getElementById('m-notes').value;saveDB();}
 
-function setDNA(fam){
-  if(!CUR)return;
-  gst(CUR).dna=fam;saveDB();
-  renderDNAGrid(fam);
-}
 
-function setRating(r){
-  if(!CUR)return;
-  gst(CUR).rating=r;saveDB();
-  renderStarsEl(r);
-}
 
-function logWear(){
-  if(!CUR)return;
-  const st=gst(CUR);
-  if(!st.wears)st.wears=[];
-  st.wears.push(today());saveDB();
-  document.getElementById('m-wears').textContent=st.wears.length;
-  renderWearLog();updateStats();
-}
 
-function toggleStar(){
-  if(!CUR)return;
-  const st=gst(CUR);st.starred=!st.starred;saveDB();
-  const sb=document.getElementById('m-star-btn');
-  sb.textContent=st.starred?'★ Starred':'☆ Star';
-  sb.style.color=st.starred?'var(--gold)':'';
-  updateStats();
-}
+
+
+
+
+
 
 function toggleLayerForm(){document.getElementById('m-layer-form').classList.toggle('hidden');}
 
@@ -1955,21 +2167,8 @@ function cardHTML(f) {
 // ============================================================
 // STOCK CYCLING  (OK → Low → Empty → OK)
 // ============================================================
-function cycleStock() {
-  if (!CUR) return;
-  const st = gst(CUR);
-  const states = ['ok','low','empty'];
-  const labels = {'ok':'&#9646; Stock OK','low':'&#9888; Running Low','empty':'&#10006; Empty / Gone'};
-  const colors = {'ok':'var(--forest)','low':'var(--rose)','empty':'#999'};
-  const cur = st.stock || 'ok';
-  const next = states[(states.indexOf(cur) + 1) % states.length];
-  st.stock = next;
-  saveDB();
-  const btn = document.getElementById('m-stock-btn');
-  btn.innerHTML = labels[next];
-  btn.style.color = colors[next];
-  btn.style.borderColor = colors[next];
-}
+// cycleStock defined below
+
 
 function renderStockBtn() {
   if (!CUR) return;
@@ -2151,6 +2350,30 @@ function renderInsights() {
   const calHTML = buildCalendar(now.getFullYear(), now.getMonth());
 
   grid.innerHTML = `
+    <!-- Streak + morning stats -->
+    <div class="ins-card" style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:rgba(140,100,40,.1);padding:0;">
+      <div style="background:#ffffff;padding:20px 22px;">
+        <div class="ins-card-title">&#128293; Current Streak</div>
+        <div class="streak-num" id="ins-streak">0</div>
+        <div class="ins-sub">consecutive days logged</div>
+      </div>
+      <div style="background:#ffffff;padding:20px 22px;">
+        <div class="ins-card-title">&#128293; Longest Streak</div>
+        <div class="streak-num" id="ins-best-streak">0</div>
+        <div class="ins-sub">best streak ever</div>
+      </div>
+      <div style="background:#ffffff;padding:20px 22px;">
+        <div class="ins-card-title">&#128200; Cost Per Wear</div>
+        <div id="ins-best-cpw" style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600;"></div>
+        <div class="ins-sub" id="ins-best-cpw-name"></div>
+      </div>
+      <div style="background:#ffffff;padding:20px 22px;">
+        <div class="ins-card-title">&#128200; Worst Cost Per Wear</div>
+        <div id="ins-worst-cpw" style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--rose);font-weight:600;"></div>
+        <div class="ins-sub" id="ins-worst-cpw-name"></div>
+      </div>
+    </div>
+
     <!-- Stats overview -->
     <div class="ins-card" style="grid-column:1/-1">
       <div class="ins-card-title">Collection Overview</div>
@@ -2162,7 +2385,7 @@ function renderInsights() {
           [rated.length, 'Rated'],
           [neverWorn.length, 'Never Worn'],
           [col.filter(f=>f.isBase).length, 'Layering Bases'],
-        ].map(([n,l]) => `<div style="background:#faf7f2;padding:14px 16px;"><div class="ins-big">${n}</div><div class="ins-sub">${l}</div></div>`).join('')}
+        ].map(([n,l]) => `<div style="background:#ffffff;padding:14px 16px;"><div class="ins-big">${n}</div><div class="ins-sub">${l}</div></div>`).join('')}
       </div>
       <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
         <span style="font-size:9px;color:var(--dove);font-weight:500;">Estimated collection value:</span>
@@ -2375,6 +2598,19 @@ function openBottlePage(name) {
 
   // Similar bottles
   renderSimilar(f, dna);
+
+  // New features
+  renderCustomTags();
+  renderBottlePhoto();
+  renderCPW();
+
+  // Pre-fill value input
+  const valInp = document.getElementById('bp-value');
+  if (valInp) valInp.value = st.value || '';
+
+  // Clear SOTD
+  const sotd = document.getElementById('sotd-preview');
+  if (sotd) sotd.innerHTML = '';
 }
 
 function closeBottlePage() {
@@ -2402,7 +2638,6 @@ function renderBPStockBtn() {
 }
 
 // Override cycleStock to update bp stock btn too
-const _cycleStockOrig = cycleStock;
 function cycleStock() {
   if (!CUR) return;
   const st = gst(CUR);
@@ -2417,7 +2652,6 @@ function cycleStock() {
 }
 
 // Override toggleStar to update bp star btn
-const _toggleStarOrig = toggleStar;
 function toggleStar() {
   if (!CUR) return;
   const st = gst(CUR);
@@ -2429,7 +2663,6 @@ function toggleStar() {
 }
 
 // Override logWear to refresh bp page
-const _logWearOrig = logWear;
 function logWear() {
   if (!CUR) return;
   const st = gst(CUR);
@@ -2443,7 +2676,6 @@ function logWear() {
 }
 
 // Override saveNotes to work with bp-notes
-const _saveNotesOrig = saveNotes;
 function saveNotes() {
   if (!CUR) return;
   const n1 = document.getElementById('m-notes');
@@ -2453,7 +2685,6 @@ function saveNotes() {
 }
 
 // Override setDNA to update bp page
-const _setDNAOrig = setDNA;
 function setDNA(fam) {
   if (!CUR) return;
   gst(CUR).dna = fam;
@@ -2596,9 +2827,845 @@ function runSearch(q) {
 }
 
 // ============================================================
+// ============================================================
+// SORT + CUSTOM TAGS FILTER
+// ============================================================
+function populateTagFilter() {
+  const allTags = new Set();
+  Object.values(DB.st).forEach(st => (st.customTags||[]).forEach(t => allTags.add(t)));
+  const sel = document.getElementById('ftag');
+  if (!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All Tags</option>';
+  [...allTags].sort().forEach(t => {
+    const o = document.createElement('option');
+    o.value = t; o.textContent = t; sel.appendChild(o);
+  });
+  if (cur) sel.value = cur;
+}
+
+// ============================================================
+// MORNING RECOMMENDATION
+// ============================================================
+let morningPickName = null;
+let morningPickIdx = 0;
+
+function buildMorningRec() {
+  const rec = document.getElementById('morning-rec');
+  if (!rec) return;
+  const month = new Date().getMonth();
+  const isSS = month >= 2 && month <= 8;
+  const wxSeason = isSS ? 'ss' : 'fw';
+  const temp = WEATHER ? WEATHER.temp : null;
+
+  let weatherFavored = [];
+  if (temp !== null) {
+    if (temp < 45) weatherFavored = ["Oud / Resinous","Oriental / Amber","Tobacco / Smoky","Gourmand","Woody / Aromatic"];
+    else if (temp < 62) weatherFavored = ["Woody / Aromatic","Fougère","Oriental / Amber","Gourmand"];
+    else if (temp < 75) weatherFavored = ["Fougère","Aquatic / Marine","Woody / Aromatic","Citrus / Fresh","Musky / Skin"];
+    else weatherFavored = ["Aquatic / Marine","Citrus / Fresh","Musky / Skin","Fougère"];
+  }
+
+  const now = new Date();
+  const todayStr = now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+
+  const scored = DB.col.map(f => {
+    const st = gst(f.name);
+    const dna = st.dna || DEFAULT_DNA[f.name] || '';
+    let score = 0;
+    // Not worn today already
+    if ((st.wears||[]).includes(todayStr)) return {f, score: -99};
+    // Season match
+    if (f.s_key === wxSeason || f.s_key === 'yr') score += 5;
+    // Weather DNA match
+    if (weatherFavored.includes(dna)) score += 8;
+    // Hasn't been worn recently
+    const lastWorn = (st.wears||[]).length ? new Date((st.wears||[])[st.wears.length-1]) : null;
+    const daysSince = lastWorn ? Math.floor((now-lastWorn)/86400000) : 999;
+    if (daysSince > 14) score += 4;
+    if (daysSince > 30) score += 3;
+    // Rating bonus
+    if (st.rating >= 4) score += 3;
+    if (st.rating >= 5) score += 2;
+    // Randomness
+    score += Math.random() * 3;
+    return {f, score, dna};
+  }).filter(x => x.score > -99).sort((a,b) => b.score - a.score);
+
+  if (!scored.length) return;
+
+  const pick = scored[morningPickIdx % scored.length];
+  morningPickName = pick.f.name;
+  const f = pick.f;
+  const st = gst(f.name);
+  const wears = (st.wears||[]).length;
+
+  document.getElementById('mr-house').textContent = f.house;
+  document.getElementById('mr-name').textContent = f.name;
+
+  let reason = '';
+  if (WEATHER) {
+    const sn = getWeatherScentNote(WEATHER.temp, WEATHER.humid, WEATHER.code);
+    reason = sn.label + ' today — ' + f.name + ' is ideal for these conditions. ';
+  }
+  if (wears === 0) reason += 'Never worn — time to give it a try.';
+  else {
+    const lastWorn = st.wears[st.wears.length-1];
+    reason += 'Last worn ' + lastWorn + '.';
+  }
+  document.getElementById('mr-reason').textContent = reason;
+
+  // Spray count
+  let sprays = 3;
+  if (WEATHER) {
+    if (WEATHER.temp > 80) sprays = 2;
+    else if (WEATHER.temp < 45) sprays = 5;
+  }
+  document.getElementById('mr-sprays').textContent = sprays;
+
+  // Weather badge
+  if (WEATHER) {
+    const sn = getWeatherScentNote(WEATHER.temp, WEATHER.humid, WEATHER.code);
+    document.getElementById('mr-weather-badge').innerHTML = '<span style="font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border:1px solid '+sn.color+';color:'+sn.color+';">'+sn.label+'</span>';
+  }
+
+  rec.style.display = 'block';
+}
+
+function refreshMorningRec() {
+  morningPickIdx++;
+  buildMorningRec();
+}
+
+function logMorningWear() {
+  if (!morningPickName) return;
+  const st = gst(morningPickName);
+  if (!st.wears) st.wears = [];
+  st.wears.push(today());
+  saveDB();
+  updateStats();
+  const btn = document.querySelector('#morning-rec .btn-gold');
+  if (btn) { btn.textContent = '✓ Logged!'; btn.style.color='var(--forest)'; }
+}
+
+// ============================================================
+// CUSTOM TAGS
+// ============================================================
+function renderCustomTags() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  const tags = st.customTags || [];
+  const el = document.getElementById('bp-custom-tags');
+  if (!el) return;
+  el.innerHTML = tags.map((t,i) =>
+    '<span class="ctag">' + t + '<button class="ctag-del" onclick="removeCustomTag('+i+')">✕</button></span>'
+  ).join('') || '<span style="font-size:9px;color:var(--dove);">No tags yet</span>';
+}
+
+function addCustomTag() {
+  if (!CUR) return;
+  const input = document.getElementById('bp-tag-input');
+  const val = (input.value||'').trim().toLowerCase();
+  if (!val) return;
+  const st = gst(CUR);
+  if (!st.customTags) st.customTags = [];
+  if (!st.customTags.includes(val)) {
+    st.customTags.push(val);
+    saveDB();
+    populateTagFilter();
+  }
+  input.value = '';
+  renderCustomTags();
+}
+
+function removeCustomTag(idx) {
+  if (!CUR) return;
+  const st = gst(CUR);
+  (st.customTags||[]).splice(idx,1);
+  saveDB();
+  renderCustomTags();
+  populateTagFilter();
+}
+
+// ============================================================
+// BOTTLE PHOTO
+// ============================================================
+function addBottlePhoto(input) {
+  if (!CUR || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const st = gst(CUR);
+    st.photo = e.target.result;
+    saveDB();
+    renderBottlePhoto();
+  };
+  reader.readAsDataURL(input.files[0]);
+  input.value = '';
+}
+
+function removeBottlePhoto() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  delete st.photo;
+  saveDB();
+  renderBottlePhoto();
+}
+
+function renderBottlePhoto() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  const el = document.getElementById('bp-photo-preview');
+  const delBtn = document.getElementById('bp-photo-del');
+  if (!el) return;
+  if (st.photo) {
+    el.innerHTML = '<img src="'+st.photo+'" style="width:100%;max-height:160px;object-fit:cover;border-radius:2px;">';
+    if (delBtn) delBtn.style.display='inline-flex';
+  } else {
+    el.innerHTML = '<div style="font-size:9px;color:var(--dove);">No photo yet</div>';
+    if (delBtn) delBtn.style.display='none';
+  }
+}
+
+// ============================================================
+// COST PER WEAR
+// ============================================================
+function saveBottleValue() {
+  if (!CUR) return;
+  const val = parseFloat(document.getElementById('bp-value').value) || 0;
+  gst(CUR).value = val;
+  saveDB();
+  renderCPW();
+}
+
+function renderCPW() {
+  if (!CUR) return;
+  const st = gst(CUR);
+  const el = document.getElementById('bp-cpw');
+  if (!el) return;
+  const val = st.value || 0;
+  const wears = (st.wears||[]).length;
+  if (!val) { el.textContent = 'Enter value above to calculate'; el.className=''; return; }
+  if (!wears) { el.textContent = 'No wears logged yet'; el.className=''; return; }
+  const cpw = val / wears;
+  let cls = cpw < 3 ? 'cpw-good' : cpw < 10 ? 'cpw-ok' : 'cpw-bad';
+  el.innerHTML = '<span class="'+cls+'">$'+cpw.toFixed(2)+' per wear</span><div style="font-size:8.5px;color:var(--dove);margin-top:3px;">$'+val+' value / '+wears+' wears</div>';
+  // Update value input
+  const inp = document.getElementById('bp-value');
+  if (inp && !inp.value) inp.value = val || '';
+}
+
+// ============================================================
+// SOTD — SCENT OF THE DAY CARD
+// ============================================================
+function generateSOTD() {
+  if (!CUR) return;
+  const f = DB.col.find(x => x.name === CUR);
+  if (!f) return;
+  const st = gst(CUR);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const dna = st.dna || DEFAULT_DNA[CUR] || '';
+  const wxStr = WEATHER ? WEATHER.temp + '°F · ' + WEATHER.desc : '';
+
+  const el = document.getElementById('sotd-preview');
+  if (!el) return;
+  el.innerHTML = '<div class="sotd-card" id="sotd-card-inner">'+
+    '<div class="sotd-date">Scent of the Day</div>'+
+    '<div style="font-size:22px;margin-bottom:6px;">'+
+      (st.photo ? '<img src="'+st.photo+'" style="width:60px;height:60px;object-fit:cover;border-radius:50%;border:2px solid rgba(140,100,40,.3);">' : '&#x1F9F4;')+
+    '</div>'+
+    '<div class="sotd-name">'+CUR+'</div>'+
+    '<div class="sotd-house">'+f.house+'</div>'+
+    '<div style="height:1px;background:rgba(140,100,40,.15);margin:10px 0;"></div>'+
+    '<div class="sotd-meta">'+
+      (dna ? '<div>'+dna+'</div>' : '')+
+      (wxStr ? '<div>'+wxStr+'</div>' : '')+
+      '<div>'+dateStr+'</div>'+
+      ((st.wears||[]).length ? '<div>'+(st.wears.length)+' wears logged</div>' : '')+
+    '</div>'+
+    (st.rating ? '<div style="font-size:14px;margin-top:8px;color:var(--gold);">'+'★'.repeat(st.rating)+'☆'.repeat(5-st.rating)+'</div>' : '')+
+  '</div>'+
+  '<div style="font-size:8.5px;color:var(--dove);margin-top:8px;">Screenshot to share &#128248;</div>';
+}
+
+// ============================================================
+// STREAK CALCULATION
+// ============================================================
+function calcStreak() {
+  // Gather all wear dates across collection
+  const allDates = new Set();
+  Object.values(DB.st).forEach(st => {
+    (st.wears||[]).forEach(d => {
+      try { allDates.add(new Date(d).toDateString()); } catch(e) {}
+    });
+  });
+
+  const sorted = [...allDates].map(d => new Date(d)).sort((a,b) => b-a);
+  if (!sorted.length) return {current:0, best:0};
+
+  const now = new Date();
+  const todayStr = now.toDateString();
+  const yesterdayStr = new Date(now-86400000).toDateString();
+
+  // Check if streak is active (wore today or yesterday)
+  let current = 0;
+  let check = sorted[0].toDateString() === todayStr || sorted[0].toDateString() === yesterdayStr ? sorted[0] : null;
+  if (check) {
+    current = 1;
+    for (let i = 1; i < sorted.length; i++) {
+      const diff = Math.round((check - sorted[i]) / 86400000);
+      if (diff === 1) { current++; check = sorted[i]; }
+      else break;
+    }
+  }
+
+  // Best streak ever
+  let best = 1, run = 1;
+  for (let i = 1; i < sorted.length; i++) {
+    const diff = Math.round((sorted[i-1] - sorted[i]) / 86400000);
+    if (diff === 1) { run++; if (run > best) best = run; }
+    else run = 1;
+  }
+
+  return {current, best};
+}
+
+function calcAllCPW() {
+  return DB.col.map(f => {
+    const st = gst(f.name);
+    const val = st.value || 0;
+    const wears = (st.wears||[]).length;
+    if (!val || !wears) return null;
+    return {name:f.name, cpw: val/wears, val, wears};
+  }).filter(Boolean).sort((a,b) => a.cpw - b.cpw);
+}
+
+// ============================================================
+// ============================================================
+// DUA ADVISOR
+// ============================================================
+function initDuaAdvisor() {
+  // Focus the input when tab opens
+  setTimeout(() => {
+    const inp = document.getElementById('dua-input');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+async function runDuaAdvisor() {
+  const fragName = (document.getElementById('dua-input').value || '').trim();
+  if (!fragName) { alert('Please enter a fragrance name.'); return; }
+
+  const btn = document.getElementById('dua-go-btn');
+  btn.textContent = 'Analyzing…';
+  btn.disabled = true;
+
+  const resultsEl = document.getElementById('dua-results');
+  resultsEl.style.display = 'block';
+  resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:32px;text-align:center;"><div style="font-family:Cormorant Garamond,serif;font-size:18px;color:var(--gold);animation:pulse 1.4s ease-in-out infinite;">Researching ' + fragName + '…</div><div style="font-size:9px;color:var(--dove);letter-spacing:.16em;text-transform:uppercase;margin-top:8px;">Checking against your collection</div></div>';
+
+  // Build collection context
+  const myCol = DB.col.map(f => {
+    const dna = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
+    return f.name + ' (' + f.house + ', DNA: ' + dna + ', Insp: ' + f.inspiration.split('+')[0].trim() + ')';
+  }).join('; ');
+
+  const duaOnly = DB.col.filter(f => f.house === 'The Dua Brand').map(f => f.name).join(', ');
+
+  const prompt = `You are an expert fragrance advisor specializing in The Dua Brand. AJ is a serious collector with 164 bottles asking whether to buy "${fragName}" from The Dua Brand.
+
+AJ's current Dua Brand bottles: ${duaOnly}
+
+AJ's full collection DNA and inspirations: ${myCol}
+
+Your task:
+1. Identify what "${fragName}" is — its inspiration, DNA family, key notes, concentration, and typical price range ($30-100 for Dua)
+2. Check for redundancy — does AJ already own something very similar in inspiration or DNA?
+3. Give a clear BUY or SKIP verdict with a confidence score (1-10)
+4. If BUY: explain exactly why it fills a gap or adds something new
+5. If SKIP: name the specific bottle(s) AJ already owns that make this redundant
+6. Provide the correct full Dua Brand name if the user's input is slightly off
+7. Suggest the best occasion and season for this fragrance
+8. Estimate spray count recommendation based on concentration
+
+Respond ONLY in this exact JSON format, no markdown:
+{
+  "fullName": "exact Dua Brand product name",
+  "inspiration": "what it is inspired by",
+  "dna": "one of: Aquatic / Marine, Fougère, Woody / Aromatic, Oriental / Amber, Oud / Resinous, Citrus / Fresh, Gourmand, Floral, Chypre, Tobacco / Smoky, Musky / Skin",
+  "keyNotes": "top 3-4 notes as a short string",
+  "priceRange": "$XX - $XX",
+  "verdict": "BUY" or "SKIP",
+  "confidence": 8,
+  "reason": "2-3 sentences explaining why",
+  "redundantWith": "bottle name if redundant, or empty string",
+  "gapFilled": "what gap it fills if buying, or empty string",
+  "occasion": "date / office / evening / casual / sport / special",
+  "season": "ss or fw or yr",
+  "sprays": 3,
+  "extraTip": "one practical tip about wearing or layering this fragrance"
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) throw new Error('API error ' + res.status);
+    const data = await res.json();
+    const raw = (data.content || []).find(b => b.type === 'text')?.text || '';
+    const match = raw.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('No JSON in response');
+    const result = JSON.parse(match[0]);
+    renderDuaResult(result, fragName);
+
+  } catch(e) {
+    resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(176,90,66,.2);padding:20px;color:var(--rose);font-size:10px;">Error: ' + e.message + '</div>';
+  }
+
+  btn.textContent = '✦ Analyze';
+  btn.disabled = false;
+}
+
+function renderDuaResult(r, query) {
+  window._duaResult = r;
+  const isBuy = r.verdict === 'BUY';
+  const verdictColor = isBuy ? 'var(--forest)' : 'var(--rose)';
+  const verdictBg = isBuy ? 'rgba(45,80,40,.07)' : 'rgba(176,90,66,.07)';
+  const verdictIcon = isBuy ? '✓' : '✕';
+  const dnaCol = DNA_FAMILIES[r.dna]?.color || 'var(--gold)';
+  const occMap = {date:'♥ Date',office:'◆ Office',evening:'✦ Evening',casual:'■ Casual',sport:'▲ Sport',special:'★ Special'};
+  const seaMap = {ss:'Spring · Summer',fw:'Fall · Winter',yr:'Year-round'};
+
+  // Confidence bar
+  const conf = Math.min(10, Math.max(1, r.confidence || 5));
+  const confBar = Array.from({length:10},(_,i) =>
+    '<div style="flex:1;height:6px;background:' + (i < conf ? verdictColor : 'rgba(140,100,40,.15)') + ';"></div>'
+  ).join('');
+
+  const resultsEl = document.getElementById('dua-results');
+  resultsEl.innerHTML = `
+    <!-- VERDICT HEADER -->
+    <div style="background:${verdictBg};border:1px solid ${verdictColor}44;border-left:5px solid ${verdictColor};padding:24px 26px;margin-bottom:1px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div style="font-size:7.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--dove);margin-bottom:4px;font-weight:700;">The Dua Brand</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--cream);line-height:1.1;margin-bottom:3px;">${r.fullName}</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:var(--dove);">← ${r.inspiration}</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:${verdictColor};line-height:1;">${verdictIcon}</div>
+          <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:${verdictColor};font-weight:700;">${r.verdict}</div>
+        </div>
+      </div>
+
+      <!-- Confidence -->
+      <div style="margin-top:16px;">
+        <div style="font-size:7.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dove);margin-bottom:6px;font-weight:600;">Confidence ${conf}/10</div>
+        <div style="display:flex;gap:2px;">${confBar}</div>
+      </div>
+    </div>
+
+    <!-- REASON -->
+    <div style="background:#ffffff;border:1px solid rgba(140,100,40,.12);padding:20px 26px;margin-bottom:1px;">
+      <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">Analysis</div>
+      <div style="font-size:11px;color:var(--cream);line-height:1.7;font-weight:500;">${r.reason}</div>
+      ${r.redundantWith ? '<div style="margin-top:10px;padding:10px 14px;background:rgba(176,90,66,.07);border:1px solid rgba(176,90,66,.2);font-size:10px;color:var(--rose);font-weight:500;">⚠ Redundant with: <strong>' + r.redundantWith + '</strong></div>' : ''}
+      ${r.gapFilled ? '<div style="margin-top:10px;padding:10px 14px;background:rgba(45,80,40,.07);border:1px solid rgba(45,80,40,.25);font-size:10px;color:var(--forest);font-weight:500;">✓ Fills gap: ' + r.gapFilled + '</div>' : ''}
+    </div>
+
+    <!-- DETAILS ROW -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(140,100,40,.12);margin-bottom:1px;">
+      <div style="background:#ffffff;padding:16px 18px;">
+        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">DNA Family</div>
+        <div style="font-size:11px;color:${dnaCol};font-weight:700;">${r.dna}</div>
+      </div>
+      <div style="background:#ffffff;padding:16px 18px;">
+        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Key Notes</div>
+        <div style="font-size:10px;color:var(--cream);font-weight:500;">${r.keyNotes}</div>
+      </div>
+      <div style="background:#ffffff;padding:16px 18px;">
+        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Price Range</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);font-weight:600;">${r.priceRange}</div>
+      </div>
+      <div style="background:#ffffff;padding:16px 18px;">
+        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Best For</div>
+        <div style="font-size:10px;color:var(--cream);font-weight:500;">${occMap[r.occasion]||r.occasion}</div>
+        <div style="font-size:9px;color:var(--dove);margin-top:2px;">${seaMap[r.season]||r.season}</div>
+      </div>
+      <div style="background:#ffffff;padding:16px 18px;">
+        <div style="font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">Sprays</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600;line-height:1;">${r.sprays}</div>
+      </div>
+    </div>
+
+    <!-- TIP -->
+    <div style="background:#ffffff;border:1px solid rgba(140,100,40,.12);padding:16px 26px;margin-bottom:1px;">
+      <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:700;">💡 Pro Tip</div>
+      <div style="font-size:10.5px;color:var(--cream);line-height:1.6;font-weight:400;">${r.extraTip}</div>
+    </div>
+
+    <!-- ADD TO VAULT BUTTON (only if BUY) -->
+    ${isBuy ? `
+    <div style="background:#ffffff;border:1px solid rgba(45,80,40,.25);padding:20px 26px;">
+      <div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--forest);margin-bottom:8px;font-weight:700;">Ready to Buy?</div>
+      <div style="font-size:10px;color:var(--dove);margin-bottom:14px;">Add it to your vault now so it's ready when it arrives.</div>
+      <button class="btn btn-gold" onclick="addDuaToVault()"/g,'&quot;')})" style="font-size:9px;padding:11px 20px;">
+        + Add to My Vault
+      </button>
+    </div>` : `
+    <div style="background:#ffffff;border:1px solid rgba(176,90,66,.15);padding:20px 26px;">
+      <div style="font-size:10px;color:var(--dove);line-height:1.6;">Want to search a different Dua fragrance? Type another name above.</div>
+    </div>`}
+
+    <!-- SEARCH AGAIN -->
+    <div style="padding:16px 0;text-align:center;">
+      <button class="btn btn-muted" onclick="document.getElementById('dua-input').value='';document.getElementById('dua-results').style.display='none';document.getElementById('dua-input').focus();" style="font-size:8.5px;">
+        ← Search Another Fragrance
+      </button>
+    </div>
+  `;
+}
+
+function addDuaToVault() {
+  const r = window._duaResult;
+  if (!r) { alert('No result to add.'); return; }
+
+  // Check if already exists
+  if (DB.col.find(f => f.name.toLowerCase() === r.fullName.toLowerCase())) {
+    alert(r.fullName + ' is already in your vault!');
+    return;
+  }
+
+  // Add to collection
+  const newBottle = {
+    house: 'The Dua Brand',
+    name: r.fullName,
+    inspiration: r.inspiration || 'Original',
+    occ_key: r.occasion || 'casual',
+    occ_detail: r.occasion || 'Casual / everyday',
+    s_key: r.season || 'yr',
+  };
+  DB.col.push(newBottle);
+
+  // Set DNA and notes in state
+  const st = gst(r.fullName);
+  if (r.dna) st.dna = r.dna;
+  if (r.extraTip) st.notes = 'Advisor tip: ' + r.extraTip;
+
+  saveDB();
+  populateHouses();
+  populateSugSelect();
+  updateStats();
+
+  // Show confirmation
+  const btn = event.target;
+  btn.textContent = '✓ Added to Vault!';
+  btn.style.color = 'var(--forest)';
+  btn.style.borderColor = 'var(--forest)';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    if (confirm(r.fullName + ' added! Go to your collection to see it?')) {
+      showPage('collection', document.querySelector('.nav-tab'));
+    }
+  }, 500);
+}
+
+// ============================================================
+// IMPORT / EXPORT
+// ============================================================
+const CSV_COLUMNS = [
+  {col:'house',       req:true,  example:'The Dua Brand',         note:'Brand or house name'},
+  {col:'name',        req:true,  example:'Ottoman Breeze',         note:'Full fragrance name'},
+  {col:'inspiration', req:false, example:'Nishane Hacivat',        note:'Inspired by / DNA reference'},
+  {col:'occasion',    req:false, example:'casual',                 note:'date / office / evening / casual / sport / special'},
+  {col:'season',      req:false, example:'ss',                     note:'ss = Spring/Summer  fw = Fall/Winter  yr = Year-round'},
+  {col:'dna',         req:false, example:'Fougère',                note:'Aquatic / Marine, Fougère, Woody / Aromatic, Oriental / Amber, Oud / Resinous, Citrus / Fresh, Gourmand, Floral, Chypre, Tobacco / Smoky, Musky / Skin'},
+  {col:'base',        req:false, example:'yes',                    note:'yes = layering base bottle'},
+  {col:'notes',       req:false, example:'Great projection',       note:'Personal notes'},
+  {col:'rating',      req:false, example:'4',                      note:'1-5 stars'},
+];
+
+let pendingImport = null;
+
+function renderImportExport() {
+  // Build CSV guide table
+  const tbody = document.getElementById('csv-guide-body');
+  if (tbody) {
+    tbody.innerHTML = CSV_COLUMNS.map(c => `
+      <tr style="border-bottom:1px solid rgba(140,100,40,.07);">
+        <td style="padding:7px 12px;color:var(--cream);font-weight:600;font-family:'Cormorant Garamond',serif;font-size:13px;">${c.col}</td>
+        <td style="padding:7px 12px;color:${c.req?'var(--rose)':'var(--dove)'};">${c.req?'Required':'Optional'}</td>
+        <td style="padding:7px 12px;color:var(--dove);font-style:italic;">${c.example}</td>
+        <td style="padding:7px 12px;color:var(--dove);font-size:9px;">${c.note}</td>
+      </tr>`).join('');
+  }
+}
+
+function exportCSV() {
+  const headers = CSV_COLUMNS.map(c => c.col).join(',');
+  const rows = DB.col.map(f => {
+    const st = gst(f.name);
+    const vals = [
+      csvCell(f.house),
+      csvCell(f.name),
+      csvCell(f.inspiration || ''),
+      csvCell(f.occ_key || 'casual'),
+      csvCell(f.s_key || 'yr'),
+      csvCell(st.dna || DEFAULT_DNA[f.name] || ''),
+      csvCell(f.isBase ? 'yes' : ''),
+      csvCell(st.notes || ''),
+      csvCell(st.rating ? String(st.rating) : ''),
+    ];
+    return vals.join(',');
+  });
+  const csv = [headers, ...rows].join('\n');
+  downloadFile(csv, 'my-fragrance-vault.csv', 'text/csv');
+}
+
+function downloadTemplate() {
+  const headers = CSV_COLUMNS.map(c => c.col).join(',');
+  const example = [
+    csvCell('The Dua Brand'),
+    csvCell('Ottoman Breeze'),
+    csvCell('Nishane Hacivat'),
+    csvCell('casual'),
+    csvCell('ss'),
+    csvCell('Fougère'),
+    csvCell('yes'),
+    csvCell('Amazing layering base'),
+    csvCell('5'),
+  ].join(',');
+  const csv = [headers, example].join('\n');
+  downloadFile(csv, 'fragrance-vault-template.csv', 'text/csv');
+}
+
+function csvCell(val) {
+  const str = String(val || '');
+  if (str.includes(',') || str.includes('"') || str.indexOf('\n') >= 0) {
+    return '"' + str.replace(/"/g, '""') + '"';
+  }
+  return str;
+}
+
+function downloadFile(content, filename, type) {
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function importCSV(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const text = e.target.result;
+      const lines = text.trim().split('\n');
+      const headers = parseCSVLine(lines[0]).map(h => h.trim().toLowerCase());
+      
+      const nameIdx = headers.indexOf('name');
+      const houseIdx = headers.indexOf('house');
+      if (nameIdx === -1 || houseIdx === -1) {
+        setImportStatus('Error: CSV must have "name" and "house" columns.', true);
+        return;
+      }
+
+      const parsed = [];
+      for (let i = 1; i < lines.length; i++) {
+        if (!lines[i].trim()) continue;
+        const vals = parseCSVLine(lines[i]);
+        const get = col => {
+          const idx = headers.indexOf(col);
+          return idx >= 0 ? (vals[idx] || '').trim() : '';
+        };
+        const name = get('name');
+        const house = get('house');
+        if (!name || !house) continue;
+        parsed.push({
+          house, name,
+          inspiration: get('inspiration') || 'Original',
+          occ_key: get('occasion') || 'casual',
+          occ_detail: get('occasion') || 'Casual / everyday',
+          s_key: get('season') || 'yr',
+          isBase: get('base').toLowerCase() === 'yes',
+          _dna: get('dna'),
+          _notes: get('notes'),
+          _rating: parseInt(get('rating')) || 0,
+        });
+      }
+
+      if (!parsed.length) {
+        setImportStatus('No valid bottles found in CSV.', true);
+        return;
+      }
+
+      pendingImport = parsed;
+      showImportPreview(parsed);
+    } catch(err) {
+      setImportStatus('Error reading file: ' + err.message, true);
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (c === ',' && !inQ) {
+      result.push(cur); cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+function showImportPreview(parsed) {
+  const mode = document.querySelector('input[name="import-mode"]:checked')?.value || 'replace';
+  const preview = document.getElementById('import-preview');
+  const content2 = document.getElementById('import-preview-content');
+  
+  const existing = DB.col.map(f => f.name.toLowerCase());
+  const newBottles = parsed.filter(f => !existing.includes(f.name.toLowerCase()));
+  const dupes = parsed.filter(f => existing.includes(f.name.toLowerCase()));
+
+  content2.innerHTML = `
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;">
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);font-weight:600;">${parsed.length}</div><div style="font-size:8.5px;color:var(--dove);">Bottles in CSV</div></div>
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--forest);font-weight:600;">${newBottles.length}</div><div style="font-size:8.5px;color:var(--dove);">New bottles</div></div>
+      ${mode==='replace'?`<div><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--rose);font-weight:600;">${DB.col.length}</div><div style="font-size:8.5px;color:var(--dove);">Will be removed</div></div>`:`<div><div style="font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--dove);font-weight:600;">${dupes.length}</div><div style="font-size:8.5px;color:var(--dove);">Already exist (skipped)</div></div>`}
+    </div>
+    <div style="font-size:9.5px;color:var(--cream);font-weight:600;margin-bottom:8px;">First 5 bottles detected:</div>
+    ${parsed.slice(0,5).map(f => '<div style="padding:5px 0;border-bottom:1px solid rgba(140,100,40,.08);font-size:10px;color:var(--cream);">' + f.name + ' <span style="color:var(--gold);font-size:8.5px;">' + f.house + '</span></div>').join('')}
+    ${parsed.length > 5 ? '<div style="font-size:9px;color:var(--dove);margin-top:6px;">+' + (parsed.length-5) + ' more</div>' : ''}
+    <div style="margin-top:14px;padding:10px 14px;background:rgba(176,90,66,.07);border:1px solid rgba(176,90,66,.2);font-size:9.5px;color:var(--rose);">
+      ${mode==='replace'?'This will REPLACE your entire current collection. Your wear logs, ratings and notes will be cleared.':'This will ADD new bottles only. Your existing data is safe.'}
+    </div>
+  `;
+
+  document.getElementById('import-confirm-btn').onclick = () => confirmImport(mode);
+  preview.style.display = 'block';
+  preview.scrollIntoView({behavior:'smooth'});
+}
+
+function confirmImport(mode) {
+  if (!pendingImport) return;
+  const parsed = pendingImport;
+
+  if (mode === 'replace') {
+    DB.col = parsed.map(f => ({house:f.house, name:f.name, inspiration:f.inspiration, occ_key:f.occ_key, occ_detail:f.occ_detail, s_key:f.s_key, isBase:f.isBase}));
+    DB.st = {};
+    parsed.forEach(f => {
+      if (f._dna || f._notes || f._rating) {
+        DB.st[f.name] = {};
+        if (f._dna) DB.st[f.name].dna = f._dna;
+        if (f._notes) DB.st[f.name].notes = f._notes;
+        if (f._rating) DB.st[f.name].rating = f._rating;
+      }
+    });
+  } else {
+    const existing = new Set(DB.col.map(f => f.name.toLowerCase()));
+    parsed.forEach(f => {
+      if (!existing.has(f.name.toLowerCase())) {
+        DB.col.push({house:f.house, name:f.name, inspiration:f.inspiration, occ_key:f.occ_key, occ_detail:f.occ_detail, s_key:f.s_key, isBase:f.isBase});
+        if (f._dna || f._notes || f._rating) {
+          DB.st[f.name] = {};
+          if (f._dna) DB.st[f.name].dna = f._dna;
+          if (f._notes) DB.st[f.name].notes = f._notes;
+          if (f._rating) DB.st[f.name].rating = f._rating;
+        }
+      }
+    });
+  }
+
+  saveDB();
+  populateHouses();
+  populateSugSelect();
+  renderGrid();
+  updateStats();
+  pendingImport = null;
+  document.getElementById('import-preview').style.display = 'none';
+  setImportStatus('Import successful! ' + DB.col.length + ' bottles loaded.', false);
+  setTimeout(() => showPage('collection', document.querySelector('.nav-tab')), 1500);
+}
+
+function cancelImport() {
+  pendingImport = null;
+  document.getElementById('import-preview').style.display = 'none';
+}
+
+function setImportStatus(msg, isError) {
+  const el = document.getElementById('import-status');
+  if (el) {
+    el.textContent = msg;
+    el.style.color = isError ? 'var(--rose)' : 'var(--forest)';
+  }
+}
+
+function exportBackup() {
+  const backup = {
+    version: 1,
+    exported: new Date().toISOString(),
+    col: DB.col,
+    layers: DB.layers,
+    st: DB.st,
+    wishlist: DB.wishlist || [],
+  };
+  downloadFile(JSON.stringify(backup, null, 2), 'fragrance-vault-backup.json', 'application/json');
+}
+
+function importBackup(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const backup = JSON.parse(e.target.result);
+      if (!backup.col || !Array.isArray(backup.col)) throw new Error('Invalid backup file');
+      if (!confirm('This will replace ALL your data including wears, ratings and notes. Are you sure?')) return;
+      DB.col = backup.col;
+      DB.layers = backup.layers || [];
+      DB.st = backup.st || {};
+      DB.wishlist = backup.wishlist || [];
+      saveDB();
+      populateHouses();
+      populateSugSelect();
+      renderGrid();
+      updateStats();
+      setImportStatus('Backup restored! ' + DB.col.length + ' bottles loaded.', false);
+      setTimeout(() => showPage('collection', document.querySelector('.nav-tab')), 1500);
+    } catch(err) {
+      setImportStatus('Error: ' + err.message, true);
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+// ============================================================
 // INIT
 // ============================================================
-loadDB();populateHouses();populateSugSelect();renderSprayDots();renderGrid();updateStats();fetchWeather();filterQL('');
+loadDB();populateHouses();populateSugSelect();populateTagFilter();renderSprayDots();renderGrid();updateStats();fetchWeather();filterQL('');setTimeout(buildMorningRec,1200);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetDirect();['add-overlay','conf-overlay'].forEach(id=>document.getElementById(id).classList.add('hidden'));}});
 </script>
 
