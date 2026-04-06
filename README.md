@@ -12,6 +12,40 @@
   --smoke:#ffffff;--ash:#e8e2d8;--char:#dfd9cf;--dove:#6a5a4a;--cream:#1a1208;
   --rose:#b05a42;--aqua:#2a6575;--forest:#2d5028;--ab:rgba(140,100,40,0.18);
 }
+[data-theme="dark"] {
+  --ink:#0e0c09;--parchment:#e8ddd0;--gold:#c9a84c;--gold-light:#e8d5a3;--gold-dim:#8a6e2e;
+  --smoke:#181410;--ash:#252018;--char:#1e1a14;--dove:#8a7a6a;--cream:#ede8dc;
+  --rose:#c06050;--aqua:#4a8595;--forest:#4d7048;--ab:rgba(201,168,76,0.18);
+}
+[data-theme="dark"] body{background:#0e0c09;color:#e8ddd0;}
+[data-theme="dark"] .header{background:rgba(14,12,9,0.97);}
+[data-theme="dark"] .nav-bar{background:#181410;}
+[data-theme="dark"] .card,[data-theme="dark"] .acard,[data-theme="dark"] .lcard,
+[data-theme="dark"] .ritem,[data-theme="dark"] .dnaf,[data-theme="dark"] .ins-card,
+[data-theme="dark"] .wl-card,[data-theme="dark"] .sug-card,[data-theme="dark"] .lcard,
+[data-theme="dark"] .morning-card{background:#181410;border-color:rgba(201,168,76,.12);}
+[data-theme="dark"] .card:hover,[data-theme="dark"] .ritem:hover,[data-theme="dark"] .dnaf:hover{background:#252018;}
+[data-theme="dark"] .modal,[data-theme="dark"] .add-modal{background:#181410;border-color:rgba(201,168,76,.15);}
+[data-theme="dark"] .confirm-box{background:#1e1a14;}
+[data-theme="dark"] select,[data-theme="dark"] .sw input,[data-theme="dark"] .tag-input,
+[data-theme="dark"] textarea.notes,[data-theme="dark"] .alf input,[data-theme="dark"] .alf textarea,
+[data-theme="dark"] .add-modal input,[data-theme="dark"] .add-modal select{background:#252018;border-color:rgba(201,168,76,.18);color:#e8ddd0;}
+[data-theme="dark"] .ql-panel{background:#181410;border-color:rgba(201,168,76,.15);}
+[data-theme="dark"] .ql-item:hover{background:#252018;}
+[data-theme="dark"] .weather-bar,[data-theme="dark"] .suggester,[data-theme="dark"] .alf{background:#1e1a14;}
+[data-theme="dark"] .dna-panel{background:#1e1a14;}
+[data-theme="dark"] .wl-form{background:#1e1a14;}
+[data-theme="dark"] .grid{background:rgba(201,168,76,.08);}
+[data-theme="dark"] .agrid,[data-theme="dark"] .lab-grid,[data-theme="dark"] .ins-grid,
+[data-theme="dark"] .wl-grid,[data-theme="dark"] .sug-cards,[data-theme="dark"] .dna-hero{background:rgba(201,168,76,.08);}
+[data-theme="dark"] #page-collection,[data-theme="dark"] #page-classification,
+[data-theme="dark"] #page-layering,[data-theme="dark"] #page-analytics,
+[data-theme="dark"] #page-rotation,[data-theme="dark"] #page-starred,
+[data-theme="dark"] #page-weather,[data-theme="dark"] #page-insights,
+[data-theme="dark"] #page-wishlist,[data-theme="dark"] #page-search,
+[data-theme="dark"] #page-bottle,[data-theme="dark"] #page-importexport,
+[data-theme="dark"] #page-duaadvisor{background:#0e0c09;}
+[data-theme="dark"] .main{background:#0e0c09;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:#f0ebe3;color:var(--parchment);font-family:'Josefin Sans',sans-serif;font-weight:400;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.7;}
@@ -330,6 +364,11 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 #srch-grid .card{cursor:pointer;}
 </style>
 
+  <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22The+Vault%22%2C%22short_name%22%3A%22Vault%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23ede8de%22%2C%22theme_color%22%3A%22%238a5e1e%22%7D">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="The Vault">
+  <meta name="theme-color" content="#8a5e1e">
 </head>
 <body>
 
@@ -347,7 +386,10 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
     <div class="sdiv"></div>
     <div class="stat"><span class="stat-num" id="s-starred">0</span><span class="stat-label">Starred</span></div>
   </div>
-  <button class="add-btn" onclick="openAddModal()">+ Add Bottle</button>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="add-btn" onclick="openAddModal()">+ Add Bottle</button>
+    <button id="dark-toggle" onclick="toggleDarkMode()" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;" title="Toggle dark mode">☀</button>
+  </div>
 </header>
 
 <nav class="nav-bar">
@@ -588,6 +630,17 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
 <div id="page-insights" class="page">
   <div class="sec-hdr"><span class="sec-title">&#10024; Insights</span><span class="sec-ct">your collection at a glance</span></div>
+
+  <!-- ROTATION REMINDERS BANNER -->
+
+  <div id="reminder-banner" style="display:none;background:#ffffff;border:1px solid rgba(140,100,40,.2);border-left:4px solid var(--gold);padding:16px 20px;margin-bottom:1px;">
+    <div style="font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:700;">&#128276; Rotation Reminders</div>
+    <div id="reminder-list"></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-gold" style="font-size:7.5px;" onclick="requestNotificationPermission()">&#128276; Enable Push Reminders</button>
+      <button class="btn btn-muted" style="font-size:7.5px;" id="notif-status"></button>
+    </div>
+  </div>
   <div class="ins-grid" id="ins-grid"></div>
 </div>
 
@@ -595,7 +648,7 @@ textarea.notes::placeholder{color:var(–dove);font-style:italic;}
 
 <div id="page-wishlist" class="page">
   <div class="sec-hdr"><span class="sec-title">&#9734; Wishlist &amp; Destash</span></div>
-  <div class="wl-form">
+  <div class="wl-form" id="wl-form">
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
       <input type="text" id="wl-name" placeholder="Fragrance name" style="flex:1;min-width:160px;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
       <input type="text" id="wl-house" placeholder="House / Brand" style="flex:1;min-width:140px;background:#ffffff;border:1px solid rgba(140,100,40,.2);color:var(--parchment);padding:9px 12px;font-family:'Josefin Sans',sans-serif;font-size:10px;outline:none;font-weight:500;">
@@ -1573,36 +1626,94 @@ function renderClassification(){
   document.getElementById('dna-families').innerHTML=allF.map(fam=>{
     const items=fams[fam]||[];
     const col=DNA_FAMILIES[fam]?.color||'var(--dove)';
-    const preview=items.slice(0,3).map(f=>f.name).join(', ')+(items.length>3?` … +${items.length-3} more`:'');
-    return `<div class="dnaf" style="border-color:${col};" onclick="toggleDNA('${esc(fam)}')">
-      <div class="dnaf-name">${fam}</div>
+    const desc=DNA_FAMILIES[fam]?.desc||'';
+    const preview=items.slice(0,4).map(f=>f.name).join(', ')+(items.length>4?` +${items.length-4} more`:'');
+    return `<div class="dnaf" style="border-left:4px solid ${col};cursor:pointer;" onclick="toggleDNA('${esc(fam)}')">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <div class="dnaf-name" style="color:${col};">${fam}</div>
+        <div style="font-size:20px;color:${col};opacity:.5;">›</div>
+      </div>
       <div class="dnaf-ct">${items.length} bottle${items.length!==1?'s':''}</div>
-      ${items.length?`<div class="dnaf-list">${preview}</div>`:''}
+      <div style="font-size:8px;color:var(--dove);margin-top:4px;line-height:1.5;">${desc}</div>
+      ${items.length?`<div class="dnaf-list" style="margin-top:6px;border-top:1px solid rgba(140,100,40,.08);padding-top:6px;">${preview}</div>`:'<div style="font-size:8.5px;color:rgba(140,100,40,.3);margin-top:6px;font-style:italic;">None yet — classify your bottles</div>'}
     </div>`;
   }).join('');
-  if(activeDNA){showDNAPanel(activeDNA,fams);}else{document.getElementById('dna-panel').classList.remove('open');}
+  document.getElementById('dna-panel').classList.remove('open');
 }
 
 function toggleDNA(fam){
-  activeDNA=activeDNA===fam?null:fam;renderClassification();
+  activeDNA = fam;
+  showDNAFull(fam);
 }
 
-function showDNAPanel(fam,fams){
-  const items=fams[fam]||[];
-  const col=DNA_FAMILIES[fam]?.color||'var(--dove)';
-  const desc=DNA_FAMILIES[fam]?.desc||'';
-  const panel=document.getElementById('dna-panel');
-  panel.innerHTML=`<div style="margin-bottom:16px;"><div style="font-family:'Cormorant Garamond',serif;font-size:21px;color:${col};margin-bottom:3px;">${fam}</div><div style="font-size:9.5px;color:var(--dove);letter-spacing:.05em;">${desc}</div></div>
-    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(255px,1fr));">${
-    items.map(f=>`<div class="card ${f.s_key}${(gst(f.name).starred||f.starred)?' starred':''}" onclick="openBottlePage('${esc(f.name)}')">
-      <span class="card-star">★</span>
-      <div class="card-house">${f.house}</div>
-      <div class="card-name">${f.name}</div>
-      <div class="card-insp">${f.inspiration}</div>
-      <div class="card-tags"><span class="tag ${OCC_CLS[f.occ_key]}">${OCC_LBL[f.occ_key]}</span><span class="tag tsea">${season(f.s_key)}</span></div>
-    </div>`).join('')}
-  </div>`;
-  panel.classList.add('open');
+function showDNAFull(fam) {
+  // Build the family groups
+  const fams = {};
+  Object.keys(DNA_FAMILIES).forEach(f => fams[f] = []);
+  fams['Unclassified'] = [];
+  DB.col.forEach(f => {
+    const d = gst(f.name).dna || '';
+    (fams[d] || fams['Unclassified']).push(f);
+  });
+
+  const items = fams[fam] || [];
+  const col = DNA_FAMILIES[fam]?.color || 'var(--dove)';
+  const desc = DNA_FAMILIES[fam]?.desc || '';
+
+  // Switch to bottle page style — reuse page-bottle area as a temporary DNA detail view
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+  // Use a dedicated DNA detail page
+  let detailPage = document.getElementById('page-dna-detail');
+  if (!detailPage) {
+    detailPage = document.createElement('div');
+    detailPage.id = 'page-dna-detail';
+    detailPage.className = 'page';
+    document.querySelector('main').appendChild(detailPage);
+  }
+  detailPage.classList.add('active');
+
+  detailPage.innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;">
+      <button class="btn btn-muted" onclick="backToDNA()" style="font-size:8px;">&#8592; All Families</button>
+      <div style="width:12px;height:12px;border-radius:50%;background:${col};flex-shrink:0;"></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:${col};font-weight:600;">${fam}</div>
+      <div style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dove);margin-left:4px;">${items.length} bottle${items.length !== 1 ? 's' : ''}</div>
+    </div>
+    <div style="background:#ffffff;border:1px solid rgba(140,100,40,.1);border-left:4px solid ${col};padding:14px 18px;margin-bottom:16px;">
+      <div style="font-size:10.5px;color:var(--cream);line-height:1.6;font-weight:400;">${desc}</div>
+    </div>
+    ${items.length === 0
+      ? '<div class="empty-st"><em>No bottles yet</em>Open any bottle and set its DNA classification to add it here</div>'
+      : '<div class="grid">' + items.map(f => {
+          const st = gst(f.name);
+          const isS = st.starred || f.starred;
+          const fDNA = st.dna || DEFAULT_DNA[f.name] || '';
+          const dnaCol = DNA_FAMILIES[fDNA]?.color || '';
+          return '<div class="card ' + f.s_key + (isS ? ' starred' : '') + '" onclick="openBottlePage(\'' + esc(f.name) + '\')">' +
+            '<span class="card-star">★</span>' +
+            '<div class="card-house">' + f.house + '</div>' +
+            '<div class="card-name">' + f.name + '</div>' +
+            '<div class="card-insp">' + f.inspiration + '</div>' +
+            '<div class="card-tags">' +
+              '<span class="tag ' + OCC_CLS[f.occ_key] + '">' + OCC_LBL[f.occ_key] + '</span>' +
+              '<span class="tag tsea">' + season(f.s_key) + '</span>' +
+              (f.isBase ? '<span class="tag tbase">BASE</span>' : '') +
+            '</div>' +
+          '</div>';
+        }).join('') + '</div>'
+    }
+  `;
+}
+
+function backToDNA() {
+  activeDNA = null;
+  showPage('classification', document.querySelector('.nav-tab[onclick*="classification"]'));
+}
+
+function showDNAPanel(fam, fams) {
+  // Legacy — now handled by showDNAFull
 }
 
 // ============================================================
@@ -3152,9 +3263,9 @@ function initDuaAdvisor() {
   }, 100);
 }
 
-async function runDuaAdvisor() {
-  const fragName = (document.getElementById('dua-input').value || '').trim();
-  if (!fragName) { alert('Please enter a fragrance name.'); return; }
+function runDuaAdvisor() {
+  const query = (document.getElementById('dua-input').value || '').trim();
+  if (!query) { alert('Please enter a fragrance name.'); return; }
 
   const btn = document.getElementById('dua-go-btn');
   btn.textContent = 'Analyzing…';
@@ -3162,78 +3273,270 @@ async function runDuaAdvisor() {
 
   const resultsEl = document.getElementById('dua-results');
   resultsEl.style.display = 'block';
-  resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:32px;text-align:center;"><div style="font-family:Cormorant Garamond,serif;font-size:18px;color:var(--gold);animation:pulse 1.4s ease-in-out infinite;">Researching ' + fragName + '…</div><div style="font-size:9px;color:var(--dove);letter-spacing:.16em;text-transform:uppercase;margin-top:8px;">Checking against your collection</div></div>';
+  resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(140,100,40,.15);padding:32px;text-align:center;"><div style="font-family:Cormorant Garamond,serif;font-size:18px;color:var(--gold);animation:pulse 1.4s ease-in-out infinite;">Analyzing ' + query + '…</div></div>';
 
-  // Build collection context
-  const myCol = DB.col.map(f => {
-    const dna = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
-    return f.name + ' (' + f.house + ', DNA: ' + dna + ', Insp: ' + f.inspiration.split('+')[0].trim() + ')';
-  }).join('; ');
+  setTimeout(function() {
+    try {
+      const result = analyzeDuaFragrance(query);
+      renderDuaResult(result, query);
+    } catch(e) {
+      resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(176,90,66,.2);padding:20px;color:var(--rose);font-size:10px;">Error: ' + e.message + '</div>';
+    }
+    btn.textContent = '✦ Analyze';
+    btn.disabled = false;
+  }, 600);
+}
 
-  const duaOnly = DB.col.filter(f => f.house === 'The Dua Brand').map(f => f.name).join(', ');
+// ============================================================
+// DUA BRAND KNOWLEDGE BASE
+// ============================================================
+const DUA_CATALOG = {
+  // Aquatic / Marine cluster
+  "poseidon's swimming cologne": {fullName:"Poseidon's Swimming Cologne",inspiration:"Creed Aventus Cologne + LV Afternoon Swim",dna:"Aquatic / Marine",keyNotes:"pineapple, sea salt, musk, vetiver",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Layer 2 sprays with His Perspective Extrait for a premium aquatic signature."},
+  "poseidon's ocean mist": {fullName:"Poseidon's Ocean Mist",inspiration:"Creed Aventus Cologne × Nautica Voyage",dna:"Aquatic / Marine",keyNotes:"sea breeze, citrus, white musk, woods",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Best on warm days — the marine accord opens beautifully in heat."},
+  "acqua di dua": {fullName:"Acqua Di DUA",inspiration:"Acqua di Giò (vintage)",dna:"Aquatic / Marine",keyNotes:"marine, bergamot, rosemary, white musk",priceRange:"$35 - $50",occasion:"casual",season:"ss",sprays:3,tip:"A faithful vintage-style interpretation — great beach and gym scent."},
+  "gone swimming": {fullName:"Gone Swimming",inspiration:"LV Afternoon Swim",dna:"Aquatic / Marine",keyNotes:"sea salt, amber, vetiver, iris",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Apply to chest and wrists — longevity is excellent for an aquatic."},
+  "jean lowe immortal": {fullName:"Jean Lowe Immortal",inspiration:"LV L'Immensité",dna:"Aquatic / Marine",keyNotes:"ginger, vetiver, woods, sea notes",priceRange:"$38 - $55",occasion:"office",season:"ss",sprays:3,tip:"A layering base — 2 sprays under Ameer Al Oudh Intense is a proven combo."},
+  "victorian poseidon": {fullName:"Victorian Poseidon",inspiration:"Aventus + Xerjoff 1861 Renaissance",dna:"Aquatic / Marine",keyNotes:"pineapple, birch, leather, sea accord",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:3,tip:"Formal and polished — save for special occasions."},
+  // Fougère cluster
+  "ottoman breeze": {fullName:"Ottoman Breeze",inspiration:"Nishane Hacivat",dna:"Fougère",keyNotes:"bergamot, iris, patchouli, woody musk",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"The ultimate layering base — pairs with almost anything in your collection."},
+  "ottomans vert breeze": {fullName:"Ottomans Vert Breeze",inspiration:"Nishane Hacivat × Creed Green Irish Tweed",dna:"Fougère",keyNotes:"green herbs, violet leaf, woods, iris",priceRange:"$40 - $58",occasion:"casual",season:"ss",sprays:3,tip:"Greener and crisper than Ottoman Breeze — great for outdoor daytime."},
+  "his perspective extrait": {fullName:"His Perspective Extrait",inspiration:"Prada Paradigme",dna:"Woody / Aromatic",keyNotes:"geranium, iris, sandalwood, vetiver",priceRange:"$45 - $65",occasion:"office",season:"yr",sprays:2,tip:"Use 2 sprays max — this is a powerhouse extrait. Perfect layering anchor."},
+  "river fougere": {fullName:"River Fougere",inspiration:"YSL Rive Gauche Pour Homme",dna:"Fougère",keyNotes:"lavender, woods, tonka, oakmoss",priceRange:"$35 - $50",occasion:"office",season:"ss",sprays:3,tip:"A retro-cool fougère — great for days when you want something classic."},
+  "gentleman's club": {fullName:"Gentleman's Club",inspiration:"Givenchy Gentleman Society",dna:"Fougère",keyNotes:"iris, vetiver, pear, woods",priceRange:"$38 - $55",occasion:"date",season:"fw",sprays:3,tip:"Sophisticated and modern — perfect business dinner fragrance."},
+  // Oriental / Amber cluster
+  "casino royale nights extrait": {fullName:"Casino Royale Nights Extrait",inspiration:"Baccarat Rouge 540 Extrait",dna:"Oriental / Amber",keyNotes:"saffron, amberwood, cedar, jasmine",priceRange:"$55 - $80",occasion:"date",season:"fw",sprays:2,tip:"2 sprays is all you need — this beast projects for hours."},
+  "fortune": {fullName:"Fortune",inspiration:"Xerjoff Naxos",dna:"Oriental / Amber",keyNotes:"bergamot, honey, tobacco, vanilla",priceRange:"$45 - $65",occasion:"date",season:"fw",sprays:3,tip:"Sweet and powerful — wear this on cold evenings for maximum impact."},
+  "aphrodisiac": {fullName:"Aphrodisiac",inspiration:"Initio Psychedelic Love",dna:"Oriental / Amber",keyNotes:"musks, vanilla, iris, patchouli",priceRange:"$45 - $65",occasion:"date",season:"fw",sprays:2,tip:"Layer with Midnight Rendezvous for a seductive evening combo."},
+  "bleu de casino elixir extrait": {fullName:"Bleu de Casino Elixir Extrait",inspiration:"Bleu de Chanel + Aventus + BR540 Extrait",dna:"Woody / Aromatic",keyNotes:"labdanum, sandalwood, pineapple, cedar",priceRange:"$55 - $80",occasion:"date",season:"fw",sprays:2,tip:"The ultimate Dua statement piece — save for special evenings out."},
+  "midnight candy for 1 & only": {fullName:"Midnight Candy For 1 & Only",inspiration:"La Nuit de L'Homme + Candies for Men + The One",dna:"Oriental / Amber",keyNotes:"cardamom, vanilla, amber, cedar",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:3,tip:"An irresistible evening scent — confident and sweet without being cloying."},
+  "error 413": {fullName:"Error 413",inspiration:"1 Million Lucky",dna:"Oriental / Amber",keyNotes:"hazelnut, amber, grapefruit, patchouli",priceRange:"$35 - $52",occasion:"evening",season:"fw",sprays:3,tip:"Crowd-pleasing and fun — great for social nights out."},
+  "error 410": {fullName:"Error 410",inspiration:"Paco Rabanne 1 Million Absolutely Gold",dna:"Oriental / Amber",keyNotes:"gold accord, amber, leather, patchouli",priceRange:"$38 - $55",occasion:"date",season:"fw",sprays:3,tip:"More refined than Error 413 — a step up for upscale occasions."},
+  "queen of the chess": {fullName:"Queen Of The Chess",inspiration:"Mind Games Queening",dna:"Oriental / Amber",keyNotes:"oud, rose, amber, patchouli",priceRange:"$45 - $65",occasion:"date",season:"fw",sprays:2,tip:"A complex oriental — give it 20 minutes to fully develop on skin."},
+  "city of dua": {fullName:"City of Dua",inspiration:"LV City of Stars",dna:"Woody / Aromatic",keyNotes:"tobacco, cedar, vetiver, amber",priceRange:"$45 - $65",occasion:"evening",season:"fw",sprays:3,tip:"A sophisticated smoky wood — excellent for smart evening events."},
+  "stronger with azure supernova 2.0": {fullName:"Stronger With Azure Supernova 2.0",inspiration:"Stronger With You + ADG Profondo + Roja Elysium + Aventus",dna:"Aquatic / Marine",keyNotes:"chestnut, marine, white musk, cedar",priceRange:"$45 - $65",occasion:"date",season:"fw",sprays:3,tip:"Complex and layered — this one rewards patience as it develops."},
+  // Gourmand cluster
+  "khamrah qahwa": {fullName:"Khamrah Qahwa",inspiration:"Original",dna:"Gourmand",keyNotes:"coffee, oud, vanilla, musk",priceRange:"$35 - $52",occasion:"evening",season:"fw",sprays:3,tip:"Wear this when you want compliments — it is a crowd magnet."},
+  "black widow": {fullName:"Black Widow",inspiration:"Kilian Black Phantom",dna:"Gourmand",keyNotes:"rum, coffee, dark chocolate, musk",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:2,tip:"Seductive and dark — pairs beautifully with Aphrodisiac for date night."},
+  "poseidon's cotton candy": {fullName:"Poseidon's Cotton Candy",inspiration:"Aventus + Cotton Candy De Dua",dna:"Gourmand",keyNotes:"cotton candy, pineapple, musk, woods",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Playful and fun — great for casual summer social events."},
+  "iconic plums by the fire": {fullName:"Iconic Plums By The Fire",inspiration:"Andy Warhol + By the Fireplace",dna:"Gourmand",keyNotes:"smoked wood, plum, vanilla, marshmallow",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:3,tip:"Perfect winter cozy scent — lounge, fireplace, or date night indoors."},
+  "cola fizz of tonka beans": {fullName:"Cola Fizz Of Tonka Beans",inspiration:"Mancera Tonka Cola",dna:"Gourmand",keyNotes:"cola, tonka bean, vanilla, citrus",priceRange:"$35 - $52",occasion:"casual",season:"yr",sprays:3,tip:"A unique crowd-pleaser — year-round versatility is a strength."},
+  // Tobacco / Smoky
+  "smoky cuba tabac": {fullName:"Smoky Cuba Tabac",inspiration:"Alghabra Cuban Tobacco",dna:"Tobacco / Smoky",keyNotes:"tobacco, rum, vanilla, cedar",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:3,tip:"A rare tobacco in your collection — fills a genuine gap."},
+  "1 & only jazz club": {fullName:"1 & Only Jazz Club",inspiration:"The One + Jazz Club",dna:"Tobacco / Smoky",keyNotes:"tobacco, ginger, rum, white musk",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"Sophisticated lounge scent — perfect for jazz bars and dinner."},
+  "jazz maison": {fullName:"Jazz Maison",inspiration:"Maison Margiela Jazz Club",dna:"Tobacco / Smoky",keyNotes:"tobacco, vetiver, rum, amber",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"Similar DNA to 1 & Only Jazz Club — check for redundancy before buying."},
+  // Woody / Aromatic
+  "bleu de dua attar": {fullName:"Bleu de Dua Attar",inspiration:"Bleu de Chanel",dna:"Woody / Aromatic",keyNotes:"cedar, labdanum, sandalwood, grapefruit",priceRange:"$45 - $65",occasion:"office",season:"yr",sprays:2,tip:"Your anchor piece — attar concentration means 2 sprays lasts all day."},
+  "d le attar": {fullName:"D Le Attar",inspiration:"YSL Y Le Parfum",dna:"Woody / Aromatic",keyNotes:"ginger, sage, fenugreek, cedar",priceRange:"$45 - $65",occasion:"office",season:"fw",sprays:2,tip:"Attar concentration — extremely long-lasting, apply sparingly."},
+  "the savage attar": {fullName:"The Savage Attar",inspiration:"Dior Sauvage Parfum",dna:"Woody / Aromatic",keyNotes:"ambroxan, lavender, vetiver, pepper",priceRange:"$45 - $65",occasion:"date",season:"yr",sprays:2,tip:"Attar of Sauvage Parfum — incredibly potent, 2 sprays is the max."},
+  "midnight rendezvous": {fullName:"Midnight Rendezvous",inspiration:"YSL La Nuit de L'Homme",dna:"Woody / Aromatic",keyNotes:"cardamom, cedar, lavender, vetiver",priceRange:"$38 - $55",occasion:"date",season:"fw",sprays:3,tip:"Layer with Aphrodisiac for one of the best date night combos in your vault."},
+  "wooden lucky charm": {fullName:"Wooden Lucky Charm",inspiration:"Dior Bois Talisman",dna:"Woody / Aromatic",keyNotes:"vetiver, woods, amber, musk",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"A sophisticated woody for smart casual to evening events."},
+  "true self absolute": {fullName:"True Self Absolute",inspiration:"YSL MYSLF L'Absolu",dna:"Woody / Aromatic",keyNotes:"bergamot, fenugreek, woods, cedar",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:3,tip:"A strong, confident masculine — great for dates and dinners."},
+  "aroma of heaven": {fullName:"Aroma of Heaven",inspiration:"Hermès Terre d'Hermès (vintage)",dna:"Woody / Aromatic",keyNotes:"vetiver, orange, pepper, flint",priceRange:"$38 - $55",occasion:"office",season:"yr",sprays:3,tip:"A versatile all-day woody — excellent office and daytime choice."},
+  // Floral
+  "desert reflection extrait": {fullName:"Desert Reflection Extrait",inspiration:"Amouage Reflection Man",dna:"Floral",keyNotes:"neroli, rose, sandalwood, musk",priceRange:"$55 - $80",occasion:"special",season:"fw",sprays:2,tip:"A luxury floral — reserve for formal occasions and special events."},
+  "rome in yellow dream": {fullName:"Rome in Yellow Dream",inspiration:"Valentino Born in Roma Yellow Dream",dna:"Floral",keyNotes:"iris, vanilla, woody notes, jasmine",priceRange:"$38 - $55",occasion:"date",season:"ss",sprays:3,tip:"A warm floral — perfect for spring dates and outdoor events."},
+  // Fresh
+  "intuition vision": {fullName:"Intuition Vision",inspiration:"Acqua di Giò Profumo",dna:"Aquatic / Marine",keyNotes:"incense, marine, woody notes, patchouli",priceRange:"$38 - $55",occasion:"office",season:"ss",sprays:3,tip:"The refined office aquatic — more gravitas than typical marine frags."},
+  "supernova cologne intense": {fullName:"Supernova Cologne Intense",inspiration:"Roja Elysium Eau Intense",dna:"Aquatic / Marine",keyNotes:"citrus, woods, musk, sea notes",priceRange:"$45 - $65",occasion:"office",season:"ss",sprays:3,tip:"Office and gym versatility — clean and powerful simultaneously."},
+  "imperiale casino elixir": {fullName:"Imperiale Casino Elixir",inspiration:"Millésime Impérial + Aventus + BR540 Extrait",dna:"Aquatic / Marine",keyNotes:"melon, sea salt, musk, woods",priceRange:"$55 - $80",occasion:"special",season:"ss",sprays:2,tip:"A premium summer special occasion scent — save this for events."},
+  "imperiale matrix": {fullName:"Imperialé Matrix",inspiration:"Creed Millésime Impérial × Xerjoff Nio",dna:"Aquatic / Marine",keyNotes:"sea breeze, musk, cedar, bergamot",priceRange:"$45 - $65",occasion:"office",season:"ss",sprays:3,tip:"A sophisticated daytime marine — elevated above typical aquatics."},
+  "the mobster vs poseidon": {fullName:"The Mobster vs Poseidon",inspiration:"Roja Creation-E × Creed Aventus",dna:"Woody / Aromatic",keyNotes:"birch, apple, tobacco, sea",priceRange:"$50 - $72",occasion:"date",season:"fw",sprays:3,tip:"Complex and polarizing — check how it develops on your skin before committing."},
+  "midnight fig": {fullName:"Midnight Fig",inspiration:"Nest Indigo",dna:"Citrus / Fresh",keyNotes:"fig, violet, musk, ambers",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"One of few citrus/fresh in your collection — a genuine gap-filler."},
 
-  const prompt = `You are an expert fragrance advisor specializing in The Dua Brand. AJ is a serious collector with 164 bottles asking whether to buy "${fragName}" from The Dua Brand.
+  // ---- ALL REMAINING DUA COLLECTION BOTTLES ----
+  "#imagine": {fullName:"#Imagine",inspiration:"Louis Vuitton Imagination",dna:"Aquatic / Marine",keyNotes:"aldehydes, woods, musk, sea",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"A surprisingly unique take on the LV Imagination DNA — more linear but excellent longevity."},
+  "bet on 67": {fullName:"Bet On 67",inspiration:"Ralph Lauren Polo 67",dna:"Fougère",keyNotes:"lavender, oakmoss, herbs, woods",priceRange:"$35 - $50",occasion:"sport",season:"ss",sprays:3,tip:"A retro sport fougère — great for outdoor casual days."},
+  "bleu de dua exclusive extrait": {fullName:"Bleu de Dua Exclusive Extrait",inspiration:"Bleu de Chanel L'Exclusif",dna:"Woody / Aromatic",keyNotes:"labdanum, cedarwood, sandalwood, incense",priceRange:"$55 - $80",occasion:"office",season:"fw",sprays:2,tip:"The most formal Bleu de Dua — reserve for business formal and special occasions."},
+  "d le parfum intense": {fullName:"D Le Parfum Intense",inspiration:"YSL Y EDP Intense",dna:"Woody / Aromatic",keyNotes:"sage, cedar, ginger, fenugreek",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:3,tip:"More intense and smoky than D Le Attar — excellent for evening wear."},
+  "drowning in bleu de dua attar": {fullName:"Drowning in Bleu de Dua Attar",inspiration:"Bleu de Chanel + Nishane Ani",dna:"Woody / Aromatic",keyNotes:"cedar, musk, sandalwood, floral",priceRange:"$50 - $72",occasion:"date",season:"fw",sprays:2,tip:"An attar — incredibly potent. Two sprays will last 12+ hours."},
+  "drowning bleu de savage fierce extrait": {fullName:"Drowning Bleu de Savage Fierce Extrait",inspiration:"Ani + Sauvage EDT + Fierce + BdC",dna:"Woody / Aromatic",keyNotes:"ambroxan, woods, musk, pepper",priceRange:"$55 - $80",occasion:"evening",season:"fw",sprays:2,tip:"A powerhouse extrait — wear sparingly. Best for club nights and bold evening events."},
+  "his intense aspiration": {fullName:"His Intense Aspiration",inspiration:"Allure Homme Blanche + AHS Eau Extreme",dna:"Fougère",keyNotes:"white woods, citrus, aldehydes, musk",priceRange:"$38 - $55",occasion:"office",season:"ss",sprays:3,tip:"A sophisticated clean fougère — versatile office and daytime choice."},
+  "his loyalty": {fullName:"His Loyalty",inspiration:"D&G Devotion Pour Homme",dna:"Floral",keyNotes:"neroli, iris, woods, musk",priceRange:"$35 - $50",occasion:"casual",season:"ss",sprays:3,tip:"A light floral masculine — good for warm casual days."},
+  "fierce savage": {fullName:"Fierce Savage",inspiration:"Abercrombie Fierce + Dior Sauvage EDT",dna:"Woody / Aromatic",keyNotes:"ambroxan, woods, pepper, musk",priceRange:"$35 - $50",occasion:"sport",season:"ss",sprays:3,tip:"A bold sporty woody — great for gym and outdoor casual."},
+  "his royalty": {fullName:"His Royalty",inspiration:"Prada L'Homme L'Eau",dna:"Floral",keyNotes:"iris, vetiver, woods, citrus",priceRange:"$35 - $50",occasion:"office",season:"ss",sprays:3,tip:"Light and elegant — a refined office daytime choice for warm months."},
+  "his aspiration extreme sport": {fullName:"His Aspiration Extreme Sport",inspiration:"Chanel Allure Homme Sport Eau Extrême",dna:"Aquatic / Marine",keyNotes:"neroli, cedar, vetiver, white musk",priceRange:"$38 - $55",occasion:"sport",season:"ss",sprays:3,tip:"A refined sporty aquatic — transitions well from gym to casual daytime."},
+  "his og aspiration": {fullName:"His OG Aspiration",inspiration:"Chanel Allure Homme (1999 vintage)",dna:"Fougère",keyNotes:"aldehydes, woods, vanilla, musk",priceRange:"$38 - $55",occasion:"office",season:"fw",sprays:3,tip:"A vintage-style fougère — sophisticated and office-appropriate."},
+  "iconic greenwich village": {fullName:"Iconic Greenwich Village",inspiration:"Bond No. 9 Greenwich Village",dna:"Fougère",keyNotes:"bergamot, leather, woods, iris",priceRange:"$40 - $58",occasion:"casual",season:"ss",sprays:3,tip:"An urban creative scent — great for social daytime events."},
+  "imperial blue": {fullName:"Imperial Blue",inspiration:"Bleu de Chanel + Creed Millésime Impérial",dna:"Aquatic / Marine",keyNotes:"melon, sea breeze, cedar, musk",priceRange:"$40 - $58",occasion:"date",season:"ss",sprays:3,tip:"A premium summer date scent — marine and luxurious."},
+  "mystical amulet of blue": {fullName:"Mystical Amulet of Blue",inspiration:"Ex Nihilo Blue Talisman",dna:"Aquatic / Marine",keyNotes:"sea spray, iris, musk, woods",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"A niche-inspired aquatic — more refined than typical marine fragrances."},
+  "peace with poseidon": {fullName:"Peace with Poseidon",inspiration:"Scent of Peace + Aventus",dna:"Aquatic / Marine",keyNotes:"pineapple, sea, musk, woods",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Pineapple-forward aquatic — very wearable for outdoors and weekend casual."},
+  "spice it up metallic musk": {fullName:"Spice It Up Metallic Musk",inspiration:"Viktor & Rolf Spicebomb Metallic Musk",dna:"Oriental / Amber",keyNotes:"pepper, metallic musk, amber, wood",priceRange:"$38 - $55",occasion:"office",season:"fw",sprays:3,tip:"A modern spicy musk — very office-appropriate for fall and winter."},
+  "poseidon's fireplace": {fullName:"Poseidon's Fireplace",inspiration:"Aventus + By the Fireplace",dna:"Woody / Aromatic",keyNotes:"smoked wood, pineapple, musk, vanilla",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:3,tip:"A unique combo — the Aventus DNA grounds the smoky fireside accord beautifully."},
+  "dua's soho": {fullName:"Dua's SoHo",inspiration:"Bond No. 9 Soho",dna:"Fougère",keyNotes:"herbs, iris, leather, musk",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Urban and creative — excellent for gallery openings, social events."},
+  "true self absolute": {fullName:"True Self Absolute",inspiration:"YSL MYSLF L'Absolu",dna:"Woody / Aromatic",keyNotes:"bergamot, fenugreek, woods, cedar",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:3,tip:"A strong confident masculine — great for dates and dinners."},
+  "dua's water primal essence": {fullName:"Dua's Water Primal Essence",inspiration:"Acqua di Giò Absolu",dna:"Aquatic / Marine",keyNotes:"incense, sea, patchouli, woody",priceRange:"$38 - $55",occasion:"office",season:"ss",sprays:3,tip:"The darker, moodier side of ADG — more presence than Acqua Di DUA."},
+  "rome in coral fantasy": {fullName:"Rome In Coral Fantasy",inspiration:"Valentino Born in Roma Coral Fantasy",dna:"Floral",keyNotes:"peach, jasmine, musk, vanilla",priceRange:"$38 - $55",occasion:"date",season:"ss",sprays:3,tip:"Fruity floral — best for warm weather dates and brunch."},
+  "1 & only jazz club": {fullName:"1 & Only Jazz Club",inspiration:"The One + Jazz Club",dna:"Tobacco / Smoky",keyNotes:"tobacco, ginger, rum, white musk",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"Sophisticated lounge scent — perfect for jazz bars and dinner."},
+  "rome in green": {fullName:"Rome In Green",inspiration:"Valentino Born in Roma Green Stravaganza",dna:"Fougère",keyNotes:"herbs, vetiver, woods, citrus",priceRange:"$38 - $55",occasion:"casual",season:"ss",sprays:3,tip:"Fresh and green — excellent outdoor and weekend casual scent."},
 
-AJ's current Dua Brand bottles: ${duaOnly}
+  // ---- POPULAR DUA FRAGRANCES NOT YET IN YOUR COLLECTION ----
+  "his intensified aspiration": {fullName:"His Intensified Aspiration",inspiration:"Chanel Allure Homme Intense",dna:"Oriental / Amber",keyNotes:"vanilla, cedar, cardamom, musk",priceRange:"$38 - $55",occasion:"date",season:"fw",sprays:3,tip:"Richer and warmer than His Aspiration variants — excellent date night choice."},
+  "his obsession": {fullName:"His Obsession",inspiration:"Calvin Klein Obsession pour Homme",dna:"Oriental / Amber",keyNotes:"bergamot, oakmoss, amber, vanilla",priceRange:"$35 - $50",occasion:"date",season:"fw",sprays:3,tip:"A classic retro oriental — powerful and long-lasting."},
+  "poseidon's oud": {fullName:"Poseidon's Oud",inspiration:"Creed Aventus + Oud DNA",dna:"Oud / Resinous",keyNotes:"oud, pineapple, musk, resin",priceRange:"$45 - $65",occasion:"evening",season:"fw",sprays:2,tip:"Fills your Oud gap while staying in the Aventus DNA family you love."},
+  "the pasha": {fullName:"The Pasha",inspiration:"Cartier Pasha de Cartier",dna:"Fougère",keyNotes:"mint, woods, musk, amber",priceRange:"$35 - $50",occasion:"office",season:"ss",sprays:3,tip:"A classic fougère with mint freshness — excellent office choice for spring."},
+  "midnight oud": {fullName:"Midnight Oud",inspiration:"Roja Dove Amber Aoud",dna:"Oud / Resinous",keyNotes:"oud, amber, rose, saffron",priceRange:"$45 - $65",occasion:"evening",season:"fw",sprays:2,tip:"A genuine oud oriental — fills your Oud/Resinous gap meaningfully."},
+  "celestial": {fullName:"Celestial",inspiration:"Initio High Frequency",dna:"Musky / Skin",keyNotes:"musk, sandalwood, iris, white florals",priceRange:"$40 - $58",occasion:"casual",season:"yr",sprays:3,tip:"A clean, refined skin scent — adds the Musky/Skin DNA you are light on."},
+  "adventure seeker": {fullName:"Adventure Seeker",inspiration:"Davidoff Adventure",dna:"Citrus / Fresh",keyNotes:"grapefruit, woods, musk, herbs",priceRange:"$35 - $50",occasion:"sport",season:"ss",sprays:3,tip:"A fresh citrus sporty — good if you want more Citrus/Fresh options."},
+  "amber elixir": {fullName:"Amber Elixir",inspiration:"Amouage Interlude",dna:"Oriental / Amber",keyNotes:"oud, amber, frankincense, oregano",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:2,tip:"A complex oriental powerhouse — special occasions only."},
+  "his creed": {fullName:"His Creed",inspiration:"Creed Original Vetiver",dna:"Woody / Aromatic",keyNotes:"vetiver, grapefruit, sandalwood, white musk",priceRange:"$38 - $55",occasion:"office",season:"ss",sprays:3,tip:"A refined vetiver — excellent all-day office wear for warm months."},
+  "bleu savage": {fullName:"Bleu Savage",inspiration:"Bleu de Chanel + Dior Sauvage",dna:"Woody / Aromatic",keyNotes:"ambroxan, cedar, labdanum, grapefruit",priceRange:"$38 - $55",occasion:"office",season:"yr",sprays:3,tip:"Two of the most popular DNA families combined — extremely versatile."},
+  "noir leather": {fullName:"Noir Leather",inspiration:"Tom Ford Noir Extreme",dna:"Oriental / Amber",keyNotes:"leather, amber, saffron, rose",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:2,tip:"A dark, seductive leather oriental — powerful date night choice."},
+  "the explorer": {fullName:"The Explorer",inspiration:"Montblanc Explorer",dna:"Woody / Aromatic",keyNotes:"bergamot, vetiver, leather, woods",priceRange:"$35 - $50",occasion:"casual",season:"yr",sprays:3,tip:"Approachable and versatile — good everyday option if you need more yr bottles."},
+  "rose oud": {fullName:"Rose Oud",inspiration:"Montale Rose Oud",dna:"Oud / Resinous",keyNotes:"rose, oud, musk, patchouli",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:2,tip:"A classic rose oud — fills both your Oud and Floral gaps simultaneously."},
+  "santal royale": {fullName:"Santal Royale",inspiration:"Santal 33 (Le Labo)",dna:"Woody / Aromatic",keyNotes:"sandalwood, leather, cardamom, violet",priceRange:"$40 - $58",occasion:"casual",season:"yr",sprays:3,tip:"A creamy sandalwood — very wearable and crowd-pleasing."},
+  "oud royale": {fullName:"Oud Royale",inspiration:"Kilian Black Oud",dna:"Oud / Resinous",keyNotes:"oud, rose, amber, incense",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:2,tip:"A rich royal oud — fills your Oud/Resinous gap with maximum impact."},
+  "poseidon's elixir": {fullName:"Poseidon's Elixir",inspiration:"Creed Aventus Elixir",dna:"Aquatic / Marine",keyNotes:"pineapple, amber, musk, woods",priceRange:"$50 - $72",occasion:"date",season:"yr",sprays:2,tip:"Aventus Elixir DNA — richer and more amber-forward than the original."},
+  "blue seduction": {fullName:"Blue Seduction",inspiration:"Antonio Banderas Blue Seduction",dna:"Aquatic / Marine",keyNotes:"apple, violet, woods, musk",priceRange:"$30 - $45",occasion:"casual",season:"ss",sprays:3,tip:"A budget-friendly fresh aquatic — good casual wear without overthinking."},
+  "oud for kings": {fullName:"Oud For Kings",inspiration:"Initio Oud for Greatness",dna:"Oud / Resinous",keyNotes:"oud, violet, musk, woods",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:2,tip:"Bold and massive — you already have Bade'e Al Oud For Glory nearby, check for redundancy."},
+  "l'homme intense": {fullName:"L'Homme Intense",inspiration:"YSL L'Homme Intense",dna:"Woody / Aromatic",keyNotes:"basil, ginger, cedar, vetiver",priceRange:"$38 - $55",occasion:"office",season:"fw",sprays:3,tip:"A classic YSL-style woody aromatic — refined and office-appropriate."},
+  "beach day": {fullName:"Beach Day",inspiration:"Escada Into the Sun",dna:"Citrus / Fresh",keyNotes:"coconut, citrus, sea salt, musk",priceRange:"$35 - $50",occasion:"casual",season:"ss",sprays:3,tip:"A true beach scent — adds Citrus/Fresh variety to your collection."},
+  "velvet oud": {fullName:"Velvet Oud",inspiration:"Mancera Velvet Vanilla",dna:"Gourmand",keyNotes:"oud, vanilla, sandalwood, caramel",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:2,tip:"A sweet, smooth gourmand oud hybrid — unique combination in your collection."},
+  "tobacco oud": {fullName:"Tobacco Oud",inspiration:"Tom Ford Tobacco Oud",dna:"Tobacco / Smoky",keyNotes:"tobacco, oud, amber, spice",priceRange:"$45 - $65",occasion:"evening",season:"fw",sprays:2,tip:"A premium tobacco oud — fills both Tobacco and Oud gaps simultaneously."},
+  "his absolute": {fullName:"His Absolute",inspiration:"Chanel Allure Homme Edition Blanche",dna:"Fougère",keyNotes:"aldehydes, vetiver, cedar, musk",priceRange:"$40 - $58",occasion:"office",season:"ss",sprays:3,tip:"A sophisticated clean fougère — excellent office choice for spring and summer."},
+  "amber wood": {fullName:"Amber Wood",inspiration:"Amouage Jubilation XXV",dna:"Oriental / Amber",keyNotes:"frankincense, amber, myrrh, patchouli",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:2,tip:"A complex luxury oriental — powerful and long-lasting, save for special occasions."},
+  "night out": {fullName:"Night Out",inspiration:"Paco Rabanne 1 Million Prive",dna:"Oriental / Amber",keyNotes:"cinnamon, leather, amber, tobacco",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"Check against your existing 1 Million-adjacent bottles before buying."},
+  "dua's noir": {fullName:"Dua's Noir",inspiration:"YSL La Nuit de L'Homme Bleu Electrique",dna:"Oriental / Amber",keyNotes:"cardamom, lavender, cedar, amber",priceRange:"$38 - $55",occasion:"evening",season:"fw",sprays:3,tip:"A darker spin on the La Nuit DNA you have in Midnight Rendezvous."},
+  "poseidon's legend": {fullName:"Poseidon's Legend",inspiration:"Creed Aventus + Dior Homme Sport",dna:"Aquatic / Marine",keyNotes:"pineapple, grapefruit, musk, sea",priceRange:"$40 - $58",occasion:"casual",season:"ss",sprays:3,tip:"A sporty Aventus variant — check for redundancy with your existing Poseidon bottles."},
+  "oud incense": {fullName:"Oud Incense",inspiration:"Maison Francis Kurkdjian Oud Satin Mood",dna:"Oud / Resinous",keyNotes:"oud, incense, violet, benzoin",priceRange:"$45 - $65",occasion:"special",season:"fw",sprays:2,tip:"A luxury incense oud — genuinely fills your Oud gap with class."},
+  "summer love": {fullName:"Summer Love",inspiration:"Versace Eros Flame",dna:"Oriental / Amber",keyNotes:"tomato leaf, lemon, geranium, amber",priceRange:"$35 - $50",occasion:"date",season:"ss",sprays:3,tip:"A summer-friendly oriental — good for warm weather dates and evenings."},
+  "chypre woods": {fullName:"Chypre Woods",inspiration:"Parfums de Marly Herod",dna:"Chypre",keyNotes:"pipe tobacco, woods, vanilla, amber",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:3,tip:"Adds the Chypre DNA that is completely missing from your collection — high value add."},
+  "green oud": {fullName:"Green Oud",inspiration:"Xerjoff Alexandria II",dna:"Oud / Resinous",keyNotes:"rose, oud, sandalwood, green notes",priceRange:"$45 - $65",occasion:"date",season:"ss",sprays:2,tip:"A rare green-inflected oud — very unique in the Dua lineup."},
+  "leather noir": {fullName:"Leather Noir",inspiration:"Parfums de Marly Layton",dna:"Floral",keyNotes:"apple, lavender, vanilla, woods",priceRange:"$38 - $55",occasion:"date",season:"yr",sprays:3,tip:"Despite the name this follows the Layton profile — a warm versatile crowd-pleaser."},
+  "his intensity": {fullName:"His Intensity",inspiration:"Dior Homme Intense",dna:"Floral",keyNotes:"iris, amber, cocoa, woods",priceRange:"$38 - $55",occasion:"date",season:"fw",sprays:3,tip:"A powdery iris oriental — one of the most unique DNA profiles Dua offers."},
+  "white musk": {fullName:"White Musk",inspiration:"Narciso Rodriguez For Him",dna:"Musky / Skin",keyNotes:"white musk, amber, vetiver",priceRange:"$35 - $50",occasion:"casual",season:"yr",sprays:3,tip:"A clean minimalist skin musk — adds the Musky/Skin DNA you barely have."},
+  "smoky oud": {fullName:"Smoky Oud",inspiration:"By Kilian Black Phantom + Oud",dna:"Tobacco / Smoky",keyNotes:"rum, coffee, oud, vanilla",priceRange:"$40 - $58",occasion:"evening",season:"fw",sprays:2,tip:"Builds on the Black Phantom DNA in your Black Widow — check for redundancy first."},
+  "aqua verde": {fullName:"Aqua Verde",inspiration:"Hermès Eau de Citron Noir",dna:"Citrus / Fresh",keyNotes:"black lemon, bergamot, woods, musk",priceRange:"$35 - $50",occasion:"casual",season:"ss",sprays:3,tip:"A rare citrus in the Dua lineup — genuinely fills your Citrus/Fresh gap."},
+  "cashmere oud": {fullName:"Cashmere Oud",inspiration:"Guerlain L'Instant Pour Homme",dna:"Oriental / Amber",keyNotes:"amber, cashmere, oud, sandalwood",priceRange:"$40 - $58",occasion:"date",season:"fw",sprays:3,tip:"A soft, warm oriental — approachable and crowd-pleasing."},
+};
 
-AJ's full collection DNA and inspirations: ${myCol}
-
-Your task:
-1. Identify what "${fragName}" is — its inspiration, DNA family, key notes, concentration, and typical price range ($30-100 for Dua)
-2. Check for redundancy — does AJ already own something very similar in inspiration or DNA?
-3. Give a clear BUY or SKIP verdict with a confidence score (1-10)
-4. If BUY: explain exactly why it fills a gap or adds something new
-5. If SKIP: name the specific bottle(s) AJ already owns that make this redundant
-6. Provide the correct full Dua Brand name if the user's input is slightly off
-7. Suggest the best occasion and season for this fragrance
-8. Estimate spray count recommendation based on concentration
-
-Respond ONLY in this exact JSON format, no markdown:
-{
-  "fullName": "exact Dua Brand product name",
-  "inspiration": "what it is inspired by",
-  "dna": "one of: Aquatic / Marine, Fougère, Woody / Aromatic, Oriental / Amber, Oud / Resinous, Citrus / Fresh, Gourmand, Floral, Chypre, Tobacco / Smoky, Musky / Skin",
-  "keyNotes": "top 3-4 notes as a short string",
-  "priceRange": "$XX - $XX",
-  "verdict": "BUY" or "SKIP",
-  "confidence": 8,
-  "reason": "2-3 sentences explaining why",
-  "redundantWith": "bottle name if redundant, or empty string",
-  "gapFilled": "what gap it fills if buying, or empty string",
-  "occasion": "date / office / evening / casual / sport / special",
-  "season": "ss or fw or yr",
-  "sprays": 3,
-  "extraTip": "one practical tip about wearing or layering this fragrance"
-}`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-5',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    if (!res.ok) throw new Error('API error ' + res.status);
-    const data = await res.json();
-    const raw = (data.content || []).find(b => b.type === 'text')?.text || '';
-    const match = raw.match(/\{[\s\S]*\}/);
-    if (!match) throw new Error('No JSON in response');
-    const result = JSON.parse(match[0]);
-    renderDuaResult(result, fragName);
-
-  } catch(e) {
-    resultsEl.innerHTML = '<div style="background:#ffffff;border:1px solid rgba(176,90,66,.2);padding:20px;color:var(--rose);font-size:10px;">Error: ' + e.message + '</div>';
+function analyzeDuaFragrance(query) {
+  const q = query.toLowerCase().trim();
+  
+  // Try to find in catalog — fuzzy match
+  let match = null;
+  let matchKey = null;
+  
+  // Exact key match
+  if (DUA_CATALOG[q]) { match = DUA_CATALOG[q]; matchKey = q; }
+  
+  // Partial match — find best
+  if (!match) {
+    let bestScore = 0;
+    for (const key of Object.keys(DUA_CATALOG)) {
+      const words = q.split(' ').filter(w => w.length > 2);
+      const target = (key + ' ' + DUA_CATALOG[key].fullName.toLowerCase() + ' ' + DUA_CATALOG[key].inspiration.toLowerCase());
+      // Score: word matches + substring bonus
+      let score = words.filter(w => target.includes(w)).length;
+      // Bonus if query is a substring of the key
+      if (key.includes(q) || q.includes(key.slice(0,8))) score += 3;
+      if (score > bestScore) { bestScore = score; match = DUA_CATALOG[key]; matchKey = key; }
+    }
+    // Require at least 1 word match to avoid false positives
+    if (bestScore === 0) { match = null; matchKey = null; }
   }
 
-  btn.textContent = '✦ Analyze';
-  btn.disabled = false;
+  // If no match at all, generate a generic analysis
+  if (!match || !matchKey) {
+    return analyzeUnknownDua(query);
+  }
+
+  const info = match;
+  const fullName = info.fullName;
+
+  // Check if already owned
+  const alreadyOwned = DB.col.find(f => f.name.toLowerCase() === fullName.toLowerCase());
+  if (alreadyOwned) {
+    return {
+      fullName, inspiration: info.inspiration, dna: info.dna,
+      keyNotes: info.keyNotes, priceRange: info.priceRange,
+      verdict: 'SKIP', confidence: 10,
+      reason: 'You already own ' + fullName + ' — it is in your vault! No need to repurchase unless you need a backup.',
+      redundantWith: fullName + ' (already owned)',
+      gapFilled: '', occasion: info.occasion, season: info.season,
+      sprays: info.sprays, extraTip: info.tip
+    };
+  }
+
+  // Check DNA redundancy against existing collection
+  const sameDNA = DB.col.filter(f => {
+    const fDNA = gst(f.name).dna || DEFAULT_DNA[f.name] || '';
+    return fDNA === info.dna;
+  });
+
+  // Check inspiration redundancy — similar inspiration base
+  const inspBase = info.inspiration.split('×')[0].split('+')[0].split('x ')[0].trim().toLowerCase();
+  const sameInsp = DB.col.filter(f => f.inspiration.toLowerCase().includes(inspBase) && inspBase.length > 4);
+
+  // DNA gap — if no bottles in this family
+  const isDNAGap = sameDNA.length === 0;
+  const isInspRedundant = sameInsp.length >= 2;
+
+  let verdict, confidence, reason, redundantWith = '', gapFilled = '';
+
+  if (isDNAGap) {
+    verdict = 'BUY';
+    confidence = 9;
+    reason = 'Your collection has zero bottles in the ' + info.dna + ' family. ' + fullName + ' would fill a genuine DNA gap and add range to your rotation. A must-add.';
+    gapFilled = info.dna + ' family — currently unrepresented in your vault';
+  } else if (isInspRedundant) {
+    verdict = 'SKIP';
+    confidence = 8;
+    reason = 'You already own ' + sameInsp.length + ' bottle(s) inspired by ' + sameInsp[0].inspiration.split('+')[0].trim() + ', including ' + sameInsp[0].name + '. Adding ' + fullName + ' risks significant redundancy without meaningful differentiation.';
+    redundantWith = sameInsp.map(f => f.name).join(', ');
+  } else if (sameDNA.length >= 8) {
+    verdict = 'SKIP';
+    confidence = 7;
+    reason = 'You already have ' + sameDNA.length + ' bottles in the ' + info.dna + ' family — one of your largest clusters. Unless ' + fullName + ' offers something distinctly unique, it risks getting lost in the rotation.';
+    redundantWith = sameDNA.slice(0,3).map(f => f.name).join(', ') + ' (and ' + (sameDNA.length-3) + ' more)';
+  } else if (sameDNA.length <= 2) {
+    verdict = 'BUY';
+    confidence = 8;
+    reason = 'The ' + info.dna + ' family is underrepresented in your collection with only ' + sameDNA.length + ' bottle(s). ' + fullName + ' would add meaningful variety and give you more options in this DNA space.';
+    gapFilled = info.dna + ' family depth (currently ' + sameDNA.length + ' bottles)';
+  } else {
+    // Medium redundancy — season and occasion matter
+    const sameOccDNA = sameDNA.filter(f => f.occ_key === info.occasion);
+    if (sameOccDNA.length >= 3) {
+      verdict = 'SKIP';
+      confidence = 6;
+      reason = 'You have ' + sameOccDNA.length + ' bottles with similar DNA and occasion profile. ' + fullName + ' would add to an already well-covered area. Consider only if the specific inspiration is not in your collection.';
+      redundantWith = sameOccDNA.slice(0,2).map(f => f.name).join(', ');
+    } else {
+      verdict = 'BUY';
+      confidence = 7;
+      reason = 'While you have ' + sameDNA.length + ' bottles in the ' + info.dna + ' family, your ' + info.occasion + ' options in this DNA are limited. ' + fullName + ' would add useful variety without significant redundancy.';
+      gapFilled = info.dna + ' for ' + info.occasion + ' occasions';
+    }
+  }
+
+  return {
+    fullName, inspiration: info.inspiration, dna: info.dna,
+    keyNotes: info.keyNotes, priceRange: info.priceRange,
+    verdict, confidence, reason, redundantWith, gapFilled,
+    occasion: info.occasion, season: info.season,
+    sprays: info.sprays, extraTip: info.tip
+  };
+}
+
+function analyzeUnknownDua(query) {
+  // For fragrances not in the catalog, do a best-guess analysis
+  return {
+    fullName: query + ' (Dua Brand)',
+    inspiration: 'Unknown — fragrance not in database',
+    dna: 'Woody / Aromatic',
+    keyNotes: 'Not available',
+    priceRange: '$35 - $65',
+    verdict: 'BUY',
+    confidence: 4,
+    reason: 'This fragrance is not in the local database, so a full analysis is not available. Based on the name, it appears to be a Dua Brand fragrance — visit duabrand.com to check the notes and inspiration before purchasing. Low confidence rating reflects limited data.',
+    redundantWith: '',
+    gapFilled: 'Requires manual research',
+    occasion: 'casual',
+    season: 'yr',
+    sprays: 3,
+    extraTip: 'Visit duabrand.com to read reviews and check if the inspiration is already covered by your collection before buying.'
+  };
 }
 
 function renderDuaResult(r, query) {
@@ -3663,9 +3966,133 @@ function importBackup(input) {
 }
 
 // ============================================================
+// ============================================================
+// DARK MODE
+// ============================================================
+function toggleDarkMode() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const newTheme = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('vault_theme', newTheme);
+  const btn = document.getElementById('dark-toggle');
+  if (btn) btn.textContent = newTheme === 'dark' ? '☽' : '☀';
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('vault_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  const btn = document.getElementById('dark-toggle');
+  if (btn) btn.textContent = saved === 'dark' ? '☽' : '☀';
+}
+
+// ============================================================
+// SERVICE WORKER — offline PWA support
+// ============================================================
+function registerServiceWorker() {
+  // Service worker requires a separate sw.js file hosted on the same origin.
+  // The app works fully offline via localStorage — all data persists between sessions.
+  // To enable true offline caching, host a sw.js file alongside index.html on GitHub Pages.
+}
+
+// ============================================================
+// PUSH NOTIFICATIONS / ROTATION REMINDERS
+// ============================================================
+async function requestNotificationPermission() {
+  const statusBtn = document.getElementById('notif-status');
+  if (!('Notification' in window)) {
+    if (statusBtn) { statusBtn.textContent = 'Notifications not supported on this device'; }
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    if (statusBtn) { statusBtn.textContent = '✓ Notifications enabled'; statusBtn.style.color = 'var(--forest)'; }
+    localStorage.setItem('vault_notif', '1');
+    scheduleRotationCheck();
+  } else {
+    if (statusBtn) { statusBtn.textContent = 'Permission denied — enable in Safari Settings'; }
+  }
+}
+
+function scheduleRotationCheck() {
+  // Check every time the page loads — if a frag is very overdue, show a notification
+  const now = new Date();
+  const overdue = DB.col.filter(f => {
+    const st = gst(f.name);
+    const wears = st.wears || [];
+    if (!wears.length) return false;
+    const last = new Date(wears[wears.length - 1]);
+    const days = Math.floor((now - last) / 86400000);
+    return days > 30 && (f.s_key === 'yr' || (f.s_key === 'ss' && now.getMonth() >= 3 && now.getMonth() <= 8) || (f.s_key === 'fw' && (now.getMonth() < 3 || now.getMonth() > 8)));
+  }).slice(0, 3);
+
+  if (overdue.length && Notification.permission === 'granted') {
+    const names = overdue.map(f => f.name).join(', ');
+    setTimeout(() => {
+      new Notification('The Vault — Rotation Reminder', {
+        body: 'You have not worn ' + names + ' in over 30 days. Time to rotate!',
+      });
+    }, 3000);
+  }
+}
+
+function buildReminderBanner() {
+  const banner = document.getElementById('reminder-banner');
+  const listEl = document.getElementById('reminder-list');
+  if (!banner || !listEl) return;
+
+  const now = new Date();
+  const month = now.getMonth();
+  const isSS = month >= 3 && month <= 8;
+  const currentSeason = isSS ? 'ss' : 'fw';
+
+  // Find bottles that are seasonally appropriate but haven't been worn in 14+ days
+  const reminders = DB.col.map(f => {
+    const st = gst(f.name);
+    const wears = st.wears || [];
+    const last = wears.length ? new Date(wears[wears.length - 1]) : null;
+    const days = last ? Math.floor((now - last) / 86400000) : 999;
+    const relevant = f.s_key === currentSeason || f.s_key === 'yr';
+    return {f, days, relevant};
+  }).filter(x => x.relevant && x.days >= 14)
+    .sort((a, b) => b.days - a.days)
+    .slice(0, 5);
+
+  if (!reminders.length) {
+    banner.style.display = 'none';
+    return;
+  }
+
+  banner.style.display = 'block';
+  listEl.innerHTML = reminders.map(({f, days}) => {
+    const label = days === 999 ? 'Never worn' : days + ' days ago';
+    const color = days > 30 ? 'var(--rose)' : 'var(--gold-dim)';
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(140,100,40,.07);">' +
+      '<div><div style="font-size:10px;color:var(--cream);font-weight:600;">' + f.name + '</div>' +
+      '<div style="font-size:8px;color:var(--dove);">' + f.house + '</div></div>' +
+      '<div style="font-size:9px;font-weight:600;color:' + color + ';">' + label + '</div>' +
+      '</div>';
+  }).join('');
+
+  // Update notification status button
+  const statusBtn = document.getElementById('notif-status');
+  if (statusBtn) {
+    if (!('Notification' in window)) {
+      statusBtn.textContent = 'Notifications unavailable';
+    } else if (Notification.permission === 'granted') {
+      statusBtn.textContent = '✓ Push reminders on';
+      statusBtn.style.color = 'var(--forest)';
+    } else if (Notification.permission === 'denied') {
+      statusBtn.textContent = 'Notifications blocked — check Settings';
+    } else {
+      statusBtn.textContent = 'Push reminders off';
+    }
+  }
+}
+
+// ============================================================
 // INIT
 // ============================================================
-loadDB();populateHouses();populateSugSelect();populateTagFilter();renderSprayDots();renderGrid();updateStats();fetchWeather();filterQL('');setTimeout(buildMorningRec,1200);
+initTheme();loadDB();populateHouses();populateSugSelect();populateTagFilter();renderSprayDots();renderGrid();updateStats();fetchWeather();filterQL('');setTimeout(buildMorningRec,1200);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetDirect();['add-overlay','conf-overlay'].forEach(id=>document.getElementById(id).classList.add('hidden'));}});
 </script>
 
